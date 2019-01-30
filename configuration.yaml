@@ -1,5 +1,4 @@
 homeassistant:
-      
   customize:
     automation.bedroom_charging_evening_on:
       friendly_name: 'Automation: Start bedroome charger'
@@ -81,13 +80,17 @@ homeassistant:
       friendly_name: Frys temperatur
 
 
+
+
+
+
   whitelist_external_dirs:
    - '/tmp'
 # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises d
-  latitude: 58.4997648
-  longitude: 15.5017575
+  latitude: 56.1616
+  longitude: 15.5866
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 17
   # metric for Metric, imperial for Imperial
@@ -101,7 +104,6 @@ homeassistant:
 # Enables the frontend
 frontend:
 # javascript_version: es5
-
 
  
 # Example configuration.yaml entry
@@ -130,32 +132,35 @@ device_tracker:
      kristian: !secret k_ip
      dorothea: !secret d_ip
     consider_home: 00:30:00
-    track_new_devices: true
+    track_new_devices: no
   - platform: owntracks
     consider_home: 00:30:00
  
-#camera:
-#  - platform: rpi_camera
-#    image_quality: 90
-#    image_width: 1024
-#  - platform: mjpeg
-#    name: livingroom
-#    mjpeg_url: !secret cam_l_ip
-#    username: !secret cam_l_user
-#    password: !secret cam_l_pass
+camera:
+  - platform: rpi_camera
+    image_quality: 90
+    image_width: 1024
+  - platform: mjpeg
+    name: livingroom
+    mjpeg_url: !secret cam_l_ip
+    username: !secret cam_l_user
+    password: !secret cam_l_pass
 
-#updater:
+updater:
 
 telegram_bot:
  - platform: polling
    api_key: !secret tel_api_key
    allowed_chat_ids:
-    - !secret k_t_id
-    - !secret d_t_id
+    - 631406925
+    - 579904946
 
 
 # Discover some devices automatically
 #discovery:
+
+tellduslive:
+ update_interval: 1
 
 
 conversation:
@@ -166,14 +171,10 @@ history:
 logbook:
  include:
   domains:
-#   input_select
-#   sensor
-#   binary_sensor
+   automation
  exclude:
   domains:
    script
-   automation
-   switch
 
 light:
   - platform: yeelight
@@ -187,8 +188,8 @@ light:
 sun:
 
 
-#weather:
-#  - platform: yweather
+weather:
+  - platform: yweather
 
 
 # Text to speech
@@ -196,10 +197,10 @@ tts:
   platform: google
 
 notify:
-#  - name: automate
-#    platform: llamalab_automate
-#    api_key: !secret automate_api
-#    to: !secret automate_target
+  - name: automate
+    platform: llamalab_automate
+    api_key: !secret automate_api
+    to: !secret automate_target
   - name: pushb_k
     platform: telegram
     chat_id: !secret k_t_id
@@ -283,14 +284,3 @@ zone:
     icon: mdi:car
 
 map:
-
-
-# Example configuration.yaml entry with include
-recorder:
-  purge_keep_days: 2
-  include:
-    domains:
-      - sensor
-      - switch
-      - input_select
-      - binary_sensor
