@@ -137,14 +137,14 @@ device_tracker:
     consider_home: 00:30:00
  
 camera:
-  - platform: rpi_camera
-    image_quality: 90
-    image_width: 1024
-  - platform: mjpeg
-    name: livingroom
-    mjpeg_url: !secret cam_l_ip
-    username: !secret cam_l_user
-    password: !secret cam_l_pass
+    - platform: rpi_camera
+      image_quality: 90
+      image_width: 1024
+    - platform: mjpeg
+      name: livingroom
+      mjpeg_url: !secret cam_l_ip
+      username: !secret cam_l_user
+      password: !secret cam_l_pass
 
 updater:
 

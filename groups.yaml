@@ -203,6 +203,11 @@
    - automation.charger_workroom_off
    - script.signal_alarm_active
 
+ cameras_view:
+  name: Camera
+  entities:
+    - camera.rpi_camera
+    - camera.livingroom
  door_logg:
   name: Doors
   entities:
