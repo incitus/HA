@@ -197,10 +197,6 @@ tts:
   platform: google
 
 notify:
-  - name: automate
-    platform: llamalab_automate
-    api_key: !secret automate_api
-    to: !secret automate_target
   - name: pushb_k
     platform: telegram
     chat_id: !secret k_t_id
