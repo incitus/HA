@@ -1,0 +1,1364 @@
+#############
+### BOT ACTIONS
+###############
+ - alias: 'telegram bot away'
+   hide_entity: false
+   trigger:
+    platform: event
+    event_type: telegram_command
+    event_data:
+     command: '/away'
+   action:
+    - service: script.going_away
+    - service: telegram_bot.send_message
+      data_template:
+        message: "Away script exikverad"
+        target: '{{ trigger.event.data.user_id }}'
+ - alias: 'telegram bot godnight'
+   hide_entity: false
+   trigger:
+    platform: event
+    event_type: telegram_command
+    event_data:
+     command: '/godnatt'
+   action:
+    - service: switch.turn_off
+      data:
+         entity_id: switch.tv_phillips_on
+    - service: script.turn_on
+      data:
+         entity_id: script.windowlamps_off
+    - service: switch.turn_off
+      data:
+         entity_id: switch.vardagsrum_bordslampa
+    - service: light.turn_off
+      data:
+         entity_id:  light.koksbank
+    - service: telegram_bot.send_message
+      data_template:
+        message: "Godnatt"
+        target: '{{ trigger.event.data.user_id }}'
+ - alias: 'telegram bot motions'
+   hide_entity: false
+   trigger:
+    platform: event
+    event_type: telegram_command
+    event_data:
+     command: '/motion'
+   action:
+    - service: telegram_bot.send_message
+      data_template:
+        message: "ALARM! The alarm has been triggred
+
+ Altan dörr: {{ states.binary_sensor.altan_break.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.altan_break.last_changed))/60) | round }}
+
+
+ Förråds dörr: {{ states.binary_sensor.work_break.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.work_break.last_changed))/60) | round }}
+
+
+Hall dörr: {{ states.binary_sensor.hall_break.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_break.last_changed))/60) | round }}
+
+
+Förråd rörelse: {{ states.binary_sensor.work_motion.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.work_motion.last_changed))/60) | round  }}
+
+
+Korridor rörelse {{ states.binary_sensor.korridor_motion.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.korridor_motion.last_changed))/60) | round }}
+
+
+Hall rörelse: {{ states.binary_sensor.hall_rorelsesensor.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_rorelsesensor.last_changed))/60)  | round }}
+
+
+Kök rörelse: {{ states.binary_sensor.kok_rorelse.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.kok_rorelse.last_changed))/60) | round }}
+
+
+Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.vardagsrum_rorelse.last_changed))/60) | round }}
+
+"
+        target: '{{ trigger.event.data.user_id }}'
+
+        
+        
+
+ - alias: 'telegram bot make snapshot'
+   hide_entity: false
+   trigger:
+    platform: event
+    event_type: telegram_command
+    event_data:
+     command: '/snapshot'
+   action:
+    - service: script.genmovie
+    - delay:
+       secons: 30
+    - service: telegram_bot.send_document
+      data_template:
+         target: '{{ trigger.event.data.user_id }}'
+         file: '/tmp/images.zip'
+         #  - file: '/tmp/livingroom_pi.jpg'
+
+ - alias: 'telegram bot deaktivation of alarm'
+   hide_entity: false
+   trigger:
+    platform: event
+    event_type: telegram_text
+    event_data:
+     text: 'deactivate_alarm'
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Alarm is deactivated by homey bot"
+         title: "Alarm"
+    - service: notify.pushb_d
+      data:
+         message: "Alarm is deactivated by homey bot"
+         title: "Alarm"
+
+ - alias: 'telegram bot deaktivate fire alarm'
+   hide_entity: false
+   trigger:
+    platform: event
+    event_type: telegram_command
+    event_data:
+     command: 'brand_av'
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Fire alarm terminated"
+         title: "Alarm"
+    - service: notify.pushb_d
+      data:
+         message: "Firealarm terminated"
+         title: "Alarm"
+    - service: script.turn_off
+      data:
+         entity_id: script.fire_alarm
+
+
+ - alias: 'state'
+   hide_entity: false
+   trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+       command: '/state'
+    - platform: event
+      event_type: telegram_text
+      event_data:
+       text: 'state'
+   action:
+     - service: telegram_bot.send_message
+       data_template:
+        message: "dotti är {{states.binary_sensor.dorothea_collect.state}}
+
+kristian är {{states.binary_sensor.kristian_collect.state}}
+
+
+motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion.last_changed))/60) | round }} "
+        target: '{{ trigger.event.data.user_id }}'
+
+ - alias: 'meny bot'
+   hide_entity: false
+   trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+       command: '/meny'
+    - platform: event
+      event_type: telegram_command
+      event_data:
+       command: '/hjälp'
+    - platform: event
+      event_type: telegram_command
+      event_data:
+       command: '/help'
+    - platform: event
+      event_type: telegram_text
+      event_data:
+       text: 'meny'
+   action:
+     - service: telegram_bot.send_message
+       data_template:
+          message: "Välj handling"
+          keyboard:
+            - '/state,/snapshot'
+            - '/godnatt,/motion'
+            - '/arm,/disarm'
+          target: '{{ trigger.event.data.user_id }}'
+#
+
+ - alias: 'disarm bot'
+   hide_entity: false
+   trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+       data: '/disarm'
+    - platform: event
+      event_type: telegram_command
+      event_data:
+       command: '/disarm'
+   action:
+    - service: alarm_control_panel.alarm_disarm
+      data:
+       entity_id: alarm_control_panel.alarm
+       code: !secret alarm_code
+    - service: telegram_bot.send_message
+      data_template:
+        message: "Deaktivering av larm begärd"
+        target: '{{ trigger.event.data.user_id }}'
+
+ - alias: 'arm bot'
+   hide_entity: false
+   trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+       data: '/arm'
+    - platform: event
+      event_type: telegram_command
+      event_data:
+       command: '/arm'
+   action:
+    - service: alarm_control_panel.alarm_arm_away
+      data:
+       entity_id: alarm_control_panel.alarm
+       code: !secret alarm_code
+    - service: telegram_bot.send_message
+      data_template:
+        message: "Aktivering av larm begärd"
+        target: '{{ trigger.event.data.user_id }}'
+
+##############
+## Switch terminate Automations
+################
+ - alias: 'forr terminate'
+   hide_entity: false
+   trigger:
+    - platform: time
+      minutes: '/15'
+   condition:
+    - condition: state
+      entity_id: switch.forrad_dorr
+      state: 'on'
+   action:
+    - delay: '00:05:00'
+    - service: homeassistant.turn_off
+      data:
+       entity_id: switch.forrad_dorr
+ - alias: 'altan terminate'
+   hide_entity: false
+   trigger:
+    - platform: time
+      minutes: '/15'
+   condition:
+    - condition: state
+      entity_id: switch.altan_dorr
+      state: 'on'
+   action:
+    - delay: '00:05:00'
+    - service: homeassistant.turn_off
+      data:
+       entity_id: switch.altan_dorr
+ - alias: 'gorrad terminate'
+   hide_entity: false
+   trigger:
+    - platform: time
+      minutes: '/15'
+   condition:
+    - condition: state
+      entity_id: switch.forrad_rorelse
+      state: 'on'
+   action:
+    - delay: '00:05:00'
+    - service: homeassistant.turn_off
+      data:
+       entity_id: switch.forrad_rorelse
+ - alias: 'hall terminate'
+   hide_entity: false
+   trigger:
+    - platform: time
+      minutes: '/15'
+   condition:
+    - condition: state
+      entity_id: switch.hall_dorr
+      state: 'on'
+   action:
+    - delay: '00:05:00'
+    - service: homeassistant.turn_off
+      data:
+       entity_id: switch.hall_dorr
+ - alias: 'korridor terminate'
+   hide_entity: false
+   trigger:
+    - platform: time
+      minutes: '/15'
+   condition:
+    - condition: state
+      entity_id: switch.korridor_rorelsesensor
+      state: 'on'
+   action:
+    - delay: '00:05:00'
+    - service: homeassistant.turn_off
+      data:
+       entity_id: switch.korridor_rorelsesensor
+ - alias: 'altan terminatex'
+   hide_entity: false
+   trigger:
+    - platform: time
+      minutes: '/15'
+   condition:
+    - condition: state
+      entity_id: switch.altan_rorelse
+      state: 'on'
+   action:
+    - delay: '00:05:00'
+    - service: homeassistant.turn_off
+      data:
+       entity_id: switch.altan_rorelse
+#######
+### Alarm
+######
+
+ - alias: 'automatic arm'
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: input_select.at_home
+      to: 'Extended'
+   action:
+    - service: alarm_control_panel.alarm_arm_away
+      data:
+       entity_id: alarm_control_panel.alarm
+       code: !secret alarm_code
+    - service: notify.pushb_k
+      data:
+         message: 'Auto alarm activate'
+         title: 'Alarm'
+    - service: notify.pushb_d
+      data:
+         message: 'Auto alarm activate'
+         title: 'Alarm'
+
+
+ - alias: 'automatic away'
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: input_select.at_home
+      to: 'Away'
+   action:
+    - service: script.going_away
+    - service: notify.pushb_k
+      data:
+         message: 'Auto Away'
+         title: 'Auto Away'
+    - service: notify.pushb_d
+      data:
+         message: 'Auto Away'
+         title: 'Auto Away'
+
+
+
+ - alias: 'turn_of_controller_screen'
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.motion
+      to: 'off'
+      from: 'on'
+      for: '01:00:00'
+    - platform: state
+      entity_id: 'input_select.at_home'
+      to: 'Extended'
+    - platform: state
+      entity_id: 'input_select.at_home'
+      to: 'Away'
+   action:
+    - service: script.shutdown
+
+
+ - alias: 'turn_of_controller_screen'
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.motion
+      to: 'on'
+      from: 'off'
+   condition:
+     - condition: state
+       entity_id: switch.hall_mediapanel
+       state: 'off'
+   action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.hall_mediapanel
+    - alias: notification
+      service: notify.pushb_k
+      data:
+         message: "Turn on media station"
+         title: "Media Station"
+
+ - alias: 'notify armed'
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.motion
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: or
+     conditions:
+           - condition: state
+             entity_id: input_select.hus_mode
+             state: 'Armed'
+           - condition: state
+             entity_id: input_select.hus_mode
+             state: 'Armed_home'
+   action:
+    - service: script.armed_notification
+
+
+
+
+
+ - alias: Disarmed
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: 'disarmed'
+   action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.hus_mode
+          option: Normal
+      - service: homeassistant.turn_off
+        data:
+         entity_id: switch.vardagsrum_overvakningskamera
+      - service: notify.automate
+        data:
+         message: "Alarm disarmed"
+         title: "Alarm"
+      - service: notify.pushb_k
+        data:
+         message: "Alarm disarmed"
+         title: "Alarm"
+  #    - service: notify.pushb_d
+  #      data:
+  #       message: "Alarm disarmed"
+  #       title: "Alarm"
+ - alias: Armed
+   hide_entity: false
+   trigger:
+     - platform: state 
+       entity_id: alarm_control_panel.alarm
+       to: 'armed_away'
+   action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.hus_mode
+          option: Armed
+      - service: notify.automate
+        data:
+         message: "Alarm Armed"
+         title: "Alarm"
+      - service: notify.pushb_k
+        data:
+         message: "Alarm armed"
+         title: "Alarm"
+ #     - service: notify.pushb_d
+ #       data:
+ #        message: "Alarm armed"
+ #        title: "Alarm"
+ - alias: Armed_home
+   hide_entity: false
+   trigger:
+     - platform: state 
+       entity_id: alarm_control_panel.alarm
+       to: 'armed_home'
+   action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.hus_mode
+          option: Armed_Home
+      - service: notify.automate
+        data:
+         message: "Alarm Home Armed"
+         title: "Alarm"
+      - service: notify.pushb_k
+        data:
+         message: "Alarm home armed"
+         title: "Alarm"
+
+ - alias: 'Send notification when alarm triggered'
+   trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: 'triggered'
+   action: 
+    - service: script.turn_on
+      data:
+       entity_id: script.alarm_sequence
+ 
+ - alias: 'Trigger alarm while armed away'
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.motion
+      to: 'on'
+      from: 'off'
+   condition:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: 'armed_away'
+   action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm
+
+ - alias: notify_alarm_active
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: 'binary_sensor.at_home'
+      to: 'on'
+      from: 'off'
+   condition:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: 'armed_away'
+   action:
+    - service: homeassistant.turn_on
+      data:
+       entity_id: script.signal_alarm_active
+
+
+   
+          
+          
+          
+ - alias: 'Trigger alarm while armed home'
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.altan_break
+      to: 'on'
+      from: 'off'
+    - platform: state
+      entity_id: binary_sensor.work_break
+      to: 'on'
+      from: 'off'
+   condition:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: 'armed_home'
+   action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm
+
+ - alias: notify_alarm_active
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: 'binary_sensor.at_home'
+      to: 'on'
+      from: 'off'
+   condition:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: 'armed_away'
+   action:
+    - service: homeassistant.turn_on
+      data:
+       entity_id: script.signal_alarm_active
+
+#####
+## System
+######
+
+ - alias: "Startup Notification"
+   trigger:
+    platform: homeassistant
+    event: start
+   action:
+    - service: notify.pushb_k
+      data:
+         message: 'Homeassistant restarted'
+         title: 'Homeassistant'
+    - service: script.alarm_recovery
+    - service: script.alarm_home_recovery
+
+
+ - alias: tell_off
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: switch.mobilladdare_kristian
+      to: 'unavailable'
+      for:
+        minutes: 30
+   action:
+    - service: script.reboot_tell
+##########
+### Chargers
+#########
+
+ - alias: charger_off_controller
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id:  sensor.vardagsrum_laddstation_power
+      below: 2
+      for:
+       minutes: 30
+   action:
+    - service: homeassistant.turn_off
+      data:
+       entity_id:  switch.vardagsrum_laddstation
+
+ - alias: bedroom_charging_evening_on
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: time
+      at: '04:00:00'
+    - platform: time
+      at: '22:00:00'
+   condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: alarm_control_panel.alarm
+        state: 'disarmed'
+      - condition: state
+        entity_id: alarm_control_panel.alarm
+        state: 'armed_home'
+   action:
+    - service: script.laddare      
+
+ - alias: charger_workroom_off
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.forrad_uttag_power_2
+      below: 5
+      for:
+       hours: 1
+   action:
+    - service: homeassistant.turn_off
+      data:
+       entity_id: switch.forrad_uttag
+
+
+ - alias: turnonkitchen
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.kok_rorelse
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Evening'
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Morning'
+      - condition: state
+        entity_id: light.koksbank
+        state: 'off'
+   action:
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness: 35
+        color_name: white
+
+
+
+ - alias: turnoffkitchen
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.kok_rorelse
+      to: 'off'
+      for:
+       minutes: 20
+   action:
+    - service: light.turn_off
+      data:
+        entity_id: light.koksbank
+
+
+ - alias: turnofftv
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.vardagsrum_rorelse
+      to: 'off'
+      for:
+       minutes: 30
+   action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.tv_phillips_on
+
+
+###
+# HEAT
+###
+ - alias: winter_temp1510asda
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.utomhus_temperature
+      above: 10
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Evening'
+    - platform: state
+      entity_id: binary_sensor.hall_rorelsesensor
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Evening'
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Morning'
+      - condition: numeric_state
+        entity_id: sensor.utomhus_temperature
+        above: 10
+   action:
+    - service: light.turn_on
+      data:
+        entity_id: light.Altan
+        brightness: 100
+        color_name: red
+ - alias: winter_temp1510hhdgs
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.utomhus_temperature
+      below: 10
+      above: 5
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Evening'
+    - platform: state
+      entity_id: binary_sensor.hall_rorelsesensor
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Evening'
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Morning'
+      - condition: numeric_state
+        entity_id: sensor.utomhus_temperature
+        below: 10
+        above: 5
+   action:
+    - service: light.turn_on
+      data:
+        entity_id: light.Altan
+        brightness: 100
+        color_name: green
+ - alias: winter_temp100hh
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.utomhus_temperature
+      below: 5
+      above: 0
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Evening'
+    - platform: state
+      entity_id: binary_sensor.hall_rorelsesensor
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Evening'
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Morning'
+      - condition: numeric_state
+        entity_id: sensor.utomhus_temperature
+        below: 5
+        above: 0
+   action:
+    - service: light.turn_on
+      data:
+        entity_id: light.Altan
+        brightness: 100
+        color_name: white
+ - alias: winter_temp100f
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.utomhus_temperature
+      below: 0
+      above: -5
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Evening'
+    - platform: state
+      entity_id: binary_sensor.hall_rorelsesensor
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Evening'
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Morning'
+      - condition: numeric_state
+        entity_id: sensor.utomhus_temperature
+        below: 0
+        above: -5
+   action:
+    - service: light.turn_on
+      data:
+        entity_id: light.Altan
+        brightness: 100
+        color_name: yellow
+ - alias: winter_temp100243
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.utomhus_temperature
+      below: -5
+      above: -10
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Evening'
+    - platform: state
+      entity_id: binary_sensor.hall_rorelsesensor
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Evening'
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Morning'
+      - condition: numeric_state
+        entity_id: sensor.utomhus_temperature
+        below: -5
+        above: -10
+   action:
+    - service: light.turn_on
+      data:
+        entity_id: light.Altan
+        brightness: 100
+        color_name: hotpink
+ - alias: winter_temp05
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.utomhus_temperature
+      below: -10
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Evening'
+    - platform: state
+      entity_id: binary_sensor.hall_rorelsesensor
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Evening'
+           - condition: state
+             entity_id: input_select.time_day
+             state: 'Morning'
+      - condition: numeric_state
+        entity_id: sensor.utomhus_temperature
+        below: -10
+   action:
+    - service: light.turn_on
+      data:
+        entity_id: light.Altan
+        brightness: 100
+        color_name: blue
+
+
+
+
+
+ - alias: winter_element_workroom
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      below: 3
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      below: 2.5
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      below: 2
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      below: 1
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      below: 0
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      below: -1
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      below: -2
+   condition:
+    condition: and
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.utomhus_temperature
+        below: 0
+      - condition: state
+        entity_id: input_select.time_year
+        state: 'Winter'
+   action:
+    - service: homeassistant.turn_on
+      data:
+       entity_id: switch.forrad_uttag
+
+
+ - alias: winter_element_workroom_off
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      above: 6
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      above: 7
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      above: 8
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      above: 9
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      above: 10
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      above: 11
+    - platform: numeric_state
+      entity_id: sensor.forrad_temperature
+      above: 12
+   condition:
+    condition: and
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.utomhus_temperature
+        below: 0
+      - condition: state
+        entity_id: input_select.time_year
+        state: 'Winter'
+   action:
+    - service: homeassistant.turn_off
+      data:
+       entity_id: switch.forrad_uttag
+
+
+ - alias: frezezer_warning
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: numeric_state
+      entity_id: sensor.forradsfrys_temperature 
+      above: -16
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Temperaturen i frysen över larmgräns,{{ states.sensor.forradsfrys_temperature.state }} kontrolllera dörren"
+         title: "Alarm"
+    - service: notify.pushb_d
+      data:
+         message: "Temperaturen i frysen över larmgräns, {{ states.sensor.forradsfrys_temperature.state }} kontrolllera dörren"
+         title: "Alarm"
+
+
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+###
+# Lights
+###
+
+ - alias: morning_light_on
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.hall_rorelsesensor
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.kok_rorelse
+      to: 'on'
+      from: 'off'
+   condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.hus_mode
+        state: 'Normal'
+      - condition: state
+        entity_id: input_select.time_day
+        state: 'Morning'
+   action:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: group.morning_light
+    - service: script.morgonljus_on
+#    - service: script.temp_flash_0
+#    - service: script.temp_flash_010
+#    - service: script.temp_flash_015
+#    - service: script.temp_flash_05
+#    - service: script.temp_flash_10
+#    - service: script.temp_flash_5
+ - alias: morninglight_off
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Day'
+   action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.morning_light
+    - service: script.morgonljus_off
+
+
+ - alias: 'evening_light_on_random'
+   trigger:
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Evening'
+   condition:
+    condition: and
+    conditions:
+      - condition: or
+        conditions:
+         - condition: state
+           entity_id: 'input_select.at_home'
+           state: 'Extended'
+   action:
+     - delay: '{{ (range(0, 1)|random|int) }}:{{ (range(1, 30)|random|int) }}:00'
+     - service: homeassistant.turn_on
+       data:
+        entity_id: script.windowlamps_on
+
+
+
+
+ - alias: evening_light_on
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Evening'
+    - platform: state
+      entity_id: 'input_select.at_home'
+      to: 'Home'
+   condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+         - condition: state
+           entity_id: 'input_select.at_home'
+           state: 'Home'
+      - condition: state
+        entity_id: input_select.time_day
+        state: 'Evening'
+   action:
+     - service: homeassistant.turn_on
+       data:
+        entity_id: script.windowlamps_on
+
+ - alias: evening_light_off
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Night'
+   action:
+    - service: homeassistant.turn_off
+      data:
+       entity_id: script.windowlamps_on
+    - service: homeassistant.turn_on
+      data:
+       entity_id: script.windowlamps_off
+    - service: homeassistant.turn_off
+      data:
+       entity_id: light.Altan
+    - service: light.turn_off
+      data:
+        entity_id: light.Altan
+        brightness: 0
+
+
+ 
+### Integrity
+
+ - alias: fire_alarm
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.fire_alarm
+      to: 'on'
+      from: 'off'
+   action:
+    - service: script.fire_alarm
+
+ - alias: fire_alarm_off
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.fire_alarm
+      to: 'off'
+   action:
+    - service: script.turn_off
+      entity_id: script.fire_alarm
+    - service: script.turn_off
+      entity_id: script.fire_alarm_loop
+
+###############
+### State automations
+##############
+
+ - alias: 15mintrigg
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+    - platform: time
+      minutes: '/15'
+      seconds: 00
+   action:
+     - service: script.utelampa_off
+     - service: script.utelampa
+     - service: script.hall_lampa
+     - service: script.hall_lampa_off
+     - service: script.alarm_lights
+     - service: script.alarm_lights_off
+
+     
+     
+ #### HOUSE MODEs
+ - alias: Timeofday_Night
+   hide_entity: false
+   initial_state: 'on'
+   trigger:  
+     - platform: time
+       at: '23:00:00'
+   condition: 
+     - condition: time
+       after: '23:00:00'
+       before: '04:00:00'
+   action:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.time_day
+          option: Night
+         
+ - alias: Timeofday_morning
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+     - platform: time
+       at: '04:00:00'
+   condition:
+     - condition: time
+       after: '04:00:00'
+     - condition: sun
+       before: sunrise
+   action:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.time_day
+          option: Morning
+         
+ - alias: Timeofday_Day
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+     platform: numeric_state
+     entity_id: sun.sun
+     value_template: '{{ state.attributes.elevation }}'
+     above: 4
+   condition:
+     - condition: sun
+       before: sunset
+   action:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.time_day
+          option: Day
+         
+ - alias: Timeofday_evening
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.elevation }}'
+    below: 3.5
+   condition:
+     - condition: time
+       before: '23:00:00'
+   action:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.time_day
+          option: Evening
+
+ - alias: Timeofday_evening_cludy
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    platform: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state.attributes.elevation }}'
+    below: 6
+   condition:
+     - condition: time
+       before: '23:00:00'
+     - condition: numeric_state
+       entity_id: weather.smhi_home
+       value_template: '{{ state.attributes.visibility }}'
+       below: 50
+   action:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.time_day
+          option: Evening
+
+
+ - alias: away_mode
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: 'binary_sensor.at_home'
+      to: 'off'
+      for:
+        minutes: 120
+   action:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.at_home
+          option: Away  
+ - alias: left_mode
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: 'binary_sensor.at_home'
+      to: 'off'
+      for:
+        minutes: 10
+   action:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.at_home
+          option: Left 
+ - alias: at_home_mode
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: 'binary_sensor.at_home'
+      to: 'on'
+      from: 'off'
+   action:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.at_home
+          option: Home
+ - alias: extended_mode
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: 'binary_sensor.at_home'
+      to: 'off'
+      for:
+        hours: 20
+   action:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.at_home
+          option: Extended

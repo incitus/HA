@@ -1,0 +1,100 @@
+###
+### Doors and motion
+###
+ - platform: template
+   sensors:
+    hall_break:
+     value_template: "{{ is_state('switch.hall_dorr', 'on') }}"
+     device_class: moving
+     entity_id: switch.hall_dorr
+     friendly_name: "Brytare Ytterdörr"
+
+    altan_break:
+     value_template: "{{ is_state('switch.altan_dorr', 'on') }}"
+     device_class: moving
+     entity_id: switch.altan_dorr
+     friendly_name: "Brytare altan"
+     
+    altan_motion:
+     value_template: "{{ is_state('switch.altan_rorelse', 'on') }}"
+     device_class: moving
+     entity_id: switch.altan_rorelse
+     friendly_name: "Rörelse altan"
+     
+    work_motion: 
+     value_template: "{{ is_state('switch.forrad_rorelse', 'on') }}"
+     device_class: moving
+     entity_id: switch.forrad_rorelse
+     friendly_name: "Rörelse Förråd"
+
+    work_break:
+     value_template: "{{ is_state('switch.forrad_dorr', 'on') }}"
+     device_class: moving
+     entity_id: switch.forrad_dorr
+     friendly_name: "Brytare arbetsrum"
+
+    korridor_motion:
+     value_template: "{{ is_state('switch.korridor_rorelsesensor', 'on') }}"
+     device_class: moving
+     entity_id: switch.korridor_rorelsesensor
+     friendly_name: "Rörelse korridor"
+
+    entre_motion:
+     value_template: "{{ is_state('binary_sensor.hall_rorelsesensor', 'on') }}"
+     device_class: moving
+     entity_id: binary_sensor.hall_rorelsesensor
+     friendly_name: "Entre korridor"
+
+    motion:
+     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.korridor_motion', 'on') or is_state('binary_sensor.work_break', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.vardagsrum_rorelse', 'on') }}"
+     device_class: moving
+     entity_id:
+      - binary_sensor.hall_rorelsesensor
+      - binary_sensor.altan_break
+      - binary_sensor.work_break
+      - binary_sensor.work_motion
+      - binary_sensor.hall_break
+      - binary_sensor.korridor_motion
+      - binary_sensor.entre_motion
+      - binary_sensor.kok_rorelase
+      - binary_sensor.vardagsrum_rorelse
+     friendly_name: "Rörelse"
+
+#####
+### Integrity *Fire/Flood/Earth
+###
+    fire_alarm:
+     value_template: "{{ is_state('binary_sensor.hall_brandvanare', 'on') or is_state('switch.brandvarnare_siren', 'on') }}"
+     device_class: motion
+     entity_id:
+      - binary_sensor.hall_brandvanare
+      - switch.brandvarnare_siren
+     friendly_name: "Brandalarm"
+
+
+###
+## Precance
+###
+    at_home:
+      value_template: "{{ is_state('binary_sensor.dorothea_collect','on') or is_state('binary_sensor.kristian_collect', 'on') }}"
+      device_class: presence
+      entity_id:
+       - binary_sensor.dorothea_collect
+       - binary_sensor.kristian_collect
+      friendly_name: "At home"
+
+    kristian_collect:
+      value_template: "{{ is_state('device_tracker.kristian', 'home') or is_state('device_tracker.hass_kr', 'home')}}"
+      device_class: presence
+      entity_id:
+       - device_tracker.kristian
+       - device_tracker.hass_kr
+      friendly_name: "Kristian"
+
+    dorothea_collect:
+      value_template: "{{ is_state('device_tracker.dorothea', 'home') or is_state('device_tracker.hass_dotti', 'home')}}"
+      device_class: presence
+      entity_id:
+       - device_tracker.dorothea
+       - device_tracker.hass_dotti
+      friendly_name: "Dorothea"

@@ -1,0 +1,225 @@
+title: Harnegatan
+# Exclude entities from "Unused entities" view
+excluded_entities:
+  - weblink.router
+
+views:
+    # View tab title.
+  - title: Home
+    # Optional unique id for direct access /lovelace/${id}
+    id: Overview
+    # Each view can have a different theme applied.
+    theme: dark-mode
+    # The cards to show on this view.
+    panel: true
+    cards:
+     - type: vertical-stack
+       cards:
+        - type: weather-forecast
+          entity: weather.smhi_home
+        - type: horizontal-stack
+          cards:
+            - type: sensor
+              entity: sensor.utomhus_temperature
+              name: Utomhus
+              graph: line
+            - type: sensor
+              entity: sensor.hall_rorelsesensor_temperature
+              name: Inomhus
+              graph: line
+        - type: horizontal-stack
+          cards:
+           - type: picture-entity
+             entity: alarm_control_panel.alarm
+             image: /local/alarm.png
+             state_image:
+              "armed_away": /local/alarmarm.png
+              "armed_home": /local/alarmarmhome.png
+             title: Alarm
+             show_info: false
+           - type: picture-entity
+             entity: switch.window_lamps
+             image: /local/lamps_off.png
+             state_image:
+              "on": /local/lamps.png
+             title: window
+             show_info: true
+#           - type: picture-entity
+#             entity: switch.lamps
+#             image: /local/lampoff.png
+#             state_image:
+#              "on": /local/lamp.png
+#             title: window
+#             show_info: false
+#             tap_action: toggle
+#           - type: picture-entity
+#             entity:  switch.vardagsrum_overvakningskamera
+#             image: /local/cctv_off.png
+#             state_image:
+#              "on": /local/cctv.png
+#             title: window
+ #            show_info: false
+  #           tap_action: toggle
+           - type: picture-entity
+             entity: switch.vardagsrum_laddstation
+             image: /local/charger_off.png
+             state_image:
+              "on": /local/charger.png
+             title: window
+             show_info: false
+
+
+    # Specify a tab icon if you want the view tab to be an icon.
+  - icon: mdi:home-assistant
+    # Title of the view. Will be used as the tooltip for tab icon
+     #- sensor.utomhus_temperature
+     #      - sensor.hall_temperature
+     #      - sensor.forrad_temperature
+     #      - sensor.hall_rorelsesensor_temperature
+     #      - sensor.kok_rorelse_temperature
+     #      - sensor.barnrum_temperature
+     #      - sensor.forradsfrys_temperature
+    title: Second view
+    panel: true
+    cards:
+     - type: vertical-stack
+       cards:
+        - type: picture-elements
+          image: /local/1.png
+          elements:
+          - type: state-label
+            entity: sensor.utomhus_temperature
+            style:
+             top: 30%
+             left: 90%
+             
+             opacity: 1
+             
+             font-weight: bold
+             color: black
+          - type: state-label
+            entity: sensor.hall_rorelsesensor_temperature
+            style:
+                top: 57%
+                left: 65%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+          - type: state-label
+            entity: sensor.hall_rorelsesensor_luminance
+            style:
+                top: 65%
+                left: 65%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+          - type: state-label
+            entity: sensor.forradsfrys_temperature
+            style:
+                top: 10%
+                left: 60%
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+                
+          - type: state-label
+            entity: sensor.forrad_temperature
+            style:
+                top: 20%
+                left: 60%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+          - type: state-label
+            entity: sensor.vardagsrum_rorelse_temperature
+            style:
+                top: 60%
+                left: 40%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+          - type: state-label
+            entity: sensor.vardagsrum_rorelse_luminance
+            style:
+                top: 70%
+                left: 40%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+          - type: state-label
+            entity: sensor.kok_rorelse_temperature
+            style:
+                top: 79%
+                left: 80%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+          - type: state-label
+            entity: sensor.kok_rorelse_luminance
+            style:
+                top: 84%
+                left: 80%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+                
+        - type: picture-elements
+          image: /local/2.png
+          elements:
+          - type: state-label
+            entity: sensor.barnrum_temperature
+            style:
+             top: 82%
+             left: 75%
+             
+             opacity: 1
+             
+             font-weight: bold
+             color: black
+          - type: state-label
+            entity: sensor.barnrum_humidity
+            style:
+                top: 86%
+                left: 75%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+                
+          - type: state-label
+            entity: sensor.sovrum_temperature
+            style:
+                top: 30%
+                left: 30%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+          - type: state-label
+            entity: sensor.sovrum_humidity
+            style:
+                top: 35%
+                left: 30%
+                
+                opacity: 1
+                
+                font-weight: bold
+                color: black
+      

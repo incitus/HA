@@ -1,0 +1,299 @@
+#######################################################################
+################ VIEWS
+#######################################################################
+ default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+   - group.Scenario
+   - group.Vardagsrum
+   - group.Hall
+   - group.Kok
+   - group.Korridor
+   - group.Sovrum
+   - group.Syrum
+   - group.Arbetsrum
+ 
+ tv_view:
+   view: yes
+   name: Tv
+   icon: mdi:airplay
+   entities:
+    - group.Tv
+   
+ sensor_view:
+   view: yes
+   name: sensors
+   icon: mdi:adjust
+   entities:
+     - group.sVardagsrum
+     - group.sKok
+     - group.sHall
+     - group.sArbetsrum
+     - group.sUtomhus
+     - group.sSovrum
+     - group.sKorridor
+
+ motion_view:
+  view: yes
+  name: Survailance
+  icon: mdi:camera
+  entities:
+   - group.home_alarm
+   - group.integrity
+   - group.motion_logg
+   - group.door_logg
+   
+   
+ automation_view:
+  view: yes
+  name: Automations
+  icon: mdi:account-multiple
+  entities:
+   - switch.fire_alam_off
+   - group.element_charger
+   - script.temp_flash_015
+   - script.temp_flash_10
+   - script.temp_flash_5
+   - script.temp_flash_0
+   - script.temp_flash_05
+   - script.temp_flash_010
+   - script.alarm_sequence
+   - script.armed_notification
+   - automation.bedroom_charging_evening_on
+   - automation.charger_off_controller
+   - automation.evening_light_on
+   - automation.evening_light_off
+   - automation.turnofftv
+   - automation.turnonkitchen
+   - automation.winter_element_workroom
+   - automation.winter_element_workroom_off
+   - automation.morning_light_on
+   - automation.morninglight_off
+   - automation.charger_workroom_off
+   - device_tracker.kristian
+   - device_tracker.hass_kr
+   - device_tracker.dorothea
+   - device_tracker.hass_dotti
+   - input_select.window_lamp
+   - script.windowlamps_off
+   - script.windowlamps_on
+   - script.shutdown
+   - input_select.hus_mode
+   - input_select.time_day
+   - input_select.time_year
+   - input_select.at_home
+
+ 
+
+ 
+########################################################################
+################ GROUPS
+#######################################################################
+
+##############
+## Visible groups
+##############
+ Tv:
+  name: TV
+  entities:
+    #- script.tv_pino
+    - media_player.vardagsrum_tv_2
+    - switch.tv_phillips_on
+    - switch.tv_phillips_ch
+    - switch.tv_phillips_vol
+    - switch.tv_phillips_mute
+
+
+
+ Scenario:
+  name: Alarm
+  entities:
+   - alarm_control_panel.alarm
+
+ Kok:
+  name: Kök
+  entities:
+  - switch.kok_fonsterlampa
+  - light.koksbank
+ Hall:
+  name: Hall
+  entities:
+   - switch.hall_trapplampa
+ Altan:
+  name: Altan
+  entities:
+   - switch.altan_belysning
+
+ sHall:
+   name: Hall
+   entities:
+    - sensor.hall_rorelsesensor_temperature
+    - sensor.hall_rorelsesensor_luminance
+ sKok:
+   name: Kök
+   entities:
+    - sensor.kok_rorelse_temperature
+    - sensor.kok_rorelse_luminance
+ sKorridor:
+   name: Barnrum
+   entities:
+    - sensor.barnrum_temperature
+    - sensor.barnrum_humidity
+
+ Vardagsrum:
+  name: Vardagsrum
+  entities:
+   - light.Altan
+   - switch.vardagsrum_bordslampa 
+   - switch.vardagsrum_laddstation
+   - switch.vardagsrum_fonsterlampa
+
+ sVardagsrum:
+   name: Vardagsrum
+   entities:
+    - camera.livingroom
+    - sensor.vardagsrum_laddstation_power_2
+    - sensor.vardagsrum_rorelse_temperature
+    - sensor.vardagsrum_rorelse_luminance
+
+ Korridor:
+  name: Korridor
+  entities:
+   - light.korridor_fonsterlampa
+
+ Sovrum:
+  name: Sovrum
+  entities:
+   - light.dorotheas_sanglampa
+   - light.kristians_sanglampa
+   - switch.mobilladdare_kristian
+   - switch.mobilladdare_dorothea
+
+ sSovrum:
+   name: Sovrum
+   entities:
+    - sensor.sovrum_humidity
+    - sensor.sovrum_temperature
+ Syrum:
+   name: Syrum
+   entities:
+    - switch.syrum_fonsterlampa
+
+ sUtomhus:
+   name: Utomhus
+   entities:
+    - sensor.utomhus_temperature
+ Arbetsrum:
+   entities:
+    - switch.forrad_uttag
+
+ sArbetsrum:
+   entities:
+    - sensor.forrad_uttag_power_2
+    - sensor.forrad_humidity
+    - sensor.forrad_temperature
+    - sensor.forradsfrys_temperature
+
+ element_charger:
+  name: Charger or element
+  entities:
+   - automation.winter_element_workroom_off
+   - automation.winter_element_workroom
+   - automation.charger_workroom_off
+   - script.signal_alarm_active
+
+ door_logg:
+  name: Doors
+  entities:
+   - binary_sensor.hall_break
+   - binary_sensor.altan_break
+   - binary_sensor.work_break
+   
+ motion_logg:
+  name: Motion
+  entities:
+   - binary_sensor.motion
+   - binary_sensor.korridor_motion
+   - binary_sensor.hall_rorelsesensor
+   - binary_sensor.kok_rorelse
+   - binary_sensor.vardagsrum_rorelse
+   - binary_sensor.work_motion
+   - binary_sensor.altan_motion
+
+ integrity:
+  name: Integrity
+  entities:
+#   - device_tracker.chromecast
+#   - device_tracker.diskstation
+#   - device_tracker.tellstickznetlite
+   - binary_sensor.fire_alarm
+#   - device_tracker.dcs932lb
+#   - device_tracker.dorothea1215n
+   - binary_sensor.kristian_collect
+   - binary_sensor.dorothea_collect
+   - binary_sensor.at_home
+   #   - device_tracker.samsunggalaxys7
+
+ phone:
+   name: Phones
+   entities:
+    - script.alarm_phone
+    - automation.tv_auto_off
+    - input_slider.random_minute
+    - input_slider.random_hour
+
+#####
+## Invisible groups
+####
+
+ morning_light:
+  name: "morning lights"
+  entities:  
+   - switch.altan_belysning
+   - switch.kok_fonsterlampa
+   - switch.vardagsrum_fonsterlampa
+
+ window_lamps:
+  name: "Window lamps"
+  entities:  
+   - switch.barnrum_fonsterlampa
+   - switch.kok_fonsterlampa
+   - switch.vardagsrum_fonsterlampa
+   - light.korridor_fonsterlampa
+   - switch.syrum_fonsterlampa
+   - switch.altan_belysning
+
+ all_lamps:
+  name: "All lamps"
+  entities:  
+   - group.window_lamps
+   - switch.hall_trapplampa
+   - light.Altan
+   - light.vardagsrum_taklampa
+   - switch.vardagsrum_bordslampa
+
+ all_safe_switches:
+  name: "All safe switches"
+  entities:  
+   - group.all_lamps
+   - switch.tv_phillips
+
+######
+## Action groups
+#####
+
+ away_on:
+  name: "Away on units"
+  entities:
+   - switch.vardagsrum_overvakningskamera
+
+ away_off:
+  name: "Away off units"
+  entities:
+   - switch.mobilladdare_dorothea
+   - switch.mobilladdare_kristian
+   - switch.vardagsrum_laddstation
+   - switch.Kaffemaskin
+   - switch.tv_phillips_on
+   - switch.vardagsrum_bordslampa

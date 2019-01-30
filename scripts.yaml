@@ -1,0 +1,1330 @@
+#### System scripts
+  reboot_tell:
+   alias: reboot tellstick
+   sequence:
+     - condition: state
+       entity_id: switch.mobilladdare_kristian
+       state: 'unavailable'
+     - alias: notification
+       service: notify.automate
+       data:
+        message: "Reboot of tellstick performed"
+     - alias: notification
+       service: notify.pushb_k
+       data:
+         message: "Reboot of tellstick performed"
+         title: "Connection"  
+     - alias: tellstick off
+       service: homeassistant.turn_off
+       data:
+         entity_id: switch.tellstick
+     - delay:
+        minutes: 2
+     - alias: tellstick on
+       service: homeassistant.turn_on
+       data:
+         entity_id: switch.tellstick
+  
+  windowlamps_on:
+   alias: Fönsterlampor på
+   sequence:
+     - condition: and
+       conditions:
+        - condition: template
+          value_template: >
+           {% if is_state('input_select.window_lamp', '_Off_') %}
+             true
+           {% else %}
+             false
+           {% endif %}
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.window_lamp
+          option: _On_
+     - alias: on
+       service: script.turn_off
+       data:
+         entity_id: script.windowlamps_off
+     - alias: on
+       service: switch.turn_on
+       data:
+         entity_id: switch.vardagsrum_skapslampa
+     - alias: on
+       service: switch.turn_on
+       data:
+         entity_id: switch.vardagsrum_fonsterlampa
+     - alias: on
+       service: homeassistant.turn_on
+       data:
+         entity_id: light.window_lamps
+         brightness: 100
+     - alias: on
+       service: homeassistant.turn_on
+       data:
+         entity_id: light.dorotheas_sanglampa
+         brightness: 10
+     - alias: on
+       service: homeassistant.turn_on
+       data:
+         entity_id: light.kristians_sanglampa
+         brightness: 10  
+     - service: light.turn_on
+       data:
+        entity_id: light.Altan
+        brightness: 20
+     - delay:
+        minutes: 3
+     - alias: on
+       service: switch.turn_on
+       data:
+         entity_id: switch.vardagsrum_fonsterlampa
+     - alias: on
+       service: homeassistant.turn_on
+       data:
+         entity_id: light.window_lamps
+         brightness: 100
+     - service: light.turn_on
+       data:
+        entity_id: light.Altan
+        brightness: 20
+     - delay:
+        minutes: 3
+     - alias: on
+       service: switch.turn_on
+       data:
+         entity_id: switch.vardagsrum_fonsterlampa
+     - alias: on
+       service: homeassistant.turn_on
+       data:
+         entity_id: light.window_lamps
+         brightness: 100
+     - service: light.turn_on
+       data:
+        entity_id: light.Altan
+        brightness: 20
+
+  windowlamps_off:
+   alias: Fönsterlampor av
+   sequence:
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.window_lamp
+          option: _Off_
+     - alias: on
+       service: switch.turn_off
+       data:
+         entity_id: switch.vardagsrum_fonsterlampa
+     - alias: on
+       service: script.turn_off
+       data:
+         entity_id: script.windowlamps_on     
+     - alias: on
+       service: switch.turn_off
+       data:
+         entity_id: switch.vardagsrum_skapslampa
+     - alias: on
+       service: homeassistant.turn_off
+       data:
+         entity_id: light.window_lamps
+     - service: light.turn_off
+       data:
+        entity_id: light.Altan
+     - delay:
+        minutes: 3
+     - alias: on
+       service: switch.turn_off
+       data:
+         entity_id: switch.vardagsrum_fonsterlampa
+     - alias: on
+       service: homeassistant.turn_off
+       data:
+         entity_id: light.window_lamps
+     - service: light.turn_off
+       data:
+        entity_id: light.Altan
+     - delay:
+        minutes: 3
+     - alias: on
+       service: switch.turn_off
+       data:
+         entity_id: switch.vardagsrum_fonsterlampa
+     - alias: on
+       service: homeassistant.turn_off
+       data:
+         entity_id: light.window_lamps
+     - service: light.turn_off
+       data:
+        entity_id: light.Altan
+     - delay:
+        minutes: 3
+
+    
+  alarm_lights:
+   alias: Alarm light on
+   sequence:
+     - condition: and
+       conditions:
+       - condition: template
+         value_template: >
+           {% if is_state('input_select.hus_mode', 'Armed') %}
+             true
+           {% else %}
+             false
+           {% endif %}
+     - alias: camera on
+       service: homeassistant.turn_on
+       data:
+         entity_id: switch.vardagsrum_overvakningskamera
+     - alias: alam lihgt off
+       service: script.turn_off
+       data:
+        entity_id: script.alarm_lights_off
+     - alias: lamp loop
+       service: script.turn_on
+       data:
+        entity_id: script.going_away
+
+
+  going_away:
+   alias: away
+   sequence:
+     - alias: light off
+       service: homeassistant.turn_off
+       data:
+        entity_id: group.away_off
+     - condition: or
+       conditions:
+       - condition: template
+         value_template: >
+           {% if is_state('input_select.hus_mode', 'Armed') %}
+             false
+           {% else %}
+             true
+           {% endif %}
+     - service: input_select.select_option
+       data:
+          entity_id: input_select.hus_mode
+          option: Away
+
+
+  alarm_lights_off:
+   alias: Alarm light loop
+   sequence:
+    - condition: and
+      conditions:
+       - condition: template
+         value_template: >
+           {% if is_state('input_select.hus_mode', 'Armed') %}
+             false
+           {% else %}
+             true
+           {% endif %}
+    - service: script.turn_off
+      data:
+        entity_id: script.alarm_lights
+    - service: homeassistant.turn_off
+      data:
+         entity_id: switch.hall_larmlampa
+
+  morgonljus_on:
+   alias: morgonljus_on
+   sequence:
+    - alias: on
+      service: homeassistant.turn_on
+      data:
+        entity_id: group.morning_light
+    - delay:
+        seconds: 3
+    - alias: on
+      service: homeassistant.turn_on
+      data:
+        entity_id: group.morning_light
+    - delay:
+        seconds: 3
+    - alias: on
+      service: group.turn_on
+      data:
+        entity_id: group.morning_light
+    - delay:
+        seconds: 3
+    - alias: on
+      service: homeassistant.turn_on
+      data:
+        entity_id: group.morning_light
+
+  morgonljus_off:
+   alias: morgonljus_off
+   sequence:
+    - alias: on
+      service: homeassistant.turn_off
+      data:
+        entity_id: light.Altan
+    - alias: on
+      service: homeassistant.turn_off
+      data:
+        entity_id: group.morning_light
+    - delay:
+        minutes: 1
+    - alias: on
+      service: homeassistant.turn_off
+      data:
+        entity_id: group.morning_light
+    - delay:
+        minutes: 1
+    - alias: on
+      service: homeassistant.turn_off
+      data:
+        entity_id: group.morning_light
+
+
+  fire_alarm:
+   alias: fire_alarm
+   sequence:
+    - alias: camera on
+      service: homeassistant.turn_on
+      data:
+         entity_id: switch.vardagsrum_overvakningskamera
+    - alias: notification
+      service: notify.automate
+      data:
+       message: "Fire alarm!"
+    - alias: notification
+      service: notify.pushb_k
+      data:
+         message: "Fire alarm!"
+         title: "Alarm"
+    - alias: notification
+      service: notify.pushb_d
+      data:
+         message: "Fire alarm!"
+         title: "Alarm"
+    - delay:
+        minutes: 2
+    - alias: photo
+      service: camera.snapshot
+      data:
+       entity_id: camera.livingroom
+       filename: '/tmp/livingroom.jpg' 
+    - alias: photo
+      service: notify.pushb_k
+      data:
+         message: "ALARM! The alarm has been triggred"
+         title: "Alarm"
+         data:
+          photo:
+           - file: '/tmp/livingroom.jpg'
+             caption: 'livingroom'
+    - alias: on
+      service: homeassistant.turn_on
+      data:
+        entity_id: group.window_lamps
+    - delay:
+        seconds: 5
+    - alias: off
+      service: homeassistant.turn_off
+      data:
+        entity_id: group.window_lamps
+    - alias: on
+      service: script.turn_on
+      data:
+        entity_id: script.fire_alarm_loop
+
+  fire_alarm_loop:
+   alias: fire_alarm_loop
+   sequence:
+    - delay:
+        minutes: 10
+    - alias: on
+      service: script.turn_on
+      data:
+        entity_id: script.fire_alarm
+  alarm_phone:
+   alias: Make kristians phone scream
+   sequence:
+    - service: notify.automate
+      data:
+         message: !secret sos_command
+         title: "notifers"
+
+  genmovie:
+    alias: Generate movie
+    sequence:
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom0.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom1.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom2.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom3.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom4.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom5.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom6.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom7.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom8.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom9.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom10.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom11.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom12.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom13.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom14.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom15.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom16.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom17.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom18.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom19.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom20.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom21.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom22.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom23.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom24.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom25.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom26.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom27.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom28.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom29.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom30.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom31.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom32.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom33.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom34.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom35.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom36.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom37.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom38.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom39.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom40.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom41.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom42.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom43.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom44.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom45.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom46.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom47.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom48.jpg'
+      - delay:
+         seconds: 0.5
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom49.jpg'
+      - delay:
+         seconds: 2
+      - alias: mov
+        service: shell_command.zip
+
+  alarm_sequence:
+   alias: alarm
+   sequence: 
+    - alias: message
+      service: notify.pushb_k
+      data:
+         message: "ALARM! The alarm has been triggred
+
+ Altan dörr: {{states.binary_sensor.altan_break.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.altan_break.last_changed))/60 | round }}
+
+Förråds dörr: {{states.binary_sensor.work_break.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.work_break.last_changed))/60 | round }}
+
+Hall dörr: {{states.binary_sensor.hall_break.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_break.last_changed))/60 | round }}
+
+Förråd rörelse: {{states.binary_sensor.work_motion.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.work_motion.last_changed))/60 | round }}
+
+Korridor rörelse {{states.binary_sensor.korridor_motion.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.korridor_motion.last_changed))/60 | round }}
+
+Hall rörelse: {{states.binary_sensor.hall_rorelsesensor.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_rorelsesensor.last_changed))/60 | round }}
+
+Kök rörelse: {{states.binary_sensor.kok_rorelse.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.kok_rorelse.last_changed))/60 | round }}
+
+Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.vardagsrum_rorelse.last_changed))/60 | round }}
+
+"
+    - alias: message
+      service: notify.pushb_d
+      data:
+         message: "ALARM! The alarm has been triggred
+
+ Altan dörr: {{states.binary_sensor.altan_break.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.altan_break.last_changed))/60 | round }}
+
+Förråds dörr: {{states.binary_sensor.work_break.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.work_break.last_changed))/60 | round }}
+
+Hall dörr: {{states.binary_sensor.hall_break.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_break.last_changed))/60 | round }}
+
+Förråd rörelse: {{states.binary_sensor.work_motion.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.work_motion.last_changed))/60 | round }}
+
+Korridor rörelse {{states.binary_sensor.korridor_motion.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.korridor_motion.last_changed))/60 | round }}
+
+Hall rörelse: {{states.binary_sensor.hall_rorelsesensor.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_rorelsesensor.last_changed))/60 | round }}
+
+Kök rörelse: {{states.binary_sensor.kok_rorelse.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.kok_rorelse.last_changed))/60 | round }}
+
+Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.vardagsrum_rorelse.last_changed))/60 | round }}
+
+"
+         title: "Alarm"
+    - alias: gen
+      service: script.genmovie
+    - delay:
+       seconds: 50
+    - alias: photo
+      service: notify.pushb_k
+      data:
+         message: "ALARM! The alarm has been triggred"
+         title: "Alarm"
+         data:
+          document:
+             file: '/tmp/images.zip'
+             caption: 'livingroom'
+    - alias: photo
+      service: notify.pushb_d
+      data:
+         message: "ALARM! The alarm has been triggred"
+         title: "Alarm"
+         data:
+          document:
+             file: '/tmp/images.zip'
+             caption: 'livingroom'
+    
+####
+# Mode Scripts
+###
+  hall_lampa:
+    alias: hall_lampa
+    sequence:
+     - condition: and
+       conditions:
+       - condition: numeric_state
+         entity_id: sensor.hall_rorelsesensor_luminance
+         below: 50
+       - condition: template
+         value_template: >
+           {% if (is_state('input_select.time_day', 'Day') or is_state('input_select.time_day', 'Evening'))  %}
+             true
+           {% else %}
+             false
+           {% endif %}
+     - alias: on
+       service: homeassistant.turn_on
+       data:
+        entity_id: switch.hall_trapplampa
+  hall_lampa_off:
+    alias: hall_lampa_off
+    sequence:
+     - condition: or
+       conditions:
+       - condition: numeric_state
+         entity_id: sensor.hall_rorelsesensor_luminance
+         above: 55
+       - condition: template
+         value_template: >
+           {% if is_state('input_select.time_day', 'Night') %}
+             true
+           {% else %}
+             false
+           {% endif %}
+       - condition: template
+         value_template: >
+           {% if is_state('input_select.time_day', 'Morning') %}
+             true
+           {% else %}
+             false
+           {% endif %}
+     - alias: on
+       service: homeassistant.turn_off
+       data:
+        entity_id: switch.hall_trapplampa
+  utelampa:
+    alias: utelampa
+    sequence:
+     - condition: and
+       conditions:
+       - condition: template
+         value_template: >
+             {% if is_state('input_select.time_day', 'Evening') %}
+               true
+             {% else %}
+               false
+             {% endif %}
+     - alias: on
+       service: homeassistant.turn_on
+       data:
+        entity_id: switch.framsida_utelmpa
+  utelampa_off:
+   alias: utelampa_off
+   sequence:
+    - condition: or
+      conditions:
+      - condition: template
+        value_template: >
+           {% if is_state('input_select.time_day', 'Evening') %}
+             false
+           {% else %}
+             true
+           {% endif %}
+    - alias: on
+      service: homeassistant.turn_off
+      data:
+        entity_id: switch.framsida_utelmpa
+  signal_alarm_active:
+   alias: signal alarm active 
+   sequence:
+    - service: notify.automate
+      data:
+         message: "Alarm armed, deactivate"
+         title: "Alarm"
+    - service: notify.pushb_k
+      data:
+         message: "Alarm armed, deactivate before entering"
+         title: "Alarm"
+    - service: notify.pushb_d
+      data:
+         message: "Alarm armed, deactivate before entering"
+         title: "Alarm"
+         data:
+          inline_keyboard:
+           - 'Deaktivate:/disarm'
+  laddare:
+   alias: laddare 
+   sequence:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.mobilladdare_dorothea
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.mobilladdare_kristian
+  alarm_recovery:
+   alias: alarm_recovery 
+   sequence:
+    - condition: state
+      entity_id: input_select.hus_mode
+      state: 'Armed'
+    - service: alarm_control_panel.alarm_arm_away
+      data:
+       entity_id: alarm_control_panel.alarm
+       code: !secret alarm_code
+  alarm_home_recovery:
+   alias: alarm_home_recovery 
+   sequence:
+    - condition: state
+      entity_id: input_select.hus_mode
+      state: 'Armed_Home'
+    - service: alarm_control_panel.alarm_arm_home
+      data:
+       entity_id: alarm_control_panel.alarm
+       code: !secret alarm_code
+
+  temp_flash_10:
+   alias: flash-10
+   sequence:
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      above: 10
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: red
+        transition: 5
+    - delay:
+       seconds: 5
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: red
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: red
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+  temp_flash_5:
+   alias: flash-5
+   sequence:
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      above: 5
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      below: 10
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: green
+        transition: 5
+    - delay:
+       seconds: 5
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: green
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: green
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        transition: 1
+        color_name: white
+    - delay:
+       seconds: 1
+  temp_flash_0:
+   alias: flash-0
+   sequence:
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      above: 0
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      below: 5
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: white
+        transition: 5
+    - delay:
+       seconds: 5
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+  temp_flash_05:
+   alias: flash--5
+   sequence:
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      above: -5
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      below: 0
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: yellow
+        transition: 5
+    - delay:
+       seconds: 5
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: yellow
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: yellow
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+  temp_flash_010:
+   alias: flash--10 
+   sequence:
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      above: -10
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      below: -5
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: hotpink
+        transition: 5
+    - delay:
+       seconds: 5
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: hotpink
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: hotpink
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 1
+    - delay:
+       seconds: 1
+  temp_flash_015:
+   alias: flash--15
+   sequence:
+    - condition: numeric_state
+      entity_id: sensor.utomhus_temperature
+      above: -10
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: blue
+        transition: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: blue
+        flash:  short
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: blue
+        transition: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: blue
+        flash:  short
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: blue
+        transition: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 70
+        color_name: blue
+        flash:  short
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 35
+        color_name: white
+        transition: 4
+
+
+
+
+
+
+  armed_notification:
+   alias: armed_noyificatio
+   sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 20
+        color_name: darkred
+        transition: 4
+    - delay:
+       seconds: 4
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 20
+        color_name: darkred
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 100
+        flash: long
+    - delay:
+       seconds: 15
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 20
+        color_name: darkred
+        transition: 1
+    - delay:
+       seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: light.koksbank
+        brightness_pct: 100
+        flash: long
+    - delay:
+       seconds: 15
+    - service: light.turn_off
+      data:
+        entity_id: light.koksbank
+        transition: 3
+  tv_pino:
+   alias: Pino
+   sequence:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.tv_phillips_on
+    - delay:
+       seconds: 10
+    - service: switch.turn_off
+      data:
+        entity_id: switch.tv_philips_ch1
+    - delay:
+       seconds: 4
+    - service: switch.turn_off
+      data:
+        entity_id: switch.tv_phillips_ch
+    - delay:
+       seconds: 4
+    - service: switch.turn_off
+      data:
+        entity_id: switch.tv_phillips_ch
+    - delay:
+       seconds: 4
+    - service: media_extractor.play_media
+      data:
+        entity_id: media_player.vardagsrum_tv
+        media_content_id: "https://www.youtube.com/watch?v=FGB2ldlvKkg&list=PLv1lqGDM0Bvyl-giExia_0Cjn5cfMFzMv"
+        media_content_type: video/youtube
+ 
+
+
+  shutdown:
+   alias: shutdown_media
+   sequence:
+    - service: shell_command.shutdown
+    - delay:
+       seconds: 20
+    - service: switch.turn_off
+      data:
+        entity_id: switch.hall_mediapanel
+    - alias: notification
+      service: notify.pushb_k
+      data:
+         message: "Turn off media station"
+         title: "Media Station"
+       

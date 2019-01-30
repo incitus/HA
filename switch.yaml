@@ -1,0 +1,66 @@
+  - platform: broadlink
+    host: 192.168.55.30
+    mac: '34:ea:34:41:36:fd'
+    type: 'rm_mini'
+    switches:
+      # Will work on most Phillips TVs:
+      tv_phillips_on:
+        friendly_name: "TV"
+        command_off: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
+        command_on: 'JgAqAFobDh4NEBAMLSwQDQ8NEg0OEBANDw4RCxAPEA0PDxANDg8RDQ0QHgANBQAAAAAAAAAAAAAAAAAA'
+      tv_phillips_ch:
+        friendly_name: "Kanal"
+        command_off: 'JgAoAFobDh4QDQ4QKi0QDQ4QEA0ODxENDg8RCw8QEA0fHBANDg8RDR8ADQU='
+        command_on: 'JgAsAFobDh4QDRANERsdDxANDw4RDQ4PEQ0ODxANDw8QDRwfEA0OEBANDhAQAA0FAAAAAAAAAAAAAAAA'
+      tv_phillips_vol:
+        friendly_name: "Volym"
+        command_off: 'JgAoAFobDR8QDQ8PKywQDQ8PEA0PDg4QEA0ODxANDhARDR8bDg8RDR8ADQU='
+        command_on: 'JgAqAFYfEBwOEA8NLioPDQ4QEA4NEBELEg0QDQ4QEA0NEB4dDRAQDQ4QEAANBQAAAAAAAAAAAAAAAAAA'
+      tv_phillips_mute:
+        friendly_name: "Mute"
+        command_on: 'JgBQAFscDxwODwwPKiwMEA8NDw0NDwwQDw0PDQ0PDBAPDQ8NHg0PHBsACuNbHA8cDRALECosDBAPDQ8NDRALEA8NDw0NDwwQDw0PDR4NDxwbAA0FAAAAAAAAAAA='
+        command_off: 'JgBQAFscDxwODwwPKiwMEA8NDw0NDwwQDw0PDQ0PDBAPDQ8NHg0PHBsACuNbHA8cDRALECosDBAPDQ8NDRALEA8NDw0NDwwQDw0PDR4NDxwbAA0FAAAAAAAAAAA='
+      tv_philips_ch1:
+        friendly_name: "Ch 1"
+        command_off: 'JgAsAFUgCyELEg4PDx0bEQsSDw8ODw4PDw8NEQsRDBIMEQwRDw8ODw8QDBEeAA0FAAAAAAAAAAAAAAAA'
+        command_on: 'JgAsAFUgCyELEg4PDx0bEQsSDw8ODw4PDw8NEQsRDBIMEQwRDw8ODw8QDBEeAA0FAAAAAAAAAAAAAAAA'
+  - platform: tplink
+    host: !secret tells_ip
+    name: tellstick
+  - platform: template
+    switches:
+      lamps:
+        friendly_name: All lamps
+        value_template: "{{ is_state('light.lamps', 'on') }}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+            entity_id: light.lamps
+            brightness: 255
+        turn_off:
+          service: homeassistant.turn_off
+          data:
+            entity_id: light.lamps
+      window_lamps:
+        friendly_name: All window lamps
+        value_template: "{{ is_state('light.window_lamps', 'on') }}"
+        turn_on:
+          service: script.turn_on
+          data:
+           entity_id: script.windowlamps_on
+        turn_off:
+          service: script.turn_on
+          data:
+           entity_id: script.windowlamps_off
+      fire_alam_off:
+        friendly_name: Firealarm termination
+        value_template: "{{ is_state('binary_sensor.fire_alarm', 'on')}}"
+        turn_on:
+          service: script.turn_off
+          data:
+           entity_id: script.fire_alarm
+        turn_off:
+          service: script.turn_off
+          data:
+           entity_id: script.fire_alarm
+

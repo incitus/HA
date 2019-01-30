@@ -1,0 +1,296 @@
+homeassistant:
+      
+  customize:
+    automation.bedroom_charging_evening_on:
+      friendly_name: 'Automation: Start bedroome charger'
+    automation.charger_off_controller:
+      friendly_name: 'Automation: Turn off charger in livingroom'
+    automation.evening_light_on:
+      friendly_name: 'Automation: Evening light'
+    automation.evening_light_off:
+      friendly_name: 'Automation: Turn off evening light'
+    automation.turnofftv:
+      friendly_name: 'Automation: Turn off TV when no motion detected'
+    automation.winter_element_workroom:
+      friendly_name: 'Automation: Start element in workroom'
+    automation.winter_element_workroom_off:
+      friendly_name: 'Automation: Turn off element in workroom'
+    automation.turnonkitchen:
+      friendly_name: 'Automation: Diskbänksbelysning'
+    automation.morning_light_on:
+      friendly_name: 'Automation: Morning light'
+    automation.morninglight_off:
+      friendly_name: 'Automation: Morning light off'
+    automation.charger_workroom_off:
+      friendly_name: 'Automation: Workroom charger'
+    switch.kok_fonsterlampa:
+      friendly_name: 'Fönsterlampa'
+    light.hue_lightstrip_plus_1:
+      friendly_name: Diskbänksbelysning
+    switch.hall_trapplampa:
+      friendly_name: Trapplampa
+    switch.altan_belysning:
+      friendly_name: Belysning
+    sensor.hall_rorelsesensor_temperature:
+      friendly_name: Temperatur
+    sensor.hall_rorelsesensor_luminance:
+      friendly_name: Luminans
+    sensor.kok_rorelse_temperature:
+      friendly_name: Temperatur
+    sensor.kok_rorelse_luminance:
+      friendly_name: Luminans
+    sensor.barnrum_temperature:
+      friendly_name: Temperatur
+    sensor.barnrum_humidity:
+      friendly_name: Fuktkvot
+    switch.vardagsrum_bordslampa:
+      friendly_name: Bordslampa
+    switch.vardagsrum_laddstation:
+      friendly_name: Laddare
+    switch.vardagsrum_fonsterlampa:
+      friendly_name: Fönsterlampa
+    camera.livingroom:
+      friendly_name: Övervakningskamera
+    sensor.vardagsrum_laddstation_power_2:
+      friendly_name: Laddare
+    sensor.vardagsrum_rorelse_temperature:
+      friendly_name: Temperatur
+    sensor.vardagsrum_rorelse_luminance:
+      friendly_name: Luminans
+    light.korridor_fonsterlampa:
+      friendly_name: Fönsterlampa
+    sensor.sovrum_humidity:
+      friendly_name: Fuktkvot
+    sensor.sovrum_temperature:
+      friendly_name: Temeperatur
+    switch.syrum_fonsterlampa:
+      friendly_name: Fönsterlampa
+    sensor.utomhus_humidity:
+      friendly_name: Fuktkvot
+    sensor.utomhus_temperature:
+      friendly_name: Temperatur
+    switch.forrad_uttag:
+      friendly_name: Uttag
+    sensor.forrad_uttag_power_2:
+      friendly_name: Energi
+    sensor.forrad_humidity:
+      friendly_name: Fuktkvot
+    sensor.forrad_temperature:
+      friendly_name: Temperatur
+    sensor.forradsfrys_temperatur:
+      friendly_name: Frys temperatur
+
+
+  whitelist_external_dirs:
+   - '/tmp'
+# Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises d
+  latitude: 58.4997648
+  longitude: 15.5017575
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 17
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Stockholm
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+# javascript_version: es5
+
+
+ 
+# Example configuration.yaml entry
+alarm_control_panel: 
+  - platform: manual
+    name: alarm
+    code: !secret alarm_code
+    pending_time: 30
+    delay_time: 20
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0
+
+config:
+http:
+  # Uncomment this to add a password (recommended!)
+  # api_password: 
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123switch
+device_tracker:
+  - platform: ping
+    hosts:
+     kristian: !secret k_ip
+     dorothea: !secret d_ip
+    consider_home: 00:30:00
+    track_new_devices: true
+  - platform: owntracks
+    consider_home: 00:30:00
+ 
+#camera:
+#  - platform: rpi_camera
+#    image_quality: 90
+#    image_width: 1024
+#  - platform: mjpeg
+#    name: livingroom
+#    mjpeg_url: !secret cam_l_ip
+#    username: !secret cam_l_user
+#    password: !secret cam_l_pass
+
+#updater:
+
+telegram_bot:
+ - platform: polling
+   api_key: !secret tel_api_key
+   allowed_chat_ids:
+    - !secret k_t_id
+    - !secret d_t_id
+
+
+# Discover some devices automatically
+#discovery:
+
+
+conversation:
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+ include:
+  domains:
+#   input_select
+#   sensor
+#   binary_sensor
+ exclude:
+  domains:
+   script
+   automation
+   switch
+
+light:
+  - platform: yeelight
+    devices:
+      192.168.55.11:
+       name: Altan
+       transition: 1000
+    
+
+# Track the sun
+sun:
+
+
+#weather:
+#  - platform: yweather
+
+
+# Text to speech
+tts:
+  platform: google
+
+notify:
+#  - name: automate
+#    platform: llamalab_automate
+#    api_key: !secret automate_api
+#    to: !secret automate_target
+  - name: pushb_k
+    platform: telegram
+    chat_id: !secret k_t_id
+  - name: pushb_d
+    platform: telegram
+    chat_id: !secret d_t_id
+ 
+group: !include groups.yaml
+
+input_select:
+     hus_mode:
+      name: Husläge
+      options:
+       - Normal
+       - Armed
+       - Armed_Home
+       - Guest
+     time_day:
+      name: Time of day
+      options:
+       - Morning
+       - Day
+       - Evening
+       - Night
+     time_year:
+       name: Arstid
+       options:
+        - Summer
+        - Winter
+        - Autumn
+        - Spring
+     at_home:
+       name: is Home
+       options:
+        - Home
+        - Left
+        - Away
+        - Extended
+     window_lamp:
+       name: Window Lamps
+       options:
+        - _On_
+        - _Off_
+
+automation: !include automation.yaml
+binary_sensor: !include binary_sensor.yaml
+
+
+script: !include scripts.yaml
+
+switch: !include switch.yaml
+
+shell_command:
+       genmov: mencoder mf:///tmp/livingroom*.jpg -mf fps=1:type=jpg -ovc x264 -x264encopts bitrate=1200:threads=2 -o /tmp/outputfile.gif
+       #genmov: ffmpeg -framerate 5 -f image2 -i  /tmp/output.mpg
+       rmmov: rm -f /tmp/output.mpg
+       zip: cd /tmp && zip images.zip livingroom*.jpg
+       shutdown: ssh pi@192.168.55.160 "sudo halt"
+
+
+mqtt:
+  broker: 192.168.55.3
+  username: hass
+  password: !secret mqtt_pass
+
+zone:
+  - name: Home
+    latitude: !secret h_lat
+    longitude: !secret h_lon
+    radius: 1000
+    icon: mdi:home
+  - name: sju
+    latitude: !secret sj_lat
+    longitude: !secret sj_lon
+    radius: 500
+    icon: mdi:hospital-building
+  - name: veo
+    latitude: !secret ve_lat
+    longitude: !secret ve_lon
+    radius: 500
+    icon: mdi:car
+
+map:
+
+
+# Example configuration.yaml entry with include
+recorder:
+  purge_keep_days: 2
+  include:
+    domains:
+      - sensor
+      - switch
+      - input_select
+      - binary_sensor
