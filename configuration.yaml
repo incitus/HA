@@ -278,5 +278,6 @@ zone:
     longitude: !secret ve_lon
     radius: 500
     icon: mdi:car
-
+ input_boolean:  !include input_boolean.yaml
+ 
 map:
