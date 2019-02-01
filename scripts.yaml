@@ -169,7 +169,7 @@
      - alias: notification
        service: notify.pushb_k
        data:
-         message: "Window lamps off
+         message: "Window lamps off"
          title: "DEBUG"     
     
   alarm_lights:
