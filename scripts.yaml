@@ -250,8 +250,8 @@
       entity_id: input_boolean.notify_debug_l1
       state: 'on'
     - alias: notification
-       service: notify.pushb_k
-       data:
+      service: notify.pushb_k
+      data:
          message: "Morning light on"
          title: "DEBUG"
   morgonljus_off:
@@ -265,8 +265,8 @@
       entity_id: input_boolean.notify_debug_l1
       state: 'on'
     - alias: notification
-       service: notify.pushb_k
-       data:
+      service: notify.pushb_k
+      data:
          message: "Morning light off"
          title: "DEBUG"
   fire_alarm:
