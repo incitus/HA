@@ -247,8 +247,8 @@
       data:
         entity_id: group.morning_light
     - condition: state
-       entity_id: input_boolean.notify_debug_l1
-       state: 'on'
+      entity_id: input_boolean.notify_debug_l1
+      state: 'on'
     - alias: notification
        service: notify.pushb_k
        data:
@@ -262,8 +262,8 @@
       data:
         entity_id: light.Altan
     - condition: state
-       entity_id: input_boolean.notify_debug_l1
-       state: 'on'
+      entity_id: input_boolean.notify_debug_l1
+      state: 'on'
     - alias: notification
        service: notify.pushb_k
        data:
