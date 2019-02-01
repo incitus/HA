@@ -1,0 +1,14 @@
+notify_debug_l1:
+    name: Level 1 Debug
+    initial: 
+    icon: mdi:car
+
+notify_debug_l2:
+    name: Level 2 Debug
+    initial: 
+    icon: mdi:car
+
+notify_debug_l3:
+    name: Level 3 Debug
+    initial: 
+    icon: mdi:car
