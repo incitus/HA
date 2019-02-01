@@ -83,6 +83,9 @@
    - input_select.time_day
    - input_select.time_year
    - input_select.at_home
+   - input_boolean.notify_debug_l1
+   - input_boolean.notify_debug_l2
+   - input_boolean.notify_debug_l3
 
  
 
