@@ -692,7 +692,7 @@
       - delay:
          seconds: 2
       - alias: mov
-        service: shell_command.zip
+        service: shell_command.genmov
 
   alarm_sequence:
    alias: alarm
@@ -753,7 +753,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ (as_t
          title: "Alarm"
          data:
           document:
-             file: '/tmp/images.zip'
+             file: '/tmp/myimage.gif'
              caption: 'livingroom'
     - alias: photo
       service: notify.pushb_d
@@ -762,7 +762,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ (as_t
          title: "Alarm"
          data:
           document:
-             file: '/tmp/images.zip'
+             file: '/tmp/myimage.gif'
              caption: 'livingroom'
     
 ####

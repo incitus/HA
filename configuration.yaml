@@ -250,7 +250,8 @@ script: !include scripts.yaml
 switch: !include switch.yaml
 
 shell_command:
-       genmov: mencoder mf:///tmp/livingroom*.jpg -mf fps=1:type=jpg -ovc x264 -x264encopts bitrate=1200:threads=2 -o /tmp/outputfile.gif
+       genmov: cd /tmp && convert -delay 20 -loop 0 livingroom*.jpg myimage.gif
+       # mencoder mf:///tmp/livingroom*.jpg -mf fps=1:type=jpg -ovc x264 -x264encopts bitrate=1200:threads=2 -o /tmp/outputfile.gif
        #genmov: ffmpeg -framerate 5 -f image2 -i  /tmp/output.mpg
        rmmov: rm -f /tmp/output.mpg
        zip: cd /tmp && zip images.zip livingroom*.jpg
@@ -266,7 +267,7 @@ zone:
   - name: Home
     latitude: !secret h_lat
     longitude: !secret h_lon
-    radius: 1000
+    radius: 1500
     icon: mdi:home
   - name: sju
     latitude: !secret sj_lat
