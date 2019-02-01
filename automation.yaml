@@ -89,7 +89,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ ((as_
    action:
     - service: script.genmovie
     - delay:
-       seconds: 30
+       seconds: 60
     - service: telegram_bot.send_photo
       data_template:
          target: '{{ trigger.event.data.user_id }}'
