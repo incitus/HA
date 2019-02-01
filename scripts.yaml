@@ -1322,9 +1322,4 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ (as_t
     - service: switch.turn_off
       data:
         entity_id: switch.hall_mediapanel
-    - alias: notification
-      service: notify.pushb_k
-      data:
-         message: "Turn off media station"
-         title: "Media Station"
        

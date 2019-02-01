@@ -39,7 +39,7 @@
   name: Survailance
   icon: mdi:camera
   entities:
-   - group.home_alarm
+   - group.cameras_view
    - group.integrity
    - group.motion_logg
    - group.door_logg
@@ -152,7 +152,6 @@
  sVardagsrum:
    name: Vardagsrum
    entities:
-    - camera.livingroom
     - sensor.vardagsrum_laddstation_power_2
     - sensor.vardagsrum_rorelse_temperature
     - sensor.vardagsrum_rorelse_luminance

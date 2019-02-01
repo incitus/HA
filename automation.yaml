@@ -324,7 +324,17 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    trigger:
     - platform: state
       entity_id: input_select.at_home
-      to: 'Extended'
+      to: 'Left'
+    - platform: state
+      entity_id: binary_sensor.motion
+      to: 'off'
+      from: 'on'
+      for: '01:00:00'
+   condition:
+     - condition: state
+       entity_id: binary_sensor.motion
+       state: 'off'
+       for: '01:00:00'
    action:
     - service: alarm_control_panel.alarm_arm_away
       data:
@@ -363,7 +373,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    hide_entity: false
    trigger:
     - platform: state
-      entity_id: binary_sensor.motion
+      entity_id: binary_sensor.motion_downstairs
       to: 'off'
       from: 'on'
       for: '01:00:00'
@@ -377,11 +387,11 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: script.shutdown
 
 
- - alias: 'turn_of_controller_screen'
+ - alias: 'turn_on_controller_screen'
    hide_entity: false
    trigger:
     - platform: state
-      entity_id: binary_sensor.motion
+      entity_id: binary_sensor.motion_downstairs
       to: 'on'
       from: 'off'
    condition:
