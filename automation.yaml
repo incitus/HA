@@ -90,7 +90,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ ((as_
     - service: script.genmovie
     - delay:
        seconds: 30
-    - service: telegram_bot.send_document
+    - service: telegram_bot.send_photo
       data_template:
          target: '{{ trigger.event.data.user_id }}'
          file: '/tmp/myimage.gif'

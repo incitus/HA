@@ -752,7 +752,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ (as_t
          message: "ALARM! The alarm has been triggred"
          title: "Alarm"
          data:
-          document:
+          photo:
              file: '/tmp/myimage.gif'
              caption: 'livingroom'
     - alias: photo
@@ -761,7 +761,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ (as_t
          message: "ALARM! The alarm has been triggred"
          title: "Alarm"
          data:
-          document:
+          photo:
              file: '/tmp/myimage.gif'
              caption: 'livingroom'
     
