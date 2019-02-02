@@ -335,7 +335,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        entity_id: binary_sensor.motion
        state: 'off'
        for: '01:00:00'
-     - platform: state
+     - condition: state
        entity_id: input_select.at_home
        state: 'Left'
    action:
