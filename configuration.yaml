@@ -132,7 +132,7 @@ device_tracker:
      kristian: !secret k_ip
      dorothea: !secret d_ip
     consider_home: 00:30:00
-    track_new_devices: no
+    track_new_devices: yes
   - platform: owntracks
     consider_home: 00:30:00
  
