@@ -234,7 +234,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
  - alias: 'forr terminate'
    hide_entity: false
    trigger:
-    - platform: time
+    - platform: time_pattern
       minutes: '/15'
    condition:
     - condition: state
@@ -248,7 +248,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
  - alias: 'altan terminate'
    hide_entity: false
    trigger:
-    - platform: time
+    - platform: time_pattern
       minutes: '/15'
    condition:
     - condition: state
@@ -262,7 +262,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
  - alias: 'gorrad terminate'
    hide_entity: false
    trigger:
-    - platform: time
+    - platform: time_pattern
       minutes: '/15'
    condition:
     - condition: state
@@ -276,7 +276,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
  - alias: 'hall terminate'
    hide_entity: false
    trigger:
-    - platform: time
+    - platform: time_pattern
       minutes: '/15'
    condition:
     - condition: state
@@ -290,7 +290,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
  - alias: 'korridor terminate'
    hide_entity: false
    trigger:
-    - platform: time
+    - platform: time_pattern
       minutes: '/15'
    condition:
     - condition: state
@@ -304,7 +304,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
  - alias: 'altan terminatex'
    hide_entity: false
    trigger:
-    - platform: time
+    - platform: time_pattern
       minutes: '/15'
    condition:
     - condition: state
@@ -1217,7 +1217,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    hide_entity: False
    initial_state: 'on'
    trigger:
-    - platform: time
+    - platform: time_pattern
       minutes: '/15'
       seconds: 00
    action:
