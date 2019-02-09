@@ -135,6 +135,7 @@ device_tracker:
     track_new_devices: yes
   - platform: owntracks
     consider_home: 00:30:00
+
  
 camera:
     - platform: rpi_camera
@@ -160,7 +161,7 @@ telegram_bot:
 #discovery:
 
 tellduslive:
- update_interval: 1
+ update_interval: 3
 
 
 conversation:
