@@ -64,7 +64,7 @@
           data:
            entity_id: script.fire_alarm
       guest_mode:
-        friendly_name: Firealarm termination
+        friendly_name: Gästläge
         value_template: "{{ is_state('input_select.hus_mode', 'Guest')}}"
         turn_on:
           service: input_select.select_option
