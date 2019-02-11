@@ -19,11 +19,40 @@
       tv_phillips_mute:
         friendly_name: "Mute"
         command_on: 'JgBQAFscDxwODwwPKiwMEA8NDw0NDwwQDw0PDQ0PDBAPDQ8NHg0PHBsACuNbHA8cDRALECosDBAPDQ8NDRALEA8NDw0NDwwQDw0PDR4NDxwbAA0FAAAAAAAAAAA='
+
         command_off: 'JgBQAFscDxwODwwPKiwMEA8NDw0NDwwQDw0PDQ0PDBAPDQ8NHg0PHBsACuNbHA8cDRALECosDBAPDQ8NDRALEA8NDw0NDwwQDw0PDR4NDxwbAA0FAAAAAAAAAAA='
       tv_philips_ch1:
         friendly_name: "Ch 1"
         command_off: 'JgAsAFUgCyELEg4PDx0bEQsSDw8ODw4PDw8NEQsRDBIMEQwRDw8ODw8QDBEeAA0FAAAAAAAAAAAAAAAA'
         command_on: 'JgAsAFUgCyELEg4PDx0bEQsSDw8ODw4PDw8NEQsRDBIMEQwRDw8ODw8QDBEeAA0FAAAAAAAAAAAAAAAA'
+      tv_on:
+        friendly_name: "tv_on"
+        command_on: 'JgAqAFobDh4NEBAMLSwQDQ8NEg0OEBANDw4RCxAPEA0PDxANDg8RDQ0QHgANBQAAAAAAAAAAAAAAAAAA'
+        command_off: 'JgAqAFobDh4NEBAMLSwQDQ8NEg0OEBANDw4RCxAPEA0PDxANDg8RDQ0QHgANBQAAAAAAAAAAAAAAAAAA'
+      tv_off:
+        friendly_name: "tv_off"
+        command_off: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
+        command_on: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
+      tv_ch_down:
+        friendly_name: "tv_down"
+        command_off: 'JgAoAFobDh4QDQ4QKi0QDQ4QEA0ODxENDg8RCw8QEA0fHBANDg8RDR8ADQU='
+        command_on: 'JgAoAFobDh4QDQ4QKi0QDQ4QEA0ODxENDg8RCw8QEA0fHBANDg8RDR8ADQU='
+      tv_ch_up:
+        friendly_name: "tv_up"
+        command_on: 'JgAsAFobDh4QDRANERsdDxANDw4RDQ4PEQ0ODxANDw8QDRwfEA0OEBANDhAQAA0FAAAAAAAAAAAAAAAA'
+        command_off: 'JgAsAFobDh4QDRANERsdDxANDw4RDQ4PEQ0ODxANDw8QDRwfEA0OEBANDhAQAA0FAAAAAAAAAAAAAAAA'
+      tv_vol_down:
+        friendly_name: "tv_vol_down"
+        command_off: 'JgAoAFobDR8QDQ8PKywQDQ8PEA0PDg4QEA0ODxANDhARDR8bDg8RDR8ADQU='
+        command_on: 'JgAoAFobDR8QDQ8PKywQDQ8PEA0PDg4QEA0ODxANDhARDR8bDg8RDR8ADQU='
+      tv_vol_up:
+        friendly_name: "tv_vol_up"
+        command_on: 'JgAqAFYfEBwOEA8NLioPDQ4QEA4NEBELEg0QDQ4QEA0NEB4dDRAQDQ4QEAANBQAAAAAAAAAAAAAAAAAA'
+        command_off: 'JgAqAFYfEBwOEA8NLioPDQ4QEA4NEBELEg0QDQ4QEA0NEB4dDRAQDQ4QEAANBQAAAAAAAAAAAAAAAAAA'
+      tv_vol_mute:
+        friendly_name: "tv_mute"
+        command_on: 'JgBQAFscDxwODwwPKiwMEA8NDw0NDwwQDw0PDQ0PDBAPDQ8NHg0PHBsACuNbHA8cDRALECosDBAPDQ8NDRALEA8NDw0NDwwQDw0PDR4NDxwbAA0FAAAAAAAAAAA='
+        command_off: 'JgBQAFscDxwODwwPKiwMEA8NDw0NDwwQDw0PDQ0PDBAPDQ8NHg0PHBsACuNbHA8cDRALECosDBAPDQ8NDRALEA8NDw0NDwwQDw0PDR4NDxwbAA0FAAAAAAAAAAA='
   - platform: tplink
     host: !secret tells_ip
     name: tellstick
