@@ -319,25 +319,32 @@ views:
                   action: toggle
                 name: ' '
                 icon: 'mdi:square-small'
-    badges: []
     icon: 'mdi:airplay'
+    badges: []
   - cards:
       - type: vertical-stack
         cards:
           - type: markdown
             content: |
               ## Home
+          - conditions:
+              - entity: input_select.hus_mode
+                state: Armed
+            type: conditional
+            card:
+              type: alarm-panel
+              entity: alarm_control_panel.alarm
           - type: horizontal-stack
             cards:
               - type: picture-glance
                 title: Livingroom
-                entities: []
                 camera_image: camera.livingroom
+                entities: []
               - type: picture-glance
                 title: Livingroom
+                camera_image: camera.raspberry_pi_camera
                 entities:
                   - binary_sensor.altan_break
-                camera_image: camera.raspberry_pi_camera
           - type: horizontal-stack
             cards:
               - type: entity-button
@@ -346,6 +353,24 @@ views:
                 entity: binary_sensor.fire_alarm
               - type: entity-button
                 entity: binary_sensor.at_home
+          - type: glance
+            title: null
+            entities:
+              - entity: binary_sensor.hall_rorelsesensor
+                icon: 'mdi:shoe-formal'
+                name: ''
+              - entity: binary_sensor.kok_rorelse
+                icon: 'mdi:pot'
+                name: ''
+              - entity: binary_sensor.vardagsrum_rorelse
+                icon: 'mdi:television-classic'
+                name: ''
+              - entity: binary_sensor.work_motion
+                icon: 'mdi:hammer'
+                name: ''
+              - entity: binary_sensor.altan_motion
+                icon: 'mdi:umbrella'
+                name: ''
       - type: entities
         title: Integrity
         show_header_toggle: true
@@ -375,8 +400,8 @@ views:
     badges: []
     path: motion_view
     title: Survailance
-    icon: 'mdi:camera'
     panel: true
+    icon: 'mdi:camera'
   - path: automation_view
     title: Automations
     cards:
@@ -431,9 +456,9 @@ views:
         title: Kontakt
         entities:
           - switch.fire_alam_off
+    icon: 'mdi:account-multiple'
     badges:
       - device_tracker.kristian
       - device_tracker.hass_kr
       - device_tracker.dorothea
       - device_tracker.hass_dotti
-    icon: 'mdi:account-multiple'
