@@ -546,29 +546,22 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       data:
        entity_id: script.signal_alarm_active
 
-  - alias: Armed
-   hide_entity: false
-   trigger:
-     - platform: state 
-       entity_id: alarm_control_panel.alarm
-       to: 'armed_away'
-   action:
    
  - alias: "Wake me up with bedroom light transition for weekdays"
-  trigger:
-    platform: template
-    value_template: "{{ states('sensor.time') == (states.input_datetime.wakeup_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
-  condition:
-    - condition: state
-      entity_id: input_boolean.wakeup_enabled
-      state: 'on'
-  action:
-    - service: light.turn_on
-      entity_id: group.bedroom
-      data:
-        transition: 1800
-        brightness: 255
-          
+   trigger:
+      platform: template
+      value_template: "{{ states('sensor.time') == (states.input_datetime.wakeup_time.attributes.timestamp | int | timestamp_custom('%H:%M', False)) }}"
+   condition:
+      - condition: state
+        entity_id: input_boolean.wakeup_enabled
+        state: 'on'
+   action:
+      - service: light.turn_on
+        entity_id: group.bedroom
+        data:
+          transition: 1800
+          brightness: 255
+            
           
  - alias: 'Trigger alarm while armed home'
    hide_entity: false
