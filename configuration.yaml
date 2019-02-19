@@ -241,6 +241,7 @@ input_select:
        options:
         - _On_
         - _Off_
+        
 
 automation: !include automation.yaml
 binary_sensor: !include binary_sensor.yaml
@@ -282,5 +283,10 @@ zone:
     icon: mdi:car
 
 input_boolean:  !include input_boolean.yaml
-
+input_datetime:
+  wakeup_time:
+    name: "Vakna vid"
+    has_time: true
+    has_date: false
+    initial: "07:20"
 map:
