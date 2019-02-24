@@ -291,6 +291,6 @@ input_datetime:
     initial: "07:20"
  
 platform: time_date
-  display_options:
+display_options:
     - 'time'
 map:
