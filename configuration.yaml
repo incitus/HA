@@ -290,7 +290,8 @@ input_datetime:
     has_date: false
     initial: "07:20"
  
-platform: time_date
-display_options:
-    - 'time'
+sensor:
+  - platform: time_date
+    display_options:
+     - 'time'
 map:
