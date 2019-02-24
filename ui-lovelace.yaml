@@ -113,6 +113,12 @@ views:
                   - tap_action:
                       action: toggle
                     type: entity-button
+                    icon: 'mdi:minus'
+                    name: ' '
+                    entity: switch.kaffemaskin
+                  - tap_action:
+                      action: toggle
+                    type: entity-button
                     icon: 'mdi:coffee'
                     entity: switch.kaffemaskin
                   - tap_action:
@@ -120,6 +126,12 @@ views:
                     type: entity-button
                     name: Fönster
                     icon: 'mdi:window-closed'
+                    entity: switch.kok_fonsterlampa
+                  - tap_action:
+                      action: toggle
+                    type: entity-button
+                    icon: 'mdi:minus'
+                    name: ' '
                     entity: switch.kok_fonsterlampa
             type: vertical-stack
           - name: Kök
@@ -467,14 +479,6 @@ views:
         show_header_toggle: true
     badges: []
     panel: true
-  - title: Alarm
-    cards:
-      - entities:
-          - entity: input_boolean.wakeup_enabled
-          - entity: input_datetime.wakeup_time
-        type: entities
-    badges: []
-    icon: 'mdi:alarm'
   - title: Automations
     path: automation_view
     cards:
