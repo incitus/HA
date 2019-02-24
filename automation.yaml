@@ -557,7 +557,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
         state: 'on'
    action:
       - service: light.turn_on
-        entity_id: group.bedroom
+        entity_id: light.kristians_sanglampa
         data:
           transition: 1800
           brightness: 255
