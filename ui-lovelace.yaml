@@ -1,56 +1,53 @@
 title: Home
 views:
-  - path: default_view
-    title: default_view
-    panel: false
+  - title: default_view
     icon: 'mdi:home'
+    path: default_view
     cards:
       - type: vertical-stack
-        name: force verical
         cards:
-          - type: vertical-stack
-            name: Scenes
+          - name: Scenes
             cards:
               - type: markdown
                 content: |
                   ## Scenes
-              - conditions:
-                  - entity: input_select.hus_mode
-                    state: Armed
-                type: conditional
+              - type: conditional
                 card:
                   type: alarm-panel
                   entity: alarm_control_panel.alarm
-              - type: horizontal-stack
-                name: Scenes
+                conditions:
+                  - state: Armed
+                    entity: input_select.hus_mode
+              - name: Scenes
                 cards:
                   - tap_action:
                       action: toggle
-                    entity: switch.window_lamps
-                    name: Fönster
                     type: entity-button
+                    name: Fönster
                     icon: 'mdi:lightbulb-on'
+                    entity: switch.window_lamps
                   - tap_action:
                       service: script.turn_on
                       service_data:
                         entity_id: script.going_away
                       action: call-service
-                    entity: script.going_away
-                    name: Away
                     type: entity-button
+                    name: Away
                     icon: 'mdi:exit-run'
+                    entity: script.going_away
                   - type: entity-button
-                    entity: alarm_control_panel.alarm
                     name: Alarm
                     icon: 'mdi:shield-key'
+                    entity: alarm_control_panel.alarm
                   - tap_action:
                       action: toggle
-                    entity: switch.guest_mode
-                    name: Gästläge
                     type: entity-button
+                    name: Gästläge
                     icon: 'mdi:account-multiple'
-          - type: vertical-stack
-            name: Vardagsrum
+                    entity: switch.guest_mode
+                type: horizontal-stack
+            type: vertical-stack
+          - name: Vardagsrum
             cards:
               - type: markdown
                 content: |
@@ -58,45 +55,45 @@ views:
               - type: horizontal-stack
                 cards:
                   - type: sensor
-                    entity: sensor.vardagsrum_laddstation_power_2
                     name: ' '
-                    graph: line
                     icon: 'mdi:battery-charging'
+                    graph: line
+                    entity: sensor.vardagsrum_laddstation_power_2
                   - type: sensor
+                    name: ' '
+                    graph: line
                     entity: sensor.vardagsrum_rorelse_temperature
-                    name: ' '
-                    graph: line
                   - type: sensor
-                    entity: sensor.vardagsrum_rorelse_luminance
                     name: ' '
                     graph: line
+                    entity: sensor.vardagsrum_rorelse_luminance
               - type: horizontal-stack
                 cards:
                   - tap_action:
                       action: toggle
-                    entity: switch.vardagsrum_bordslampa
-                    name: Byrå
                     type: entity-button
+                    name: Byrå
                     icon: 'mdi:lamp'
+                    entity: switch.vardagsrum_bordslampa
                   - tap_action:
                       action: toggle
-                    entity: switch.vardagsrum_laddstation
                     type: entity-button
                     icon: 'mdi:battery-charging'
+                    entity: switch.vardagsrum_laddstation
                   - tap_action:
                       action: toggle
-                    entity: switch.vardagsrum_fonsterlampa
+                    type: entity-button
                     name: Fönster
-                    type: entity-button
                     icon: 'mdi:window-closed'
+                    entity: switch.vardagsrum_fonsterlampa
                   - tap_action:
                       action: toggle
-                    entity: light.altan
-                    name: Altan
                     type: entity-button
+                    name: Altan
                     icon: 'mdi:wall-sconce'
-          - type: vertical-stack
-            name: Kök
+                    entity: light.altan
+            type: vertical-stack
+          - name: Kök
             cards:
               - type: markdown
                 content: |
@@ -104,28 +101,28 @@ views:
               - type: horizontal-stack
                 cards:
                   - type: sensor
+                    name: ' '
+                    graph: line
                     entity: sensor.kok_rorelse_temperature
-                    name: ' '
-                    graph: line
                   - type: sensor
-                    entity: sensor.kok_rorelse_luminance
                     name: ' '
                     graph: line
+                    entity: sensor.kok_rorelse_luminance
               - type: horizontal-stack
                 cards:
                   - tap_action:
                       action: toggle
-                    entity: switch.kaffemaskin
                     type: entity-button
                     icon: 'mdi:coffee'
+                    entity: switch.kaffemaskin
                   - tap_action:
                       action: toggle
-                    entity: switch.kok_fonsterlampa
-                    name: Fönster
                     type: entity-button
+                    name: Fönster
                     icon: 'mdi:window-closed'
-          - type: vertical-stack
-            name: Kök
+                    entity: switch.kok_fonsterlampa
+            type: vertical-stack
+          - name: Kök
             cards:
               - type: markdown
                 content: |
@@ -133,22 +130,34 @@ views:
               - type: horizontal-stack
                 cards:
                   - type: sensor
+                    name: ' '
+                    graph: line
                     entity: sensor.hall_rorelsesensor_temperature
-                    name: ' '
-                    graph: line
                   - type: sensor
-                    entity: sensor.hall_rorelsesensor_luminance
                     name: ' '
                     graph: line
+                    entity: sensor.hall_rorelsesensor_luminance
               - type: horizontal-stack
                 cards:
                   - tap_action:
                       action: toggle
+                    type: entity-button
+                    icon: 'mdi:minus'
+                    name: ' '
                     entity: switch.hall_trapplampa
+                  - tap_action:
+                      action: toggle
                     type: entity-button
                     icon: 'mdi:lamp'
-          - type: vertical-stack
-            name: Vardagsrum
+                    entity: switch.hall_trapplampa
+                  - tap_action:
+                      action: toggle
+                    type: entity-button
+                    icon: 'mdi:minus'
+                    name: ' '
+                    entity: switch.hall_trapplampa
+            type: vertical-stack
+          - name: Vardagsrum
             cards:
               - type: markdown
                 content: |
@@ -156,13 +165,31 @@ views:
               - type: horizontal-stack
                 cards:
                   - type: sensor
+                    name: ' '
+                    graph: line
                     entity: sensor.sovrum_humidity
-                    name: ' '
-                    graph: line
                   - type: sensor
-                    entity: sensor.sovrum_temperature
                     name: ' '
                     graph: line
+                    entity: sensor.sovrum_temperature
+              - type: conditional
+                conditions:
+                  - entity: input_select.time_day
+                    state: Evening
+                card:
+                  type: entities
+                  entities:
+                    - entity: input_boolean.wakeup_enabled
+                    - entity: input_datetime.wakeup_time
+              - type: conditional
+                conditions:
+                  - entity: input_select.time_day
+                    state: Night
+                card:
+                  type: entities
+                  entities:
+                    - entity: input_boolean.wakeup_enabled
+                    - entity: input_datetime.wakeup_time
               - type: horizontal-stack
                 cards:
                   - type: markdown
@@ -175,30 +202,30 @@ views:
                 cards:
                   - tap_action:
                       action: toggle
-                    entity: light.dorotheas_sanglampa
-                    name: lampa
                     type: entity-button
+                    name: lampa
                     icon: 'mdi:human-female'
+                    entity: light.dorotheas_sanglampa
                   - tap_action:
                       action: toggle
+                    type: entity-button
+                    name: laddare
+                    icon: 'mdi:battery-charging'
                     entity: switch.mobilladdare_dorothea
-                    name: laddare
-                    type: entity-button
-                    icon: 'mdi:battery-charging'
                   - tap_action:
                       action: toggle
-                    entity: light.kristians_sanglampa
+                    type: entity-button
                     name: lampa
-                    type: entity-button
                     icon: 'mdi:human'
+                    entity: light.kristians_sanglampa
                   - tap_action:
                       action: toggle
-                    entity: switch.mobilladdare_kristian
-                    name: laddare
                     type: entity-button
+                    name: laddare
                     icon: 'mdi:battery-charging'
-          - type: vertical-stack
-            name: Arbetsrum
+                    entity: switch.mobilladdare_kristian
+            type: vertical-stack
+          - name: Arbetsrum
             cards:
               - type: markdown
                 content: |
@@ -206,27 +233,39 @@ views:
               - type: horizontal-stack
                 cards:
                   - type: sensor
+                    name: ' '
+                    graph: line
                     entity: sensor.forrad_humidity
+                  - type: sensor
                     name: ' '
                     graph: line
-                  - type: sensor
                     entity: sensor.forrad_temperature
-                    name: ' '
-                    graph: line
                   - type: sensor
-                    entity: sensor.forradsfrys_temperature
                     name: ' '
                     graph: line
+                    entity: sensor.forradsfrys_temperature
               - type: horizontal-stack
                 cards:
                   - tap_action:
                       action: toggle
-                    entity: switch.forrad_uttag
-                    name: element
                     type: entity-button
+                    name: ' '
+                    icon: 'mdi:minus'
+                    entity: switch.forrad_uttag
+                  - tap_action:
+                      action: toggle
+                    type: entity-button
+                    name: element
                     icon: 'mdi:radiator'
-          - type: vertical-stack
-            name: Kök
+                    entity: switch.forrad_uttag
+                  - tap_action:
+                      action: toggle
+                    type: entity-button
+                    name: ' '
+                    icon: 'mdi:minus'
+                    entity: switch.forrad_uttag
+            type: vertical-stack
+          - name: Kök
             cards:
               - type: markdown
                 content: |
@@ -235,11 +274,23 @@ views:
                 cards:
                   - tap_action:
                       action: toggle
+                    type: entity-button
+                    icon: 'mdi:minus'
                     entity: light.korridor_fonsterlampa
+                    name: ' '
+                  - tap_action:
+                      action: toggle
                     type: entity-button
                     icon: 'mdi:lamp'
-          - type: vertical-stack
-            name: Syrum
+                    entity: light.korridor_fonsterlampa
+                  - tap_action:
+                      action: toggle
+                    type: entity-button
+                    icon: 'mdi:minus'
+                    entity: light.korridor_fonsterlampa
+                    name: ' '
+            type: vertical-stack
+          - name: Syrum
             cards:
               - type: markdown
                 content: |
@@ -248,12 +299,26 @@ views:
                 cards:
                   - tap_action:
                       action: toggle
+                    type: entity-button
+                    icon: 'mdi:minus'
+                    name: ' '
                     entity: switch.syrum_fonsterlampa
+                  - tap_action:
+                      action: toggle
                     type: entity-button
                     icon: 'mdi:lamp'
+                    entity: switch.syrum_fonsterlampa
+                  - tap_action:
+                      action: toggle
+                    type: entity-button
+                    icon: 'mdi:minus'
+                    name: ' '
+                    entity: switch.syrum_fonsterlampa
+            type: vertical-stack
     badges: []
-  - path: tv_view
-    title: Tv
+    panel: false
+  - title: Tv
+    path: tv_view
     cards:
       - type: vertical-stack
         cards:
@@ -261,90 +326,93 @@ views:
             entity: media_player.vardagsrum
           - type: horizontal-stack
             cards:
-              - type: entity-button
-                entity: switch.tv_vol_up
-                tap_action:
+              - tap_action:
                   action: toggle
+                type: entity-button
                 name: ' '
                 icon: 'mdi:volume-plus'
-              - type: entity-button
-                entity: switch.tv_ch_up
-                tap_action:
+                entity: switch.tv_vol_up
+              - tap_action:
                   action: toggle
+                type: entity-button
                 name: ' '
                 icon: 'mdi:chevron-up-circle'
-              - type: entity-button
-                entity: switch.tv_phillips_on
-                tap_action:
+                entity: switch.tv_ch_up
+              - tap_action:
                   action: toggle
+                type: entity-button
                 name: ' '
                 icon: 'mdi:power'
+                entity: switch.tv_phillips_on
           - type: horizontal-stack
             cards:
-              - type: entity-button
-                entity: switch.tv_phillips_mute
-                tap_action:
+              - tap_action:
                   action: toggle
+                type: entity-button
                 name: ' '
                 icon: 'mdi:square-small'
-              - type: entity-button
                 entity: switch.tv_phillips_mute
-                tap_action:
+              - tap_action:
                   action: toggle
+                type: entity-button
                 name: ' '
                 icon: 'mdi:volume-off'
-              - type: entity-button
                 entity: switch.tv_phillips_mute
-                tap_action:
+              - tap_action:
                   action: toggle
+                type: entity-button
                 name: ' '
                 icon: 'mdi:square-small'
+                entity: switch.tv_phillips_mute
           - type: horizontal-stack
             cards:
-              - type: entity-button
-                entity: switch.tv_vol_down
-                tap_action:
+              - tap_action:
                   action: toggle
+                type: entity-button
                 name: ' '
                 icon: 'mdi:volume-minus'
-              - type: entity-button
-                entity: switch.tv_ch_down
-                tap_action:
+                entity: switch.tv_vol_down
+              - tap_action:
                   action: toggle
+                type: entity-button
                 name: ' '
                 icon: 'mdi:chevron-down-circle'
-              - type: entity-button
                 entity: switch.tv_ch_down
-                tap_action:
+              - tap_action:
                   action: toggle
+                type: entity-button
                 name: ' '
                 icon: 'mdi:square-small'
-    icon: 'mdi:airplay'
+                entity: switch.tv_ch_down
     badges: []
-  - cards:
+    icon: 'mdi:airplay'
+  - title: Survailance
+    icon: 'mdi:camera'
+    path: motion_view
+    cards:
       - type: vertical-stack
         cards:
           - type: markdown
             content: |
               ## Home
-          - conditions:
-              - entity: input_select.hus_mode
-                state: Armed
-            type: conditional
+          - type: conditional
             card:
               type: alarm-panel
               entity: alarm_control_panel.alarm
+            conditions:
+              - state: Armed
+                entity: input_select.hus_mode
           - type: horizontal-stack
             cards:
-              - type: picture-glance
+              - entities: []
                 title: Livingroom
+                type: picture-glance
                 camera_image: camera.livingroom
-                entities: []
-              - type: picture-glance
-                title: Livingroom
-                camera_image: camera.raspberry_pi_camera
-                entities:
+              - entities:
                   - binary_sensor.altan_break
+                title: Livingroom
+                type: picture-glance
+                camera_image: camera.raspberry_pi_camera
           - type: horizontal-stack
             cards:
               - type: entity-button
@@ -353,36 +421,33 @@ views:
                 entity: binary_sensor.fire_alarm
               - type: entity-button
                 entity: binary_sensor.at_home
-          - type: glance
-            title: null
-            entities:
-              - entity: binary_sensor.hall_rorelsesensor
+          - entities:
+              - name: ''
                 icon: 'mdi:shoe-formal'
-                name: ''
-              - entity: binary_sensor.kok_rorelse
+                entity: binary_sensor.hall_rorelsesensor
+              - name: ''
                 icon: 'mdi:pot'
-                name: ''
-              - entity: binary_sensor.vardagsrum_rorelse
+                entity: binary_sensor.kok_rorelse
+              - name: ''
                 icon: 'mdi:television-classic'
-                name: ''
-              - entity: binary_sensor.work_motion
+                entity: binary_sensor.vardagsrum_rorelse
+              - name: ''
                 icon: 'mdi:hammer'
-                name: ''
-              - entity: binary_sensor.altan_motion
+                entity: binary_sensor.work_motion
+              - name: ''
                 icon: 'mdi:umbrella'
-                name: ''
-      - type: entities
-        title: Integrity
-        show_header_toggle: true
-        entities:
+                entity: binary_sensor.altan_motion
+            title: null
+            type: glance
+      - entities:
           - binary_sensor.fire_alarm
           - binary_sensor.kristian_collect
           - binary_sensor.dorothea_collect
           - binary_sensor.at_home
-      - type: entities
-        title: Motion
+        title: Integrity
+        type: entities
         show_header_toggle: true
-        entities:
+      - entities:
           - binary_sensor.motion
           - binary_sensor.korridor_motion
           - binary_sensor.hall_rorelsesensor
@@ -390,32 +455,38 @@ views:
           - binary_sensor.vardagsrum_rorelse
           - binary_sensor.work_motion
           - binary_sensor.altan_motion
-      - type: entities
-        title: Doors
+        title: Motion
+        type: entities
         show_header_toggle: true
-        entities:
+      - entities:
           - binary_sensor.hall_break
           - binary_sensor.altan_break
           - binary_sensor.work_break
-    badges: []
-    path: motion_view
-    title: Survailance
-    panel: true
-    icon: 'mdi:camera'
-  - path: automation_view
-    title: Automations
-    cards:
-      - type: entities
-        title: Charger or element
+        title: Doors
+        type: entities
         show_header_toggle: true
-        entities:
+    badges: []
+    panel: true
+  - title: Alarm
+    cards:
+      - entities:
+          - entity: input_boolean.wakeup_enabled
+          - entity: input_datetime.wakeup_time
+        type: entities
+    badges: []
+    icon: 'mdi:alarm'
+  - title: Automations
+    path: automation_view
+    cards:
+      - entities:
           - automation.winter_element_workroom_off
           - automation.winter_element_workroom
           - automation.charger_workroom_off
           - script.signal_alarm_active
-      - type: entities
-        title: Automation
-        entities:
+        title: Charger or element
+        type: entities
+        show_header_toggle: true
+      - entities:
           - automation.bedroom_charging_evening_on
           - automation.charger_off_controller
           - automation.evening_light_on
@@ -424,23 +495,23 @@ views:
           - automation.turnonkitchen
           - automation.morning_light_on
           - automation.morninglight_off
-      - type: entities
-        title: Välj av eller på
-        entities:
+        title: Automation
+        type: entities
+      - entities:
           - input_boolean.notify_debug_l1
           - input_boolean.notify_debug_l2
           - input_boolean.notify_debug_l3
-      - type: entities
-        title: Välj
-        entities:
+        title: Välj av eller på
+        type: entities
+      - entities:
           - input_select.window_lamp
           - input_select.hus_mode
           - input_select.time_day
           - input_select.time_year
           - input_select.at_home
-      - type: entities
-        title: Skript
-        entities:
+        title: Välj
+        type: entities
+      - entities:
           - script.temp_flash_015
           - script.temp_flash_10
           - script.temp_flash_5
@@ -452,13 +523,15 @@ views:
           - script.windowlamps_off
           - script.windowlamps_on
           - script.shutdown
-      - type: entities
-        title: Kontakt
-        entities:
+        title: Skript
+        type: entities
+      - entities:
           - switch.fire_alam_off
-    icon: 'mdi:account-multiple'
+        title: Kontakt
+        type: entities
     badges:
       - device_tracker.kristian
       - device_tracker.hass_kr
       - device_tracker.dorothea
       - device_tracker.hass_dotti
+    icon: 'mdi:account-multiple'
