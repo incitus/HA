@@ -561,8 +561,14 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
         data:
           transition: 1800
           brightness: 255
-            
-          
+      - service: light.turn_on
+        entity_id: light.dorotheas_sanglampa
+        data:
+          transition: 1800
+          brightness: 255
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.wakeup_enabled
+
  - alias: 'Trigger alarm while armed home'
    hide_entity: false
    initial_state: 'on'
