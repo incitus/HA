@@ -105,4 +105,17 @@
           data:
            entity_id: input_select.hus_mode
            option: Normal
+      show_temp_mode:
+        friendly_name: Show temperatures
+        value_template: "{{ is_state('input_select.show_temps', '_On_')}}"
+        turn_on:
+          service: input_select.select_option
+          data:
+           entity_id: input_select.show_temps
+           option: _On_
+        turn_off:
+          service: input_select.select_option
+          data:
+           entity_id: input_select.show_temps
+           option: _Off_
 

@@ -241,6 +241,13 @@ input_select:
        options:
         - _On_
         - _Off_
+     show_temps:
+       name: Show Temperatures
+       options:
+        - _On_
+        - _Off_
+     
+
         
 
 automation: !include automation.yaml
