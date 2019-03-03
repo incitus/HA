@@ -296,6 +296,16 @@ input_datetime:
     has_time: true
     has_date: false
     initial: "07:20"
+  plant_turn_on:
+    name: "Växtlampa På"
+    has_time: true
+    has_date: false
+    initial: "8:00"
+  plant_turn_off:
+    name: "Växtlampa off"
+    has_time: true
+    has_date: false
+    initial: "20:00"
  
 sensor:
   - platform: time_date
