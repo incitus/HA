@@ -300,12 +300,12 @@ input_datetime:
     name: "Växtlampa På"
     has_time: true
     has_date: false
-    initial: "8:00"
+    initial: "6:00"
   plant_turn_off:
     name: "Växtlampa off"
     has_time: true
     has_date: false
-    initial: "20:00"
+    initial: "18:00"
  
 sensor:
   - platform: time_date
