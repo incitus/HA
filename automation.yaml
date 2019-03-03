@@ -1393,14 +1393,14 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        data:
           entity_id: input_select.at_home
           option: Extended
-- alias: "På tid"
+ - alias: "På tid"
    trigger:
       platform: template
       value_template: "{{ (states('sensor.time') == (states.input_datetime.plant_turn_on.attributes.timestamp | int | timestamp_custom('%H:%M', False))) }}"
    action:
       - service: switch.turn_on
         entity_id: switch.device_65
-- alias: "Av tid"
+ - alias: "Av tid"
    trigger:
       platform: template
       value_template: "{{ (states('sensor.time') == (states.input_datetime.plant_turn_off.attributes.timestamp | int | timestamp_custom('%H:%M', False))) }}"
