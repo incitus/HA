@@ -643,7 +643,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: numeric_state
-      entity_id:  sensor.vardagsrum_laddstation_power
+      entity_id:  sensor.vardagsrum_laddstation_power_2
       below: 2
       for:
        minutes: 30
