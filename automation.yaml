@@ -1077,9 +1077,71 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       data:
          message: "Batteri i barnrums sensor låg"
          title: "Alarm"
-
-
-       
+ - alias: battery_warning_2
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+     - platform: numeric_state
+       entity_id:  sensor.forradsfrys_humidity
+       value_template: '{{ state.attributes.battery_level }}'
+       below: 20
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Batteri i frys sensor låg"
+         title: "Alarm"
+ - alias: battery_warning_3
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+     - platform: numeric_state
+       entity_id:   sensor.hall_rorelsesensor_luminance
+       value_template: '{{ state.attributes.battery_level }}'
+       below: 20
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Batteri i hall rörelsesensor låg"
+         title: "Alarm"
+ - alias: battery_warning_4
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+     - platform: numeric_state
+       entity_id:   sensor.kok_rorelse_temperature
+       value_template: '{{ state.attributes.battery_level }}'
+       below: 20
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Batteri i Kök rörelsesensor låg"
+         title: "Alarm"
+ - alias: battery_warning_5
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+     - platform: numeric_state
+       entity_id:   sensor.sovrum_temperature
+       value_template: '{{ state.attributes.battery_level }}'
+       below: 20
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Batteri i sovrums sensor låg"
+         title: "Alarm"
+ - alias: battery_warning_6
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+     - platform: numeric_state
+       entity_id:   sensor.vardagsrum_rorelse_temperature
+       value_template: '{{ state.attributes.battery_level }}'
+       below: 20
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Batteri i vardagsrums rörelsesensor låg"
+         title: "Alarm"
        
        
        
