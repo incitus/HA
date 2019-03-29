@@ -713,7 +713,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: light.turn_on
       data:
         entity_id: light.koksbank
-        brightness: 35
+        brightness: 40
         color_name: white
 
 
@@ -1063,6 +1063,19 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: notify.pushb_d
       data:
          message: "Temperaturen i frysen över larmgräns, {{ states.sensor.forradsfrys_temperature.state }} kontrolllera dörren"
+         title: "Alarm"
+ - alias: battery_warning
+   hide_entity: False
+   initial_state: 'on'
+   trigger:
+     - platform: numeric_state
+       entity_id: sensor.barnrum_humidity
+       value_template: '{{ state.attributes.battery_level }}'
+       below: 20
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Batteri i barnrums sensor låg"
          title: "Alarm"
 
 
