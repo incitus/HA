@@ -332,6 +332,10 @@
   genmovie:
     alias: Generate movie
     sequence:
+      - alias: mov
+        service: shell_command.rmmov
+      - alias: mov
+        service: shell_command.rmjpeg
       - alias: photo
         service: camera.snapshot
         data:
