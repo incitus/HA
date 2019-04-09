@@ -80,7 +80,12 @@ homeassistant:
       friendly_name: Frys temperatur
 
 
-
+auth_providers:
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.55.160
+      allow_bypass_login: true
+    - type: homeassistant
 
 
 
