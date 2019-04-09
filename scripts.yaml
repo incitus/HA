@@ -172,8 +172,8 @@
          message: "Window lamps off"
          title: "DEBUG"     
     
-  alarm_lights:
-   alias: Alarm light on
+  alarm_acive:
+   alias: Alarm Active
    sequence:
      - condition: and
        conditions:
@@ -188,56 +188,47 @@
        service: homeassistant.turn_on
        data:
          entity_id: switch.vardagsrum_overvakningskamera
-     - alias: alam lihgt off
-       service: script.turn_off
-       data:
-        entity_id: script.alarm_lights_off
-     - alias: lamp loop
-       service: script.turn_on
-       data:
-        entity_id: script.going_away
-
-
-  going_away:
-   alias: away
-   sequence:
-     - alias: light off
+     - alias: away
        service: homeassistant.turn_off
        data:
-        entity_id: group.away_off
-     - condition: or
+         entity_id: group.away_off
+
+  away_acive:
+   alias: Alarm Active
+   sequence:
+     - condition: and
        conditions:
        - condition: template
          value_template: >
-           {% if is_state('input_select.hus_mode', 'Armed') %}
-             false
-           {% else %}
+           {% if is_state('input_select.at_home', 'Away') %}
              true
+           {% else %}
+             false
            {% endif %}
-     - service: input_select.select_option
+     - alias: away
+       service: homeassistant.turn_off
        data:
-          entity_id: input_select.hus_mode
-          option: Away
-
-
-  alarm_lights_off:
-   alias: Alarm light loop
+         entity_id: group.away_off
+  extended_acive:
+   alias: Alarm Active
    sequence:
-    - condition: and
-      conditions:
+     - condition: and
+       conditions:
        - condition: template
          value_template: >
-           {% if is_state('input_select.hus_mode', 'Armed') %}
-             false
-           {% else %}
+           {% if is_state('input_select.at_home', 'Extended') %}
              true
+           {% else %}
+             false
            {% endif %}
-    - service: script.turn_off
-      data:
-        entity_id: script.alarm_lights
-    - service: homeassistant.turn_off
-      data:
-         entity_id: switch.hall_larmlampa
+     - alias: away
+       service: homeassistant.turn_off
+       data:
+         entity_id: group.away_off
+ 
+
+
+  
 
   morgonljus_on:
    alias: morgonljus_on

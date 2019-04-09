@@ -351,7 +351,10 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       data:
          message: 'Auto alarm activate'
          title: 'Alarm'
-
+    - service: input_select.select_option
+      data:
+          entity_id: input_select.hus_mode
+          option: Armed
 
  - alias: 'automatic away'
    hide_entity: false
@@ -1318,8 +1321,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
      - service: script.utelampa
      - service: script.hall_lampa
      - service: script.hall_lampa_off
-     - service: script.alarm_lights
-     - service: script.alarm_lights_off
+     - service: script.alarm_acive
+     - service: script.extended_acive
+     - service: script.away_acive
 
      
      
