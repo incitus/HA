@@ -6,8 +6,8 @@
       # Will work on most Phillips TVs:
       tv_phillips_on:
         friendly_name: "TV"
+        command_oon: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
         command_off: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
-        command_on: 'JgAqAFobDh4NEBAMLSwQDQ8NEg0OEBANDw4RCxAPEA0PDxANDg8RDQ0QHgANBQAAAAAAAAAAAAAAAAAA'
       tv_phillips_ch:
         friendly_name: "Kanal"
         command_off: 'JgAoAFobDh4QDQ4QKi0QDQ4QEA0ODxENDg8RCw8QEA0fHBANDg8RDR8ADQU='
@@ -32,7 +32,7 @@
       tv_off:
         friendly_name: "tv_off"
         command_off: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
-        command_on: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
+        command_on:  'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
       tv_ch_down:
         friendly_name: "tv_down"
         command_off: 'JgAoAFobDh4QDQ4QKi0QDQ4QEA0ODxENDg8RCw8QEA0fHBANDg8RDR8ADQU='
