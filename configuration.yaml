@@ -160,9 +160,6 @@ telegram_bot:
 # Discover some devices automatically
 #discovery:
 
-tellduslive:
- update_interval: 3
-
 
 conversation:
 # Enables support for tracking state changes over time.
@@ -177,12 +174,13 @@ logbook:
   domains:
    script
 
-light:
-  - platform: yeelight
-    devices:
-      192.168.55.11:
+
+yeelight:
+  devices:
+    192.168.55.11:
        name: Altan
        transition: 1000
+      
     
 
 # Track the sun
