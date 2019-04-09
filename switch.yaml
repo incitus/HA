@@ -6,7 +6,7 @@
       # Will work on most Phillips TVs:
       tv_phillips_on:
         friendly_name: "TV"
-        command_oon: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
+        command_on: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
         command_off: 'JgAqAFsbDx0QDQ8QKiwRCw8QEA0PDhENDg8RDQ4QEAsQDxANHBARGw4PEQANBQAAAAAAAAAAAAAAAAAA'
       tv_phillips_ch:
         friendly_name: "Kanal"
