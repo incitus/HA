@@ -262,10 +262,10 @@ script: !include scripts.yaml
 switch: !include switch.yaml
 
 shell_command:
-       genmov: cd /tmp && convert -delay 20 -loop 0 livingroom*.jpg /tmp/myimage.gif
+       #genmov: cd /tmp && convert -delay 20 -loop 0 livingroom*.jpg /tmp/myimage.gif
        # mencoder mf:///tmp/livingroom*.jpg -mf fps=1:type=jpg -ovc x264 -x264encopts bitrate=1200:threads=2 -o /tmp/outputfile.gif
-       #genmov: ffmpeg -framerate 5 -f image2 -i  /tmp/output.mpg
-       rmmov: rm -f /tmp/myimage.gif
+       genmov: ffmpeg -framerate 2 -f livingroom*.jpg -i  /tmp/myimage.mp4
+       rmmov: rm -f /tmp/myimage.mp4
        rmjpeg: rm -f /tmp/*jpeg
        zip: cd /tmp && zip images.zip livingroom*.jpg
        shutdown: ssh pi@192.168.55.160 "sudo halt"
