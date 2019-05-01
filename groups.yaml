@@ -264,7 +264,7 @@
  window_lamps:
   name: "Window lamps"
   entities:  
-   - switch.barnrum_fonsterlampa
+#   - switch.barnrum_fonsterlampa
    - switch.kok_fonsterlampa
    - switch.vardagsrum_fonsterlampa
    - light.korridor_fonsterlampa
