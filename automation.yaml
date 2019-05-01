@@ -90,7 +90,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ ((as_
     - service: script.genmovie
     - delay:
        seconds: 60
-    - service: telegram_bot.send_photo
+    - service: telegram_bot.send_document
       data_template:
          target: '{{ trigger.event.data.user_id }}'
          file: '/tmp/myimage.gif'
@@ -230,7 +230,21 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
 
 ##############
 ## Switch terminate Automations
-################
+################,
+ - alias: 'garage_dorr terminate'
+   hide_entity: false
+   trigger:
+    - platform: time_pattern
+      minutes: '/15'
+   condition:
+    - condition: state
+      entity_id: switch.garage_dorr
+      state: 'on'
+   action:
+    - delay: '00:05:00'
+    - service: homeassistant.turn_off
+      data:
+       entity_id: switch.garage_dorr
  - alias: 'forr terminate'
    hide_entity: false
    trigger:
@@ -273,20 +287,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: homeassistant.turn_off
       data:
        entity_id: switch.forrad_rorelse
- - alias: 'hall terminate'
-   hide_entity: false
-   trigger:
-    - platform: time_pattern
-      minutes: '/15'
-   condition:
-    - condition: state
-      entity_id: switch.hall_dorr
-      state: 'on'
-   action:
-    - delay: '00:05:00'
-    - service: homeassistant.turn_off
-      data:
-       entity_id: switch.hall_dorr
  - alias: 'korridor terminate'
    hide_entity: false
    trigger:
@@ -317,7 +317,18 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        entity_id: switch.altan_rorelse
 #######
 ### Alarm
-######
+###### switch.garage_dorr
+ - alias: 'Automatic garage notif'
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: switch.garage_dorr
+      to: 'On'
+   action:
+    - service: notify.pushb_k
+      data:
+         message: 'Garage dörr öppnad'
+         title: 'Alarm'
 
  - alias: 'automatic arm'
    hide_entity: false
@@ -355,6 +366,8 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       data:
           entity_id: input_select.hus_mode
           option: Armed
+
+
 
  - alias: 'automatic away'
    hide_entity: false
