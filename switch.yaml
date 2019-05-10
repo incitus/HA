@@ -118,9 +118,4 @@
           data:
            entity_id: input_select.show_temps
            option: _Off_
-  - platform: template
-    sensors:
-     garage_time:
-      value_template: ‘{{relative_time(states.switch.garage_dorr.last_updated)}}’
-      entity_id: switch.garage_dorr
 
