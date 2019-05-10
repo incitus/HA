@@ -237,7 +237,7 @@
       data:
         entity_id: switch.tv_phillips_on
     - service: input_select.select_option
-       data:
+      data:
           entity_id: input_select.time_day
           option: Night
   morgonljus_on:
