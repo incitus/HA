@@ -118,4 +118,16 @@
           data:
            entity_id: input_select.show_temps
            option: _Off_
+      night_mode:
+        friendly_name: Nattläge
+        value_template: "{{ is_state('input_select.time_day', 'Night')}}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+           entity_id: script.Sovgott
+        turn_off:
+          service: input_select.select_option
+          data:
+           entity_id: input_select.time_day
+           option: Evening
 
