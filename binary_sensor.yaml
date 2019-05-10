@@ -1,113 +1,596 @@
-###
-### Doors and motion
-###
- - platform: template
-   sensors:
-    hall_break:
-     value_template: "{{ is_state('binary_sensor.device_85', 'on') }}"
-     device_class: moving
-     entity_id: binary_sensor.device_85
-     friendly_name: "Brytare Ytterdörr"
-
-    altan_break:
-     value_template: "{{ is_state('switch.altan_dorr', 'on') }}"
-     device_class: moving
-     entity_id: switch.altan_dorr
-     friendly_name: "Brytare altan"
-     
-    altan_motion:
-     value_template: "{{ is_state('switch.altan_rorelse', 'on') }}"
-     device_class: moving
-     entity_id: switch.altan_rorelse
-     friendly_name: "Rörelse altan"
-     
-    work_motion: 
-     value_template: "{{ is_state('switch.forrad_rorelse', 'on') }}"
-     device_class: moving
-     entity_id: switch.forrad_rorelse
-     friendly_name: "Rörelse Förråd"
-
-    work_break:
-     value_template: "{{ is_state('switch.forrad_dorr', 'on') }}"
-     device_class: moving
-     entity_id: switch.forrad_dorr
-     friendly_name: "Brytare arbetsrum"
-
-    korridor_motion:
-     value_template: "{{ is_state('switch.korridor_rorelsesensor', 'on') }}"
-     device_class: moving
-     entity_id: switch.korridor_rorelsesensor
-     friendly_name: "Rörelse korridor"
-
-    entre_motion:
-     value_template: "{{ is_state('binary_sensor.hall_rorelsesensor', 'on') }}"
-     device_class: moving
-     entity_id: binary_sensor.hall_rorelsesensor
-     friendly_name: "Entre korridor"
-
-    motion:
-     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.korridor_motion', 'on') or is_state('binary_sensor.work_break', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.vardagsrum_rorelse', 'on') }}"
-     device_class: moving
-     entity_id:
-      - binary_sensor.hall_rorelsesensor
-      - binary_sensor.altan_break
-      - binary_sensor.work_break
-      - binary_sensor.work_motion
-      - binary_sensor.hall_break
-      - binary_sensor.korridor_motion
-      - binary_sensor.entre_motion
-      - binary_sensor.kok_rorelase
-      - binary_sensor.vardagsrum_rorelse
-     friendly_name: "Rörelse"
-
-
-    motion_downstairs:
-     value_template: "{{ is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.vardagsrum_rorelse', 'on') }}"
-     device_class: moving
-     entity_id:
-      - binary_sensor.hall_rorelsesensor
-      - binary_sensor.altan_break
-      - binary_sensor.hall_break
-      - binary_sensor.entre_motion
-      - binary_sensor.kok_rorelase
-      - binary_sensor.vardagsrum_rorelse
-     friendly_name: "Rörelse"
-
-#####
-### Integrity *Fire/Flood/Earth
-###
-    fire_alarm:
-     value_template: "{{ is_state('binary_sensor.hall_brandvanare', 'on') or is_state('switch.brandvarnare_siren', 'on') }}"
-     device_class: motion
-     entity_id:
-      - binary_sensor.hall_brandvanare
-      - switch.brandvarnare_siren
-     friendly_name: "Brandalarm"
-
-
-###
-## Precance
-###
-    at_home:
-      value_template: "{{ is_state('binary_sensor.dorothea_collect','on') or is_state('binary_sensor.kristian_collect', 'on') }}"
-      device_class: presence
-      entity_id:
-       - binary_sensor.dorothea_collect
-       - binary_sensor.kristian_collect
-      friendly_name: "At home"
-
-    kristian_collect:
-      value_template: "{{ is_state('device_tracker.kristian', 'home') or is_state('device_tracker.hass_kr', 'home')}}"
-      device_class: presence
-      entity_id:
-       - device_tracker.kristian
-       - device_tracker.hass_kr
-      friendly_name: "Kristian"
-
-    dorothea_collect:
-      value_template: "{{ is_state('device_tracker.dorothea', 'home') or is_state('device_tracker.hass_dotti', 'home')}}"
-      device_class: presence
-      entity_id:
-       - device_tracker.dorothea
-       - device_tracker.hass_dotti
-      friendly_name: "Dorothea"
+views:
+  - cards:
+      - name: Scenes
+        type: vertical-stack
+        cards:
+          - content: |
+              ## Scenes
+            type: markdown
+          - conditions:
+              - state: Armed
+                entity: input_select.hus_mode
+            card:
+              entity: alarm_control_panel.alarm
+              type: alarm-panel
+            type: conditional
+          - name: Scenes
+            type: horizontal-stack
+            cards:
+              - icon: 'mdi:lightbulb-on'
+                name: Fönster
+                tap_action:
+                  action: toggle
+                entity: switch.window_lamps
+                type: entity-button
+              - icon: 'mdi:shield-key'
+                name: Alarm
+                entity: alarm_control_panel.alarm
+                type: entity-button
+              - icon: 'mdi:account-multiple'
+                name: Gäst
+                tap_action:
+                  action: toggle
+                entity: switch.guest_mode
+                type: entity-button
+          - conditions:
+              - state: Armed
+                entity: input_select.hus_mode
+            card:
+              - title: null
+                entities:
+                  - icon: 'mdi:shoe-formal'
+                    name: ''
+                    entity: binary_sensor.hall_rorelsesensor
+                  - icon: 'mdi:pot'
+                    name: ''
+                    entity: binary_sensor.kok_rorelse
+                  - icon: 'mdi:television-classic'
+                    name: ''
+                    entity: binary_sensor.vardagsrum_rorelse
+                  - icon: 'mdi:hammer'
+                    name: ''
+                    entity: binary_sensor.work_motion
+                  - icon: 'mdi:bank'
+                    name: ''
+                    entity: binary_sensor.altan_motion
+                type: glance
+              - title: null
+                entities:
+                  - icon: 'mdi:door'
+                    name: Hall
+                    entity: binary_sensor.hall_break
+                  - icon: 'mdi:door'
+                    name: Arbetsrum
+                    entity: binary_sensor.work_break
+                  - icon: 'mdi:door'
+                    name: Altan
+                    entity: binary_sensor.altan_break
+                type: glance
+            type: conditional
+          - type: horizontal-stack
+            cards:
+              - entity: binary_sensor.motion
+                type: entity-button
+              - entity: binary_sensor.fire_alarm
+                type: entity-button
+              - entity: binary_sensor.at_home
+                type: entity-button
+          - conditions:
+              - state: _On_
+                entity: input_select.show_temps
+            card:
+              type: horizontal-stack
+              cards:
+                - name: 'utomhus '
+                  graph: line
+                  entity: sensor.utomhus_temperature
+                  type: sensor
+            type: conditional
+    badges: []
+    title: default_view
+    path: default_view
+    icon: 'mdi:home'
+    panel: false
+  - cards:
+      - name: Vardagsrum
+        type: vertical-stack
+        cards:
+          - content: |
+              ## Vardagsrum
+            type: markdown
+          - conditions:
+              - state: _On_
+                entity: input_select.show_temps
+            card:
+              type: horizontal-stack
+              cards:
+                - icon: 'mdi:battery-charging'
+                  graph: line
+                  entity: sensor.vardagsrum_laddstation_power_2
+                  type: sensor
+                  name: ' '
+                - name: ' '
+                  graph: line
+                  entity: sensor.vardagsrum_rorelse_temperature
+                  type: sensor
+                - name: ' '
+                  graph: line
+                  entity: sensor.vardagsrum_rorelse_luminance
+                  type: sensor
+            type: conditional
+          - type: horizontal-stack
+            cards:
+              - entities:
+                  - icon: 'mdi:lamp'
+                    name: Byrå
+                    tap_action:
+                      action: toggle
+                    entity: switch.vardagsrum_bordslampa
+                  - icon: 'mdi:battery-charging'
+                    tap_action:
+                      action: toggle
+                    entity: switch.vardagsrum_laddstation
+                  - icon: 'mdi:window-closed'
+                    name: Fönster
+                    tap_action:
+                      action: toggle
+                    entity: switch.vardagsrum_fonsterlampa
+                  - icon: 'mdi:wall-sconce'
+                    name: Altan
+                    tap_action:
+                      action: toggle
+                    entity: light.altan
+                type: glance
+      - type: vertical-stack
+        cards:
+          - entity: media_player.vardagsrum
+            type: media-control
+          - type: horizontal-stack
+            cards:
+              - icon: 'mdi:volume-plus'
+                name: ' '
+                tap_action:
+                  action: toggle
+                entity: switch.tv_vol_up
+                type: entity-button
+              - icon: 'mdi:chevron-up-circle'
+                name: ' '
+                tap_action:
+                  action: toggle
+                entity: switch.tv_ch_up
+                type: entity-button
+              - icon: 'mdi:power'
+                name: ' '
+                tap_action:
+                  action: toggle
+                entity: switch.tv_phillips_on
+                type: entity-button
+          - type: horizontal-stack
+            cards:
+              - icon: 'mdi:square-small'
+                name: ' '
+                tap_action:
+                  action: toggle
+                entity: switch.tv_phillips_mute
+                type: entity-button
+              - icon: 'mdi:volume-off'
+                name: ' '
+                tap_action:
+                  action: toggle
+                entity: switch.tv_phillips_mute
+                type: entity-button
+              - icon: 'mdi:square-small'
+                name: ' '
+                tap_action:
+                  action: toggle
+                entity: switch.tv_phillips_mute
+                type: entity-button
+          - type: horizontal-stack
+            cards:
+              - icon: 'mdi:volume-minus'
+                name: ' '
+                tap_action:
+                  action: toggle
+                entity: switch.tv_vol_down
+                type: entity-button
+              - icon: 'mdi:chevron-down-circle'
+                name: ' '
+                tap_action:
+                  action: toggle
+                entity: switch.tv_ch_down
+                type: entity-button
+              - icon: 'mdi:square-small'
+                name: ' '
+                tap_action:
+                  action: toggle
+                entity: switch.tv_ch_down
+                type: entity-button
+    badges: []
+    title: Livingroom
+    panel: false
+    icon: 'mdi:television-classic'
+  - cards:
+      - name: Kök
+        type: vertical-stack
+        cards:
+          - content: |
+              ## Kök
+            type: markdown
+          - conditions:
+              - state: _On_
+                entity: input_select.show_temps
+            card:
+              type: horizontal-stack
+              cards:
+                - name: ' '
+                  graph: line
+                  entity: sensor.kok_rorelse_temperature
+                  type: sensor
+                - name: ' '
+                  graph: line
+                  entity: sensor.kok_rorelse_luminance
+                  type: sensor
+            type: conditional
+          - type: horizontal-stack
+            cards:
+              - entities:
+                  - icon: 'mdi:coffee'
+                    tap_action:
+                      action: toggle
+                    entity: switch.kaffemaskin
+                  - icon: 'mdi:window-closed'
+                    name: Fönster
+                    tap_action:
+                      action: toggle
+                    entity: switch.kok_fonsterlampa
+                  - icon: 'mdi:dishwasher'
+                    name: Diskbänk
+                    tap_action:
+                      action: toggle
+                    entity: light.koksbank
+                type: glance
+    badges: []
+    title: Kitchen
+    icon: 'mdi:pot-mix'
+  - cards:
+      - name: Vardagsrum
+        type: vertical-stack
+        cards:
+          - content: |
+              ## Sovrum
+            type: markdown
+          - conditions:
+              - state: _On_
+                entity: input_select.show_temps
+            card:
+              type: horizontal-stack
+              cards:
+                - name: ' '
+                  graph: line
+                  entity: sensor.sovrum_humidity
+                  type: sensor
+                - name: ' '
+                  graph: line
+                  entity: sensor.sovrum_temperature
+                  type: sensor
+            type: conditional
+          - conditions:
+              - state: Evening
+                entity: input_select.time_day
+            card:
+              entities:
+                - entity: input_boolean.wakeup_enabled
+                - entity: input_datetime.wakeup_time
+              type: entities
+            type: conditional
+          - conditions:
+              - state: Night
+                entity: input_select.time_day
+            card:
+              entities:
+                - entity: input_boolean.wakeup_enabled
+                - entity: input_datetime.wakeup_time
+              type: entities
+            type: conditional
+          - type: horizontal-stack
+            cards:
+              - content: |
+                  ## Dorothea
+                type: markdown
+              - content: |
+                  ## Kristian
+                type: markdown
+          - type: horizontal-stack
+            cards:
+              - entities:
+                  - icon: 'mdi:human-female'
+                    name: lampa
+                    tap_action:
+                      action: toggle
+                    entity: light.dorotheas_sanglampa
+                  - icon: 'mdi:battery-charging'
+                    name: laddare
+                    tap_action:
+                      action: toggle
+                    entity: switch.mobilladdare_dorothea
+                type: glance
+              - entities:
+                  - icon: 'mdi:human'
+                    name: lampa
+                    tap_action:
+                      action: toggle
+                    entity: light.kristians_sanglampa
+                  - icon: 'mdi:battery-charging'
+                    name: laddare
+                    tap_action:
+                      action: toggle
+                    entity: switch.mobilladdare_kristian
+                type: glance
+    badges: []
+    title: Sovrum
+    icon: 'mdi:hotel'
+  - cards:
+      - name: Arbetsrum
+        type: vertical-stack
+        cards:
+          - content: |
+              ## Förråd
+            type: markdown
+          - conditions:
+              - state: _On_
+                entity: input_select.show_temps
+            card:
+              type: horizontal-stack
+              cards:
+                - name: ' '
+                  graph: line
+                  entity: sensor.forrad_humidity
+                  type: sensor
+                - name: ' '
+                  graph: line
+                  entity: sensor.forrad_temperature
+                  type: sensor
+                - name: ' '
+                  graph: line
+                  entity: sensor.forradsfrys_temperature
+                  type: sensor
+            type: conditional
+          - conditions:
+              - state: Winter
+                entity: input_select.time_year
+            card:
+              type: horizontal-stack
+              cards:
+                - entities:
+                    - icon: 'mdi:radiator'
+                      name: Element
+                      tap_action:
+                        action: toggle
+                      entity: switch.forrad_uttag
+                  type: glance
+            type: conditional
+          - conditions:
+              - state: Summer
+                entity: input_select.time_year
+            card:
+              type: horizontal-stack
+              cards:
+                - entities:
+                    - icon: 'mdi:bike'
+                      name: Cykelladdare
+                      tap_action:
+                        action: toggle
+                      entity: switch.forrad_uttag
+                  type: glance
+            type: conditional
+          - conditions:
+              - state: Autumn
+                entity: input_select.time_year
+            card:
+              type: horizontal-stack
+              cards:
+                - entities:
+                    - icon: 'mdi:bike'
+                      name: Cykelladdare
+                      tap_action:
+                        action: toggle
+                      entity: switch.forrad_uttag
+                  type: glance
+            type: conditional
+          - conditions:
+              - state: Spring
+                entity: input_select.time_year
+            card:
+              type: horizontal-stack
+              cards:
+                - entities:
+                    - icon: 'mdi:bike'
+                      name: Cykelladdare
+                      tap_action:
+                        action: toggle
+                      entity: switch.forrad_uttag
+                  type: glance
+            type: conditional
+    badges: []
+    title: Förråd
+    icon: 'mdi:hammer'
+  - cards:
+      - type: vertical-stack
+        cards:
+          - content: |
+              ## Home
+            type: markdown
+          - conditions:
+              - state: Armed
+                entity: input_select.hus_mode
+            card:
+              entity: alarm_control_panel.alarm
+              type: alarm-panel
+            type: conditional
+          - type: horizontal-stack
+            cards:
+              - camera_image: camera.livingroom
+                title: Livingroom
+                entities: []
+                type: picture-glance
+      - title: Integrity
+        show_header_toggle: true
+        entities:
+          - binary_sensor.fire_alarm
+          - binary_sensor.kristian_collect
+          - binary_sensor.dorothea_collect
+          - binary_sensor.at_home
+        type: entities
+      - title: Motion
+        show_header_toggle: true
+        entities:
+          - binary_sensor.motion
+          - binary_sensor.korridor_motion
+          - binary_sensor.hall_rorelsesensor
+          - binary_sensor.kok_rorelse
+          - binary_sensor.vardagsrum_rorelse
+          - binary_sensor.work_motion
+          - binary_sensor.altan_motion
+        type: entities
+      - title: Doors
+        show_header_toggle: true
+        entities:
+          - binary_sensor.hall_break
+          - binary_sensor.altan_break
+          - binary_sensor.work_break
+        type: entities
+    badges: []
+    title: Survailance
+    path: motion_view
+    icon: 'mdi:camera'
+    panel: true
+  - icon: 'mdi:flower'
+    cards:
+      - tap_action:
+          action: toggle
+        entity: switch.device_65
+        hold_action:
+          action: more-info
+        icon: 'mdi:flower'
+        name: På
+        type: entity-button
+    title: Plants
+    badges: []
+  - path: automation_view
+    icon: 'mdi:account-multiple'
+    cards:
+      - title: Charger or element
+        show_header_toggle: true
+        entities:
+          - automation.winter_element_workroom_off
+          - automation.winter_element_workroom
+          - automation.charger_workroom_off
+          - script.signal_alarm_active
+        type: entities
+      - title: Automation
+        entities:
+          - automation.bedroom_charging_evening_on
+          - automation.charger_off_controller
+          - automation.evening_light_on
+          - automation.evening_light_off
+          - automation.turnofftv
+          - automation.turnonkitchen
+          - automation.morning_light_on
+          - automation.morninglight_off
+        type: entities
+      - title: Välj av eller på
+        entities:
+          - input_boolean.notify_debug_l1
+          - input_boolean.notify_debug_l2
+          - input_boolean.notify_debug_l3
+        type: entities
+      - title: Välj
+        entities:
+          - input_select.window_lamp
+          - input_select.hus_mode
+          - input_select.time_day
+          - input_select.time_year
+          - input_select.at_home
+        type: entities
+      - title: Skript
+        entities:
+          - script.temp_flash_015
+          - script.temp_flash_10
+          - script.temp_flash_5
+          - script.temp_flash_0
+          - script.temp_flash_05
+          - script.temp_flash_010
+          - script.alarm_sequence
+          - script.armed_notification
+          - script.windowlamps_off
+          - script.windowlamps_on
+          - script.shutdown
+        type: entities
+      - title: Kontakt
+        entities:
+          - switch.fire_alam_off
+        type: entities
+      - name: Kök
+        type: vertical-stack
+        cards:
+          - content: |
+              ## Hall
+            type: markdown
+          - conditions:
+              - state: _On_
+                entity: input_select.show_temps
+            card:
+              type: horizontal-stack
+              cards:
+                - name: ' '
+                  graph: line
+                  entity: sensor.hall_rorelsesensor_temperature
+                  type: sensor
+                - name: ' '
+                  graph: line
+                  entity: sensor.hall_rorelsesensor_luminance
+                  type: sensor
+            type: conditional
+          - type: horizontal-stack
+            cards:
+              - entities:
+                  - icon: 'mdi:lamp'
+                    tap_action:
+                      action: toggle
+                    entity: switch.hall_trapplampa
+                type: glance
+      - name: Kök
+        type: vertical-stack
+        cards:
+          - content: |
+              ## Korridor
+            type: markdown
+          - type: horizontal-stack
+            cards:
+              - entities:
+                  - icon: 'mdi:lamp'
+                    tap_action:
+                      action: toggle
+                    entity: light.korridor_fonsterlampa
+                type: glance
+      - name: Syrum
+        type: vertical-stack
+        cards:
+          - content: |
+              ## Syrum
+            type: markdown
+          - type: horizontal-stack
+            cards:
+              - entities:
+                  - icon: 'mdi:lamp'
+                    tap_action:
+                      action: toggle
+                    entity: switch.syrum_fonsterlampa
+                type: glance
+    title: Automations
+    badges:
+      - device_tracker.kristian
+      - device_tracker.hass_kr
+      - device_tracker.dorothea
+      - device_tracker.hass_dotti
+title: Home
