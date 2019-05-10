@@ -225,10 +225,6 @@
        service: homeassistant.turn_off
        data:
          entity_id: group.away_off
- 
-
-
-  
   sovgott:
    alias: Sovgott
    sequence:
@@ -244,8 +240,6 @@
        data:
           entity_id: input_select.time_day
           option: Night
-
-
   morgonljus_on:
    alias: morgonljus_on
    sequence:
