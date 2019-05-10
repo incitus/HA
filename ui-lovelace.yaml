@@ -32,6 +32,41 @@ views:
                   action: toggle
                 entity: switch.guest_mode
                 type: entity-button
+          - conditions:
+              - state: Armed
+                entity: input_select.hus_mode
+            card:
+              - title: null
+                entities:
+                  - icon: 'mdi:shoe-formal'
+                    name: ''
+                    entity: binary_sensor.hall_rorelsesensor
+                  - icon: 'mdi:pot'
+                    name: ''
+                    entity: binary_sensor.kok_rorelse
+                  - icon: 'mdi:television-classic'
+                    name: ''
+                    entity: binary_sensor.vardagsrum_rorelse
+                  - icon: 'mdi:hammer'
+                    name: ''
+                    entity: binary_sensor.work_motion
+                  - icon: 'mdi:bank'
+                    name: ''
+                    entity: binary_sensor.altan_motion
+                type: glance
+              - title: null
+                entities:
+                  - icon: 'mdi:door'
+                    name: Hall
+                    entity: binary_sensor.hall_break
+                  - icon: 'mdi:door'
+                    name: Arbetsrum
+                    entity: binary_sensor.work_break
+                  - icon: 'mdi:door'
+                    name: Altan
+                    entity: binary_sensor.altan_break
+                type: glance
+            type: conditional
           - type: horizontal-stack
             cards:
               - entity: binary_sensor.motion
@@ -40,24 +75,19 @@ views:
                 type: entity-button
               - entity: binary_sensor.at_home
                 type: entity-button
-          - title: null
-            entities:
-              - icon: 'mdi:shoe-formal'
-                name: ''
-                entity: binary_sensor.hall_rorelsesensor
-              - icon: 'mdi:pot'
-                name: ''
-                entity: binary_sensor.kok_rorelse
-              - icon: 'mdi:television-classic'
-                name: ''
-                entity: binary_sensor.vardagsrum_rorelse
-              - icon: 'mdi:hammer'
-                name: ''
-                entity: binary_sensor.work_motion
-              - icon: 'mdi:umbrella'
-                name: ''
-                entity: binary_sensor.altan_motion
-            type: glance
+          - type: horizontal-stack
+            cards:
+              - entity: switch.night_mode
+                type: entity-button
+                icon: m
+                name: ' '
+              - entity: switch.night_mode
+                type: entity-button
+                icon: 'mdi:sleep'
+              - entity: switch.night_mode
+                type: entity-button
+                icon: m
+                name: ' '
           - conditions:
               - state: _On_
                 entity: input_select.show_temps
@@ -67,13 +97,15 @@ views:
                 - name: 'utomhus '
                   graph: line
                   entity: sensor.utomhus_temperature
-                  type: sensor
+                  type: gauge
+                  max: 35
+                  min: -35
             type: conditional
     badges: []
     title: default_view
     path: default_view
     icon: 'mdi:home'
-    panel: true
+    panel: false
   - cards:
       - name: Vardagsrum
         type: vertical-stack
@@ -90,16 +122,22 @@ views:
                 - icon: 'mdi:battery-charging'
                   graph: line
                   entity: sensor.vardagsrum_laddstation_power_2
-                  type: sensor
+                  type: gauge
                   name: ' '
+                  max: 30
+                  min: 0
                 - name: ' '
                   graph: line
+                  max: 40
+                  min: 10
                   entity: sensor.vardagsrum_rorelse_temperature
-                  type: sensor
+                  type: gauge
                 - name: ' '
                   graph: line
                   entity: sensor.vardagsrum_rorelse_luminance
-                  type: sensor
+                  type: gauge
+                  max: 255
+                  min: 0
             type: conditional
           - type: horizontal-stack
             cards:
@@ -208,11 +246,12 @@ views:
                 - name: ' '
                   graph: line
                   entity: sensor.kok_rorelse_temperature
-                  type: sensor
+                  type: gauge
                 - name: ' '
                   graph: line
                   entity: sensor.kok_rorelse_luminance
-                  type: sensor
+                  type: gauge
+                  max: 255
             type: conditional
           - type: horizontal-stack
             cards:
@@ -251,11 +290,11 @@ views:
                 - name: ' '
                   graph: line
                   entity: sensor.sovrum_humidity
-                  type: sensor
+                  type: gauge
                 - name: ' '
                   graph: line
                   entity: sensor.sovrum_temperature
-                  type: sensor
+                  type: gauge
             type: conditional
           - conditions:
               - state: Evening
@@ -328,15 +367,17 @@ views:
                 - name: ' '
                   graph: line
                   entity: sensor.forrad_humidity
-                  type: sensor
+                  type: gauge
                 - name: ' '
-                  graph: line
+                  graph: gauge
                   entity: sensor.forrad_temperature
-                  type: sensor
+                  type: gauge
                 - name: ' '
                   graph: line
                   entity: sensor.forradsfrys_temperature
-                  type: sensor
+                  type: gauge
+                  min: -40
+                  max: -20
             type: conditional
           - conditions:
               - state: Winter
