@@ -316,6 +316,14 @@ sensor:
   - platform: time_date
     display_options:
      - 'time'
+  - platform: statistics
+    entity_id: sensor.vardagsrum_laddstation_power_2
+    name: Laddare vardagsrum, energi
+      minutes: 30
+  - platform: statistics
+    entity_id: sensor.forrad_uttag_power_2
+    name: Laddare arbetsrum
+      minutes: 30
 map:
 
 
