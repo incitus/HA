@@ -659,14 +659,16 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: numeric_state
-      entity_id:  sensor.vardagsrum_laddstation_power_2
-      below: 2
+      entity_id:  sensor.laddare_vardagsrum_energi_mean
+      below: 1
       for:
        minutes: 30
    action:
     - service: homeassistant.turn_off
       data:
        entity_id:  switch.vardagsrum_laddstation
+       for:
+       minutes: 30
 
  - alias: bedroom_charging_evening_on
    hide_entity: false
@@ -693,10 +695,8 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: numeric_state
-      entity_id: sensor.forrad_uttag_power_2
+      entity_id: sensor.laddare_arbetsrum_mean
       below: 5
-      for:
-       hours: 1
    action:
     - service: homeassistant.turn_off
       data:
