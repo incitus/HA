@@ -84,6 +84,8 @@ homeassistant:
     - type: trusted_networks
       trusted_networks:
         - 192.168.55.160
+        - 192.168.55.154
+        - 192.168.55.156
       allow_bypass_login: true
     - type: homeassistant
 
@@ -141,6 +143,9 @@ device_tracker:
     track_new_devices: yes
   - platform: owntracks
     consider_home: 00:30:00
+
+owntracks:
+  max_gps_accuracy: 200
 
  
 camera:
@@ -319,11 +324,13 @@ sensor:
   - platform: statistics
     entity_id: sensor.vardagsrum_laddstation_power_2
     name: Laddare vardagsrum, energi
-    minutes: 30
+    max_age:
+      minutes: 30
   - platform: statistics
     entity_id: sensor.forrad_uttag_power_2
     name: Laddare arbetsrum
-    minutes: 30
+    max_age:
+      minutes: 30
 map:
 
 
