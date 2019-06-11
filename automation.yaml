@@ -1414,26 +1414,26 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
           entity_id: input_select.time_day
           option: Evening
 
- - alias: Timeofday_evening_cludy
-   hide_entity: false
-   initial_state: 'on'
-   trigger:
-    platform: numeric_state
-    entity_id: sun.sun
-    value_template: '{{ state.attributes.elevation }}'
-    below: 6
-   condition:
-     - condition: time
-       before: '23:00:00'
-     - condition: numeric_state
-       entity_id: weather.smhi_home
-       value_template: '{{ state.attributes.state }}'
-       state: clody
-   action:
-     - service: input_select.select_option
-       data:
-          entity_id: input_select.time_day
-          option: Evening
+# - alias: Timeofday_evening_cludy
+#   hide_entity: false
+#   initial_state: 'on'
+#   trigger:
+#    platform: numeric_state
+#    entity_id: sun.sun
+#    value_template: '{{ state.attributes.elevation }}'
+#    below: 6
+#   condition:
+#     - condition: time
+#       before: '23:00:00'
+#     - condition: numeric_state
+#       entity_id: weather.smhi_home
+#       value_template: '{{ state.attributes.state }}'
+#       state: clody
+#   action:
+#     - service: input_select.select_option
+#       data:
+#          entity_id: input_select.time_day
+#          option: Evening
 
 
  - alias: away_mode
