@@ -141,8 +141,11 @@ device_tracker:
      dorothea: !secret d_ip
     consider_home: 00:30:00
     track_new_devices: yes
-  - platform: owntracks
-
+  #- platform: owntracks
+  - platform: mqtt
+    devices:
+      user:
+        'owntracks/user/device'
 owntracks:
   max_gps_accuracy: 200
 
