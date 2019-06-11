@@ -413,6 +413,10 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: binary_sensor.motion_downstairs
       to: 'on'
       from: 'off'
+    - platform: state
+      entity_id: 'binary_sensor.at_home'
+      to: 'on'
+      from: 'off'
    condition:
      - condition: state
        entity_id: switch.hall_mediapanel
@@ -1180,12 +1184,8 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.hall_rorelsesensor
+      entity_id: binary_sensor.motion_downstairs
       to: 'on'
-    - platform: state
-      entity_id: binary_sensor.kok_rorelse
-      to: 'on'
-      from: 'off'
    condition:
     condition: and
     conditions:
@@ -1275,6 +1275,12 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - platform: state
       entity_id: input_select.time_day
       to: 'Night'
+   condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.hus_mode
+        state: 'Normal'
    action:
     - service: homeassistant.turn_off
       data:
@@ -1421,8 +1427,8 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        before: '23:00:00'
      - condition: numeric_state
        entity_id: weather.smhi_home
-       value_template: '{{ state.attributes.visibility }}'
-       below: 50
+       value_template: '{{ state.attributes.state }}'
+       state: clody
    action:
      - service: input_select.select_option
        data:

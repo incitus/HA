@@ -261,7 +261,7 @@
     - alias: on
       service: homeassistant.turn_off
       data:
-        entity_id: light.Altan
+        entity_id: group.morning_light
     - condition: state
       entity_id: input_boolean.notify_debug_l1
       state: 'on'
