@@ -387,6 +387,18 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
          title: 'Auto Away'
 
 
+  - alias: 'automatic left'
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: input_select.at_home
+      to: 'Left'
+   action:
+    - service: script.going_away
+    - service: notify.pushb_k
+      data:
+         message: 'Auto Left'
+         title: 'Auto Left'
 
  - alias: 'turn_of_controller_screen'
    hide_entity: false
