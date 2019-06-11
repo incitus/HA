@@ -147,7 +147,6 @@ device_tracker:
 owntracks:
   max_gps_accuracy: 200
 
- 
 camera:
     - platform: rpi_camera
       image_quality: 90
@@ -201,10 +200,6 @@ sun:
 weather:
   - platform: yweather
 
-
-# Text to speech
-tts:
-  platform: google
 
 notify:
   - name: pushb_k
