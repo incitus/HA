@@ -387,7 +387,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
          title: 'Auto Away'
 
 
-  - alias: 'automatic left'
+ - alias: 'automatic left'
    hide_entity: false
    trigger:
     - platform: state
