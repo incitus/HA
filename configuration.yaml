@@ -142,7 +142,6 @@ device_tracker:
     consider_home: 00:30:00
     track_new_devices: yes
   - platform: owntracks
-    consider_home: 00:30:00
 
 owntracks:
   max_gps_accuracy: 200
