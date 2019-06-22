@@ -97,17 +97,17 @@
       friendly_name: "At home"
 
     kristian_collect:
-      value_template: "{{ is_state('device_tracker.kristian', 'home') or is_state('device_tracker.hass_kr', 'home')}}"
+      value_template: "{{ is_state('device_tracker.kristian', 'home') or is_state('device_tracker.hass_kr_2', 'home')}}"
       device_class: presence
       entity_id:
        - device_tracker.kristian
-       - device_tracker.hass_kr
+       - device_tracker.hass_kr_2
       friendly_name: "Kristian"
 
     dorothea_collect:
-      value_template: "{{ is_state('device_tracker.dorothea', 'home') or is_state('device_tracker.hass_dotti', 'home')}}"
+      value_template: "{{ is_state('device_tracker.dorothea', 'home') or is_state('device_tracker.hass_dotti_2', 'home')}}"
       device_class: presence
       entity_id:
        - device_tracker.dorothea
-       - device_tracker.hass_dotti
+       - device_tracker.hass_dotti_2
       friendly_name: "Dorothea"

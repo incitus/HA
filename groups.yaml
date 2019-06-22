@@ -72,9 +72,9 @@
    - automation.morninglight_off
    - automation.charger_workroom_off
    - device_tracker.kristian
-   - device_tracker.hass_kr
+   - device_tracker.hass_kr_2
    - device_tracker.dorothea
-   - device_tracker.hass_dotti
+   - device_tracker.hass_dotti_2
    - input_select.window_lamp
    - script.windowlamps_off
    - script.windowlamps_on
