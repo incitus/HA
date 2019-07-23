@@ -614,7 +614,7 @@ views:
     title: Automations
     badges:
       - device_tracker.kristian
-      - device_tracker.hass_kr
+      - device_tracker.device_tracker.hass_krille
       - device_tracker.dorothea
-      - device_tracker.hass_dotti
+      - device_tracker.device_tracker.hass_doro
 title: Home

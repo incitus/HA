@@ -404,7 +404,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    hide_entity: false
    trigger:
     - platform: state
-      entity_id: binary_sensor.motion_downstairs
+      entity_id: binary_sensor.event_downstairs
       to: 'off'
       from: 'on'
       for: '01:00:00'
@@ -422,7 +422,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    hide_entity: false
    trigger:
     - platform: state
-      entity_id: binary_sensor.motion_downstairs
+      entity_id: binary_sensor.event_downstairs
       to: 'on'
       from: 'off'
     - platform: state
@@ -535,15 +535,11 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
          message: "Alarm home armed"
          title: "Alarm"
 
- - alias: 'Send notification when alarm triggered'
-   trigger:
-    - platform: state
-      entity_id: alarm_control_panel.alarm
-      to: 'triggered'
-   action: 
-    - service: script.turn_on
-      data:
-       entity_id: script.alarm_sequence
+# - alias: 'Send notification when alarm triggered'
+#   trigger:
+#    - platform: state
+#      entity_id: alarm_control_panel.alarm
+#      to: 'triggered'
  
  - alias: 'Trigger alarm while armed away'
    hide_entity: false
@@ -558,8 +554,11 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: alarm_control_panel.alarm
       state: 'armed_away'
    action:
-    service: alarm_control_panel.alarm_trigger
-    entity_id: alarm_control_panel.alarm
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.alarm
+    - service: script.turn_on
+      data:
+       entity_id: script.alarm_sequence
 
  - alias: notify_alarm_active
    hide_entity: false
@@ -606,11 +605,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.altan_break
-      to: 'on'
-      from: 'off'
-    - platform: state
-      entity_id: binary_sensor.work_break
+      entity_id: binary_sensor.motion_downstairs
       to: 'on'
       from: 'off'
    condition:
@@ -618,8 +613,14 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: alarm_control_panel.alarm
       state: 'armed_home'
    action:
-    service: alarm_control_panel.alarm_trigger
-    entity_id: alarm_control_panel.alarm
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.alarm
+    - service: homeassistant.turn_on
+      data:
+       entity_id: script.d_homealarm
+    - service: homeassistant.turn_on
+      data:
+       entity_id: script.k_homealarm
 
  - alias: notify_alarm_active
    hide_entity: false
@@ -1196,7 +1197,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.motion_downstairs
+      entity_id: binary_sensor.event_downstairs
       to: 'on'
    condition:
     condition: and
@@ -1353,6 +1354,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
      - service: script.hall_lampa
      - service: script.hall_lampa_off
      - service: script.alarm_acive
+     - service: script.home_acive
      - service: script.extended_acive
      - service: script.away_acive
 
