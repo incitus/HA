@@ -475,7 +475,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
      conditions:
            - condition: state
              entity_id: binary_sensor.dorothea_collect
-            state: 'on'
+             state: 'on'
    action:
     - alias: notification
       service: notify.pushb_d
@@ -495,7 +495,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
      conditions:
            - condition: state
              entity_id: binary_sensor.kristian_collect
-            state: 'on'
+             state: 'on'
    action:
     - alias: notification
       service: notify.pushb_k
