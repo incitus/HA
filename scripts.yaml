@@ -295,10 +295,6 @@
       data:
          entity_id: switch.vardagsrum_overvakningskamera
     - alias: notification
-      service: notify.automate
-      data:
-       message: "Fire alarm!"
-    - alias: notification
       service: notify.pushb_k
       data:
          message: "Fire alarm!"
@@ -318,7 +314,7 @@
     - alias: photo
       service: notify.pushb_k
       data:
-         message: "ALARM! The alarm has been triggred"
+         message: "Fire alarm"
          title: "Alarm"
          data:
           photo:
@@ -592,18 +588,18 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ (as_t
          message: "ALARM! The alarm has been triggred"
          title: "Alarm"
          data:
-          photo:
-             file: '/tmp/myimage.gif'
-             caption: 'livingroom'
+          video:
+             - file: '/tmp/test.avi'
+               caption: 'livingroom'
     - alias: photo
       service: notify.pushb_d
       data:
          message: "ALARM! The alarm has been triggred"
          title: "Alarm"
          data:
-          photo:
-             file: '/tmp/myimage.gif'
-             caption: 'livingroom'
+          video:
+             - file: '/tmp/test.avi'
+               caption: 'livingroom'
     
 ####
 # Mode Scripts

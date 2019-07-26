@@ -93,7 +93,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ ((as_
     - service: telegram_bot.send_document
       data_template:
          target: '{{ trigger.event.data.user_id }}'
-         file: '/tmp/myimage.gif'
+         file: '/tmp/test.avi'
          #  - file: '/tmp/livingroom_pi.jpg'
 
  - alias: 'telegram bot deaktivation of alarm'
@@ -252,13 +252,13 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       minutes: '/15'
    condition:
     - condition: state
-      entity_id: switch.forrad_dorr
+      entity_id:  binary_sensor.device_91
       state: 'on'
    action:
     - delay: '00:05:00'
     - service: homeassistant.turn_off
       data:
-       entity_id: switch.forrad_dorr
+       entity_id:  binary_sensor.device_91
  - alias: 'altan terminate'
    hide_entity: false
    trigger:
@@ -463,8 +463,45 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: script.armed_notification
 
 
+ - alias: 'notify postarrived dor'
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: switch.postlada
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: or
+     conditions:
+           - condition: state
+             entity_id: binary_sensor.dorothea_collect
+            state: 'on'
+   action:
+    - alias: notification
+      service: notify.pushb_d
+      data:
+         message: "Brevbäraren lämnade post"
+         title: "Post"
 
-
+ - alias: 'notify postarrived kr'
+   hide_entity: false
+   trigger:
+    - platform: state
+      entity_id: switch.postlada
+      to: 'on'
+      from: 'off'
+   condition:
+     condition: or
+     conditions:
+           - condition: state
+             entity_id: binary_sensor.kristian_collect
+            state: 'on'
+   action:
+    - alias: notification
+      service: notify.pushb_k
+      data:
+         message: "Brevbäraren lämnade post"
+         title: "Post"
 
  - alias: Disarmed
    hide_entity: false
