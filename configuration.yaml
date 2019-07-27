@@ -266,7 +266,7 @@ switch: !include switch.yaml
 
 shell_command:
        #genmov: cd /tmp && convert -delay 20 -loop 0 livingroom*.jpg /tmp/test.avi
-       genmov: cd /tmp/ &&  ffmpeg -f image2 -framerate 10 -pattern_type sequence -start_number 0 -r 3 -i livingroom%d.jpg -s 640x480 /tmp/test.avi
+       genmov: cd ffmpeg -f image2 -framerate 10 -pattern_type sequence -start_number 0 -r 3 -i /tmp/livingroom%d.jpg -s 640x480 /tmp/test.avi -y
        # mencoder mf:///tmp/livingroom*.jpg -mf fps=1:type=jpg -ovc x264 -x264encopts bitrate=1200:threads=2 -o /tmp/outputfile.gif
        #genmov: ffmpeg -framerate 5 -f image2 -i  /tmp/output.mpg
        #rmmov: rm -f /tmp/test.avi
