@@ -268,7 +268,7 @@ shell_command:
        #genmov: cd /tmp && convert -delay 20 -loop 0 livingroom*.jpg /tmp/test.mp4
        #genmov: ffmpeg -f image2  -crf 25 -framerate 10 -pattern_type sequence -start_number 0 -r 3 -i /tmp/livingroom%d.jpg -s 640x480 /tmp/test.mp4 -y
        
-       genmov: ffmpeg -r 3 -f image2 -s 1920x1080 -i /tmp/livingroom%d.jpg -vcodec libx264 -crf 25  -pix_fmt yuv420p /temp/test.mp4
+       genmov: ffmpeg -r 3 -f image2 -s 640x480 -i /tmp/livingroom%d.jpg -vcodec libx264 -preset veryslow  -pix_fmt yuv420p /tmp/test.mp4
        #genmov: ffmpeg -framerate 5 -f image2 -i  /tmp/output.mpg
        #rmmov: rm -f /tmp/test.mp4
        rmmov: rm -f /tmp/test.mp4
