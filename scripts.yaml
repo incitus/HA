@@ -674,6 +674,231 @@
         data:
          entity_id: camera.livingroom
          filename: '/tmp/livingroom61.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom62.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom63.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom64.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom65.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom66.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom67.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom68.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom69.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom70.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom71.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom72.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom73.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom74.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom75.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom76.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom77.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom78.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom79.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom80.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom81.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom82.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom83.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom84.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom85.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom86.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom87.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom88.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom89.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom90.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom91.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom92.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom93.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom94.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom95.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom96.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom97.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom98.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom99.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom100.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom101.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom102.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom103.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom104.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom105.jpg'
+      - alias: photo
+        service: camera.snapshot
+        data:
+         entity_id: camera.livingroom
+         filename: '/tmp/livingroom106.jpg'
       - alias: mov
         service: shell_command.genmov
 
