@@ -93,7 +93,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ ((as_
     - service: telegram_bot.send_document
       data_template:
          target: '{{ trigger.event.data.user_id }}'
-         file: '/tmp/test.mp4'
+         file: '/tmp/test.avi'
          #  - file: '/tmp/livingroom_pi.jpg'
 
  - alias: 'telegram bot deaktivation of alarm'
