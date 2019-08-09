@@ -65,13 +65,13 @@ Förråd rörelse: {{ states.binary_sensor.work_motion.state}}, {{ ((as_timestam
 Korridor rörelse {{ states.binary_sensor.korridor_motion.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.korridor_motion.last_changed))/60) | round }}
 
 
-Hall rörelse: {{ states.binary_sensor.hall_rorelsesensor.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_rorelsesensor.last_changed))/60)  | round }}
+Hall rörelse: {{ states.binary_sensor.device_130.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.device_130.last_changed))/60)  | round }}
 
 
 Kök rörelse: {{ states.binary_sensor.kok_rorelse.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.kok_rorelse.last_changed))/60) | round }}
 
 
-Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelse.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.vardagsrum_rorelse.last_changed))/60) | round }}
+Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.device_129.last_changed))/60) | round }}
 
 "
         target: '{{ trigger.event.data.user_id }}'
@@ -808,7 +808,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.vardagsrum_rorelse
+      entity_id: binary_sensor.device_129
       to: 'off'
       for:
        minutes: 30
@@ -832,7 +832,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Evening'
     - platform: state
-      entity_id: binary_sensor.hall_rorelsesensor
+      entity_id: binary_sensor.device_130
       to: 'on'
       from: 'off'
    condition:
@@ -867,7 +867,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Evening'
     - platform: state
-      entity_id: binary_sensor.hall_rorelsesensor
+      entity_id: binary_sensor.device_130
       to: 'on'
       from: 'off'
    condition:
@@ -903,7 +903,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Evening'
     - platform: state
-      entity_id: binary_sensor.hall_rorelsesensor
+      entity_id: binary_sensor.device_130
       to: 'on'
       from: 'off'
    condition:
@@ -939,7 +939,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Evening'
     - platform: state
-      entity_id: binary_sensor.hall_rorelsesensor
+      entity_id: binary_sensor.device_130
       to: 'on'
       from: 'off'
    condition:
@@ -975,7 +975,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Evening'
     - platform: state
-      entity_id: binary_sensor.hall_rorelsesensor
+      entity_id: binary_sensor.device_130
       to: 'on'
       from: 'off'
    condition:
@@ -1010,7 +1010,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Evening'
     - platform: state
-      entity_id: binary_sensor.hall_rorelsesensor
+      entity_id: binary_sensor.device_130
       to: 'on'
       from: 'off'
    condition:
@@ -1165,7 +1165,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
      - platform: numeric_state
-       entity_id:   sensor.hall_rorelsesensor_luminance
+       entity_id:   sensor.hall_rorelsesensor_luminance_2
        value_template: '{{ state.attributes.battery_level }}'
        below: 20
    action:
@@ -1204,7 +1204,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
      - platform: numeric_state
-       entity_id:   sensor.vardagsrum_rorelse_temperature
+       entity_id:   sensor.vardagsrum_rorelsesensor_temperature
        value_template: '{{ state.attributes.battery_level }}'
        below: 20
    action:

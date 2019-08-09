@@ -131,8 +131,8 @@
  sHall:
    name: Hall
    entities:
-    - sensor.hall_rorelsesensor_temperature
-    - sensor.hall_rorelsesensor_luminance
+    - sensor.hall_rorelsesensor_temperature_2
+    - sensor.hall_rorelsesensor_luminance_2
  sKok:
    name: Kök
    entities:
@@ -156,8 +156,8 @@
    name: Vardagsrum
    entities:
     - sensor.vardagsrum_laddstation_power_2
-    - sensor.vardagsrum_rorelse_temperature
-    - sensor.vardagsrum_rorelse_luminance
+    - sensor.vardagsrum_rorelsesensor_temperature
+    - sensor.vardagsrum_rorelsesensor_luminance
 
  Korridor:
   name: Korridor
@@ -222,9 +222,9 @@
   entities:
    - binary_sensor.motion
    - binary_sensor.korridor_motion
-   - binary_sensor.hall_rorelsesensor
+   - binary_sensor.device_130
    - binary_sensor.kok_rorelse
-   - binary_sensor.vardagsrum_rorelse
+   - binary_sensor.device_129
    - binary_sensor.work_motion
    - binary_sensor.altan_motion
 

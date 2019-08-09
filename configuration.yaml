@@ -30,9 +30,9 @@ homeassistant:
       friendly_name: Trapplampa
     switch.altan_belysning:
       friendly_name: Belysning
-    sensor.hall_rorelsesensor_temperature:
+    sensor.hall_rorelsesensor_temperature_2:
       friendly_name: Temperatur
-    sensor.hall_rorelsesensor_luminance:
+    sensor.hall_rorelsesensor_luminance_2:
       friendly_name: Luminans
     sensor.kok_rorelse_temperature:
       friendly_name: Temperatur
@@ -52,9 +52,9 @@ homeassistant:
       friendly_name: Övervakningskamera
     sensor.vardagsrum_laddstation_power_2:
       friendly_name: Laddare
-    sensor.vardagsrum_rorelse_temperature:
+    sensor.vardagsrum_rorelsesensor_temperature:
       friendly_name: Temperatur
-    sensor.vardagsrum_rorelse_luminance:
+    sensor.vardagsrum_rorelsesensor_luminance:
       friendly_name: Luminans
     light.korridor_fonsterlampa:
       friendly_name: Fönsterlampa
