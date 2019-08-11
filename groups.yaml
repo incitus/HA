@@ -136,8 +136,8 @@
  sKok:
    name: Kök
    entities:
-    - sensor.kok_rorelse_temperature
-    - sensor.kok_rorelse_luminance
+    - sensor.kok_rorelsesensor_temperature
+    - sensor.kok_rorelsesensor_luminance
  sKorridor:
    name: Barnrum
    entities:
@@ -149,13 +149,13 @@
   entities:
    - light.Altan
    - switch.vardagsrum_bordslampa 
-   - switch.vardagsrum_laddstation
+   - switch.device_127
    - switch.vardagsrum_fonsterlampa
 
  sVardagsrum:
    name: Vardagsrum
    entities:
-    - sensor.vardagsrum_laddstation_power_2
+    - sensor.laddare_vardagsrum_power_2
     - sensor.vardagsrum_rorelsesensor_temperature
     - sensor.vardagsrum_rorelsesensor_luminance
 
@@ -223,7 +223,7 @@
    - binary_sensor.motion
    - binary_sensor.korridor_motion
    - binary_sensor.device_130
-   - binary_sensor.kok_rorelse
+   -  binary_sensor.device_128
    - binary_sensor.device_129
    - binary_sensor.work_motion
    - binary_sensor.altan_motion
@@ -300,7 +300,7 @@
   entities:
    - switch.mobilladdare_dorothea
    - switch.mobilladdare_kristian
-   - switch.vardagsrum_laddstation
+   - switch.device_127
    - switch.Kaffemaskin
    - switch.tv_phillips_on
    - switch.vardagsrum_bordslampa

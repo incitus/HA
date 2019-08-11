@@ -43,7 +43,7 @@ views:
                     entity: binary_sensor.device_130
                   - icon: 'mdi:pot'
                     name: ''
-                    entity: binary_sensor.kok_rorelse
+                    entity:  binary_sensor.device_128
                   - icon: 'mdi:television-classic'
                     name: ''
                     entity: binary_sensor.device_129
@@ -121,7 +121,7 @@ views:
               cards:
                 - icon: 'mdi:battery-charging'
                   graph: line
-                  entity: sensor.sensor.laddare_vardagsrum_power
+                  entity: sensor.laddare_vardagsrum_power_2
                   type: gauge
                   name: ' '
                   max: 30
@@ -150,7 +150,7 @@ views:
                   - icon: 'mdi:battery-charging'
                     tap_action:
                       action: toggle
-                    entity: switch.vardagsrum_laddstation
+                    entity: switch.device_127
                   - icon: 'mdi:window-closed'
                     name: Fönster
                     tap_action:
@@ -249,7 +249,7 @@ views:
                   type: gauge
                 - name: ' '
                   graph: line
-                  entity: sensor.kok_rorelse_luminance
+                  entity: sensor.kok_rorelsesensor_luminance
                   type: gauge
                   max: 255
             type: conditional
@@ -471,7 +471,7 @@ views:
           - binary_sensor.motion
           - binary_sensor.korridor_motion
           - binary_sensor.device_130
-          - binary_sensor.kok_rorelse
+          -  binary_sensor.device_128
           - binary_sensor.device_129
           - binary_sensor.work_motion
           - binary_sensor.altan_motion

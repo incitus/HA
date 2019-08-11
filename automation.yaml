@@ -68,7 +68,7 @@ Korridor rörelse {{ states.binary_sensor.korridor_motion.state}}, {{ ((as_times
 Hall rörelse: {{ states.binary_sensor.device_130.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.device_130.last_changed))/60)  | round }}
 
 
-Kök rörelse: {{ states.binary_sensor.kok_rorelse.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.kok_rorelse.last_changed))/60) | round }}
+Kök rörelse: {{ states. binary_sensor.device_128.state}}, {{ ((as_timestamp(now()) - as_timestamp(states. binary_sensor.device_128.last_changed))/60) | round }}
 
 
 Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.device_129.last_changed))/60) | round }}
@@ -720,7 +720,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    action:
     - service: homeassistant.turn_off
       data:
-       entity_id:  switch.vardagsrum_laddstation
+       entity_id:  switch.device_127
        for:
        minutes: 30
 
@@ -762,7 +762,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.kok_rorelse
+      entity_id:  binary_sensor.device_128
       to: 'on'
       from: 'off'
    condition:
@@ -793,7 +793,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.kok_rorelse
+      entity_id:  binary_sensor.device_128
       to: 'off'
       for:
        minutes: 20
@@ -1178,7 +1178,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
      - platform: numeric_state
-       entity_id:   sensor.kok_rorelse_temperature
+       entity_id:   sensor.kok_rorelsesensor_temperature
        value_template: '{{ state.attributes.battery_level }}'
        below: 20
    action:

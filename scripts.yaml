@@ -922,7 +922,7 @@ Korridor rörelse {{states.binary_sensor.korridor_motion.state}}, {{ (as_timesta
 
 Hall rörelse: {{states.binary_sensor.device_130.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.device_130.last_changed))/60 | round }}
 
-Kök rörelse: {{states.binary_sensor.kok_rorelse.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.kok_rorelse.last_changed))/60 | round }}
+Kök rörelse: {{states. binary_sensor.device_128.state}}, {{ (as_timestamp(now()) - as_timestamp(states. binary_sensor.device_128.last_changed))/60 | round }}
 
 Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.device_129.last_changed))/60 | round }}
 
@@ -944,7 +944,7 @@ Korridor rörelse {{states.binary_sensor.korridor_motion.state}}, {{ (as_timesta
 
 Hall rörelse: {{states.binary_sensor.device_130.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.device_130.last_changed))/60 | round }}
 
-Kök rörelse: {{states.binary_sensor.kok_rorelse.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.kok_rorelse.last_changed))/60 | round }}
+Kök rörelse: {{states. binary_sensor.device_128.state}}, {{ (as_timestamp(now()) - as_timestamp(states. binary_sensor.device_128.last_changed))/60 | round }}
 
 Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.device_129.last_changed))/60 | round }}
 

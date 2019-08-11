@@ -34,9 +34,9 @@ homeassistant:
       friendly_name: Temperatur
     sensor.hall_rorelsesensor_luminance_2:
       friendly_name: Luminans
-    sensor.kok_rorelse_temperature:
+    sensor.kok_rorelsesensor_temperature:
       friendly_name: Temperatur
-    sensor.kok_rorelse_luminance:
+    sensor.kok_rorelsesensor_luminance:
       friendly_name: Luminans
     sensor.barnrum_temperature:
       friendly_name: Temperatur
@@ -44,13 +44,13 @@ homeassistant:
       friendly_name: Fuktkvot
     switch.vardagsrum_bordslampa:
       friendly_name: Bordslampa
-    switch.vardagsrum_laddstation:
+    switch.device_127:
       friendly_name: Laddare
     switch.vardagsrum_fonsterlampa:
       friendly_name: Fönsterlampa
     camera.livingroom:
       friendly_name: Övervakningskamera
-    sensor.vardagsrum_laddstation_power_2:
+    sensor.laddare_vardagsrum_power_2:
       friendly_name: Laddare
     sensor.vardagsrum_rorelsesensor_temperature:
       friendly_name: Temperatur
@@ -286,7 +286,7 @@ zone:
   - name: Home
     latitude: !secret h_lat
     longitude: !secret h_lon
-    radius: 1500
+    radius: 500
     icon: mdi:home
   - name: sju
     latitude: !secret sj_lat
@@ -322,7 +322,7 @@ sensor:
     display_options:
      - 'time'
   - platform: statistics
-    entity_id: sensor.vardagsrum_laddstation_power_2
+    entity_id: sensor.laddare_vardagsrum_power_2
     name: Laddare vardagsrum, energi
     max_age:
       minutes: 30
