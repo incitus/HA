@@ -597,6 +597,25 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       data:
        entity_id: script.alarm_sequence
 
+- alias: 'Trigger alarm while armed away livin'
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: binary_sensor.device_129
+      to: 'on'
+      from: 'off'
+   condition:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: 'armed_away'
+   action:
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.alarm
+    - service: script.turn_on
+      data:
+       entity_id: script.alarm_sequence
+
  - alias: notify_alarm_active
    hide_entity: false
    initial_state: 'on'
