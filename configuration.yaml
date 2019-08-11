@@ -268,7 +268,7 @@ shell_command:
        #genmov: cd /tmp && convert -delay 20 -loop 0 livingroom*.jpg /tmp/test.avi
        #genmov: ffmpeg -f image2  -crf 25 -framerate 10 -pattern_type sequence -start_number 0 -r 3 -i /tmp/livingroom%d.jpg -s 640x480 /tmp/test.avi -y
        
-       genmov:  ffmpeg -r 3 -f image2 -s 640x480 -i /tmp/livingroom%d.jpg -q:v 25 /tmp/test.avi
+       genmov:  ffmpeg -r 3 -f image2 -s 640x480 -i /tmp/livingroom%d.jpg /tmp/test.avi
        #genmov: ffmpeg -framerate 5 -f image2 -i  /tmp/output.mpg
        #rmmov: rm -f /tmp/test.avic
        rmmov: rm -f /tmp/test.avi
