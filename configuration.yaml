@@ -286,7 +286,7 @@ zone:
   - name: Home
     latitude: !secret h_lat
     longitude: !secret h_lon
-    radius: 500
+    radius: 450
     icon: mdi:home
   - name: sju
     latitude: !secret sj_lat

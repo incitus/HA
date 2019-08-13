@@ -795,6 +795,9 @@ Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ (as_timestamp
 
 "
          title: "Alarm"
+  movie_sequence:
+   alias: alarm
+   sequence:
     - alias: gen
       service: script.genmovie
     - delay:

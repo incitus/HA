@@ -604,7 +604,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - platform: state
       entity_id: binary_sensor.device_129
       to: 'on'
-      from: 'off'
    condition:
     - condition: state
       entity_id: alarm_control_panel.alarm
@@ -614,16 +613,15 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: alarm_control_panel.alarm
     - service: script.turn_on
       data:
-       entity_id: script.alarm_sequence
+       entity_id: script.movie_sequence
 
  - alias: notify_alarm_active
    hide_entity: false
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: 'binary_sensor.at_home'
+      entity_id: 'binary_sensor.device_130'
       to: 'on'
-      from: 'off'
    condition:
     - condition: state
       entity_id: alarm_control_panel.alarm
@@ -714,7 +712,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
 
  - alias: tell_off
    hide_entity: false
-   initial_state: 'on'
+   initial_state: 'off'
    trigger:
     - platform: state
       entity_id: switch.mobilladdare_kristian
