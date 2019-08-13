@@ -233,6 +233,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
 ################,
  - alias: 'garage_dorr terminate'
    hide_entity: false
+   initial_state: 'off'
    trigger:
     - platform: time_pattern
       minutes: '/15'
@@ -247,6 +248,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        entity_id: switch.garage_dorr
  - alias: 'forr terminate'
    hide_entity: false
+   initial_state: 'off'
    trigger:
     - platform: time_pattern
       minutes: '/15'
@@ -261,6 +263,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        entity_id:  binary_sensor.device_91
  - alias: 'altan terminate'
    hide_entity: false
+   initial_state: 'off'
    trigger:
     - platform: time_pattern
       minutes: '/15'
@@ -274,6 +277,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       data:
        entity_id: switch.altan_dorr
  - alias: 'gorrad terminate'
+   initial_state: 'off'
    hide_entity: false
    trigger:
     - platform: time_pattern
@@ -289,6 +293,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        entity_id: switch.forrad_rorelse
  - alias: 'korridor terminate'
    hide_entity: false
+   initial_state: 'off'
    trigger:
     - platform: time_pattern
       minutes: '/15'
@@ -303,18 +308,19 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        entity_id: switch.korridor_rorelsesensor
  - alias: 'altan terminatex'
    hide_entity: false
+   initial_state: 'off'
    trigger:
     - platform: time_pattern
       minutes: '/15'
    condition:
     - condition: state
-      entity_id: switch.altan_rorelse
+      entity_id: switch.altan_rorelse_3
       state: 'on'
    action:
     - delay: '00:05:00'
     - service: homeassistant.turn_off
       data:
-       entity_id: switch.altan_rorelse
+       entity_id: switch.altan_rorelse_3
 #######
 ### Alarm
 ###### switch.garage_dorr
@@ -793,7 +799,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - platform: state
       entity_id:  binary_sensor.device_128
       to: 'on'
-      from: 'off'
    condition:
      condition: and
      conditions:
@@ -812,7 +817,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: light.turn_on
       data:
         entity_id: light.koksbank
-        brightness: 40
+        brightness: 50
         color_name: white
 
 
@@ -825,7 +830,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id:  binary_sensor.device_128
       to: 'off'
       for:
-       minutes: 20
+       minutes: 60
    action:
     - service: light.turn_off
       data:
@@ -840,231 +845,76 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: binary_sensor.device_129
       to: 'off'
       for:
-       minutes: 30
+       minutes: 60
    action:
     - service: switch.turn_off
       data:
         entity_id: switch.tv_phillips_on
 
-
-###
-# HEAT
-###
- - alias: winter_temp1510asda
-   hide_entity: false
+ - alias: altan_lamp
+   hide_entity: False
    initial_state: 'on'
    trigger:
-    - platform: numeric_state
-      entity_id: sensor.utomhus_temperature
-      above: 10
     - platform: state
-      entity_id: input_select.time_day
-      to: 'Evening'
-    - platform: state
-      entity_id: binary_sensor.device_130
+      entity_id: binary_sensor.altan_break
       to: 'on'
-      from: 'off'
-   condition:
-     condition: and
-     conditions:
-      - condition: or
-        conditions:
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Evening'
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Morning'
-      - condition: numeric_state
-        entity_id: sensor.utomhus_temperature
-        above: 10
-   action:
-    - service: light.turn_on
-      data:
-        entity_id: light.Altan
-        brightness: 100
-        color_name: red
- - alias: winter_temp1510hhdgs
-   hide_entity: false
-   initial_state: 'on'
-   trigger:
-    - platform: numeric_state
-      entity_id: sensor.utomhus_temperature
-      below: 10
-      above: 5
     - platform: state
-      entity_id: input_select.time_day
-      to: 'Evening'
-    - platform: state
-      entity_id: binary_sensor.device_130
+      entity_id: binary_sensor.altan_motion
       to: 'on'
-      from: 'off'
    condition:
-     condition: and
-     conditions:
-      - condition: or
-        conditions:
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Evening'
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Morning'
-      - condition: numeric_state
-        entity_id: sensor.utomhus_temperature
-        below: 10
-        above: 5
-   action:
-    - service: light.turn_on
-      data:
-        entity_id: light.Altan
-        brightness: 100
-        color_name: green
- - alias: winter_temp100hh
-   hide_entity: false
-   initial_state: 'on'
-   trigger:
-    - platform: numeric_state
-      entity_id: sensor.utomhus_temperature
-      below: 5
-      above: 0
-    - platform: state
-      entity_id: input_select.time_day
-      to: 'Evening'
-    - platform: state
-      entity_id: binary_sensor.device_130
-      to: 'on'
-      from: 'off'
-   condition:
-     condition: and
-     conditions:
-      - condition: or
-        conditions:
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Evening'
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Morning'
-      - condition: numeric_state
-        entity_id: sensor.utomhus_temperature
-        below: 5
-        above: 0
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_select.time_day
+        state: 'Evening'
    action:
     - service: light.turn_on
       data:
         entity_id: light.Altan
         brightness: 100
         color_name: white
- - alias: winter_temp100f
-   hide_entity: false
-   initial_state: 'on'
-   trigger:
-    - platform: numeric_state
-      entity_id: sensor.utomhus_temperature
-      below: 0
-      above: -5
-    - platform: state
-      entity_id: input_select.time_day
-      to: 'Evening'
-    - platform: state
-      entity_id: binary_sensor.device_130
-      to: 'on'
-      from: 'off'
-   condition:
-     condition: and
-     conditions:
-      - condition: or
-        conditions:
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Evening'
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Morning'
-      - condition: numeric_state
-        entity_id: sensor.utomhus_temperature
-        below: 0
-        above: -5
-   action:
-    - service: light.turn_on
-      data:
-        entity_id: light.Altan
-        brightness: 100
-        color_name: yellow
- - alias: winter_temp100243
+
+
+ - alias: altan_lamp_off_daytime_night
    hide_entity: False
    initial_state: 'on'
    trigger:
-    - platform: numeric_state
-      entity_id: sensor.utomhus_temperature
-      below: -5
-      above: -10
     - platform: state
       entity_id: input_select.time_day
-      to: 'Evening'
-    - platform: state
-      entity_id: binary_sensor.device_130
-      to: 'on'
-      from: 'off'
-   condition:
-     condition: and
-     conditions:
-      - condition: or
-        conditions:
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Evening'
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Morning'
-      - condition: numeric_state
-        entity_id: sensor.utomhus_temperature
-        below: -5
-        above: -10
-   action:
-    - service: light.turn_on
-      data:
-        entity_id: light.Altan
-        brightness: 100
-        color_name: hotpink
- - alias: winter_temp05
-   hide_entity: False
-   initial_state: 'on'
-   trigger:
-    - platform: numeric_state
-      entity_id: sensor.utomhus_temperature
-      below: -10
+      to: 'Night'
     - platform: state
       entity_id: input_select.time_day
-      to: 'Evening'
+      to: 'Day'
     - platform: state
-      entity_id: binary_sensor.device_130
-      to: 'on'
-      from: 'off'
-   condition:
-     condition: and
-     conditions:
-      - condition: or
-        conditions:
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Evening'
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Morning'
-      - condition: numeric_state
-        entity_id: sensor.utomhus_temperature
-        below: -10
+      entity_id: binary_sensor.altan_break
+      to: 'off'
+      for: 
+        minutes: 30
+    - platform: state
+      entity_id: binary_sensor.altan_motion
+      to: 'off'
+      for:
+        minutes: 30
+  condition:
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.altan_break
+        state: 'off'
+        for:
+          minutes: 30
+      - condition: state
+        entity_id: binary_sensor.altan_motion
+        state: 'off'
+        for:
+          minutes: 30
    action:
-    - service: light.turn_on
+    - service: light.turn_off
       data:
         entity_id: light.Altan
-        brightness: 100
-        color_name: blue
-
-
-
+        brightness: 0
+        color_name: white
 
 
  - alias: winter_element_workroom
