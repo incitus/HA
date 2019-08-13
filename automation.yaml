@@ -733,15 +733,27 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    trigger:
     - platform: numeric_state
       entity_id:  sensor.laddare_vardagsrum_energi_mean
-      below: 1
-      for:
-       minutes: 30
+      below: 0.5
    action:
     - service: homeassistant.turn_off
       data:
        entity_id:  switch.device_127
-       for:
-       minutes: 30
+
+ - alias: charger_off_controller_time
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id:  binary_sensor.device_127
+      to: 'on'
+      from: 'off'
+   action:
+    - delay:
+       hours: 6
+    - service: homeassistant.turn_off
+      data:
+       entity_id:  switch.device_127
+
 
  - alias: bedroom_charging_evening_on
    hide_entity: false
