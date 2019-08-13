@@ -895,7 +895,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       to: 'off'
       for:
         minutes: 30
-  condition:
+   condition:
     condition: and
     conditions:
       - condition: state
