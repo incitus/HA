@@ -101,7 +101,7 @@
   name: TV
   entities:
     #- script.tv_pino
-    - media_player.vardagsrum_tv_2
+    - media_player.vardagsrum
     - switch.tv_phillips_on
     - switch.tv_phillips_ch
     - switch.tv_phillips_vol
@@ -131,8 +131,8 @@
  sHall:
    name: Hall
    entities:
-    - sensor.hall_rorelsesensor_temperature_2
-    - sensor.hall_rorelsesensor_luminance_2
+    - sensor.hall_rorelsesensor_temperature
+    - sensor.hall_rorelsesensor_luminance
  sKok:
    name: Kök
    entities:
@@ -149,7 +149,7 @@
   entities:
    - light.Altan
    - switch.vardagsrum_bordslampa 
-   - switch.device_127
+   - switch.laddare_vardagsrum
    - switch.vardagsrum_fonsterlampa
 
  sVardagsrum:
@@ -222,9 +222,9 @@
   entities:
    - binary_sensor.motion
    - binary_sensor.korridor_motion
-   - binary_sensor.device_130
-   -  binary_sensor.device_128
-   - binary_sensor.device_129
+   - binary_sensor.hall_rorelsesensor
+   -  binary_sensor.kok_rorelsesensor
+   - binary_sensor.vardagsrum_rorelsesensor
    - binary_sensor.work_motion
    - binary_sensor.altan_motion
 
@@ -300,7 +300,7 @@
   entities:
    - switch.mobilladdare_dorothea
    - switch.mobilladdare_kristian
-   - switch.device_127
+   - switch.laddare_vardagsrum
    - switch.Kaffemaskin
    - switch.tv_phillips_on
    - switch.vardagsrum_bordslampa

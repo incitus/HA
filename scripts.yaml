@@ -765,11 +765,11 @@ Förråd rörelse: {{states.binary_sensor.work_motion.state}}, {{ (as_timestamp(
 
 Korridor rörelse {{states.binary_sensor.korridor_motion.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.korridor_motion.last_changed))/60 | round }}
 
-Hall rörelse: {{states.binary_sensor.device_130.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.device_130.last_changed))/60 | round }}
+Hall rörelse: {{states.binary_sensor.hall_rorelsesensor.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_rorelsesensor.last_changed))/60 | round }}
 
-Kök rörelse: {{states. binary_sensor.device_128.state}}, {{ (as_timestamp(now()) - as_timestamp(states. binary_sensor.device_128.last_changed))/60 | round }}
+Kök rörelse: {{states. binary_sensor.kok_rorelsesensor.state}}, {{ (as_timestamp(now()) - as_timestamp(states. binary_sensor.kok_rorelsesensor.last_changed))/60 | round }}
 
-Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.device_129.last_changed))/60 | round }}
+Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelsesensor.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.vardagsrum_rorelsesensor.last_changed))/60 | round }}
 
 "
     - alias: message
@@ -787,11 +787,11 @@ Förråd rörelse: {{states.binary_sensor.work_motion.state}}, {{ (as_timestamp(
 
 Korridor rörelse {{states.binary_sensor.korridor_motion.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.korridor_motion.last_changed))/60 | round }}
 
-Hall rörelse: {{states.binary_sensor.device_130.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.device_130.last_changed))/60 | round }}
+Hall rörelse: {{states.binary_sensor.hall_rorelsesensor.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_rorelsesensor.last_changed))/60 | round }}
 
-Kök rörelse: {{states. binary_sensor.device_128.state}}, {{ (as_timestamp(now()) - as_timestamp(states. binary_sensor.device_128.last_changed))/60 | round }}
+Kök rörelse: {{states. binary_sensor.kok_rorelsesensor.state}}, {{ (as_timestamp(now()) - as_timestamp(states. binary_sensor.kok_rorelsesensor.last_changed))/60 | round }}
 
-Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.device_129.last_changed))/60 | round }}
+Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelsesensor.state}}, {{ (as_timestamp(now()) - as_timestamp(states.binary_sensor.vardagsrum_rorelsesensor.last_changed))/60 | round }}
 
 "
          title: "Alarm"
@@ -830,7 +830,7 @@ Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ (as_timestamp
      - condition: and
        conditions:
        - condition: numeric_state
-         entity_id: sensor.hall_rorelsesensor_luminance_2
+         entity_id: sensor.hall_rorelsesensor_luminance
          below: 50
        - condition: template
          value_template: >
@@ -849,7 +849,7 @@ Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ (as_timestamp
      - condition: or
        conditions:
        - condition: numeric_state
-         entity_id: sensor.hall_rorelsesensor_luminance_2
+         entity_id: sensor.hall_rorelsesensor_luminance
          above: 55
        - condition: template
          value_template: >

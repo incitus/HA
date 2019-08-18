@@ -40,13 +40,13 @@ views:
                 entities:
                   - icon: 'mdi:shoe-formal'
                     name: ''
-                    entity: binary_sensor.device_130
+                    entity: binary_sensor.hall_rorelsesensor
                   - icon: 'mdi:pot'
                     name: ''
-                    entity:  binary_sensor.device_128
+                    entity:  binary_sensor.kok_rorelsesensor
                   - icon: 'mdi:television-classic'
                     name: ''
-                    entity: binary_sensor.device_129
+                    entity: binary_sensor.vardagsrum_rorelsesensor
                   - icon: 'mdi:hammer'
                     name: ''
                     entity: binary_sensor.work_motion
@@ -150,7 +150,7 @@ views:
                   - icon: 'mdi:battery-charging'
                     tap_action:
                       action: toggle
-                    entity: switch.device_127
+                    entity: switch.laddare_vardagsrum
                   - icon: 'mdi:window-closed'
                     name: Fönster
                     tap_action:
@@ -470,9 +470,9 @@ views:
         entities:
           - binary_sensor.motion
           - binary_sensor.korridor_motion
-          - binary_sensor.device_130
-          -  binary_sensor.device_128
-          - binary_sensor.device_129
+          - binary_sensor.hall_rorelsesensor
+          -  binary_sensor.kok_rorelsesensor
+          - binary_sensor.vardagsrum_rorelsesensor
           - binary_sensor.work_motion
           - binary_sensor.altan_motion
         type: entities
@@ -492,7 +492,7 @@ views:
     cards:
       - tap_action:
           action: toggle
-        entity: switch.device_65
+        entity: switch.plantlampa_forradet
         hold_action:
           action: more-info
         icon: 'mdi:flower'
@@ -568,11 +568,11 @@ views:
               cards:
                 - name: ' '
                   graph: line
-                  entity: sensor.hall_rorelsesensor_temperature_2
+                  entity: sensor.hall_rorelsesensor_temperature
                   type: sensor
                 - name: ' '
                   graph: line
-                  entity: sensor.hall_rorelsesensor_luminance_2
+                  entity: sensor.hall_rorelsesensor_luminance
                   type: sensor
             type: conditional
           - type: horizontal-stack

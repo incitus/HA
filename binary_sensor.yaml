@@ -4,9 +4,9 @@
  - platform: template
    sensors:
     hall_break:
-     value_template: "{{ is_state('binary_sensor.device_85', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.mag1', 'on') }}"
      device_class: moving
-     entity_id: binary_sensor.device_85
+     entity_id: binary_sensor.mag1
      friendly_name: "Brytare Ytterdörr"
 
     altan_break:
@@ -16,9 +16,9 @@
      friendly_name: "Brytare altan"
      
     altan_motion:
-     value_template: "{{ is_state('switch.altan_rorelse_3', 'on') }}"
+     value_template: "{{ is_state('switch.altan_rorelse', 'on') }}"
      device_class: moving
-     entity_id: switch.altan_rorelse_3
+     entity_id: switch.altan_rorelse
      friendly_name: "Rörelse altan"
      
     work_motion: 
@@ -28,9 +28,9 @@
      friendly_name: "Rörelse Förråd"
 
     work_break:
-     value_template: "{{ is_state(' binary_sensor.device_91', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.mag2', 'on') }}"
      device_class: moving
-     entity_id:  binary_sensor.device_91
+     entity_id: binary_sensor.mag2
      friendly_name: "Brytare arbetsrum"
 
     korridor_motion:
@@ -40,16 +40,16 @@
      friendly_name: "Rörelse korridor"
 
     entre_motion:
-     value_template: "{{ is_state('binary_sensor.device_130', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.hall_rorelsesensor', 'on') }}"
      device_class: moving
-     entity_id: binary_sensor.device_130
+     entity_id: binary_sensor.hall_rorelsesensor
      friendly_name: "Entre korridor"
 
     motion:
-     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.korridor_motion', 'on') or is_state('binary_sensor.work_break', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.device_129', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.korridor_motion', 'on') or is_state('binary_sensor.work_break', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') }}"
      device_class: moving
      entity_id:
-      - binary_sensor.device_130
+      - binary_sensor.hall_rorelsesensor
       - binary_sensor.altan_break
       - binary_sensor.work_break
       - binary_sensor.work_motion
@@ -57,34 +57,34 @@
       - binary_sensor.korridor_motion
       - binary_sensor.entre_motion
       - binary_sensor.kok_rorelase
-      - binary_sensor.device_129
+      - binary_sensor.vardagsrum_rorelsesensor
      friendly_name: "Rörelse"
 
 
     event_downstairs:
-     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.work_break', 'on') or is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.device_129', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.work_break', 'on') or is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') }}"
      device_class: moving
      entity_id:
-      - binary_sensor.device_130
+      - binary_sensor.hall_rorelsesensor
       - binary_sensor.altan_break
       - binary_sensor.hall_break
       - binary_sensor.entre_motion
       - binary_sensor.kok_rorelase
-      - binary_sensor.device_129
+      - binary_sensor.vardagsrum_rorelsesensor
       - binary_sensor.work_break
       - binary_sensor.work_motion
      friendly_name: "Rörelse"
 
     motion_downstairs:
-     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or  is_state('binary_sensor.device_129', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or  is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') }}"
      device_class: moving
      entity_id:
-      - binary_sensor.device_130
+      - binary_sensor.hall_rorelsesensor
       - binary_sensor.altan_break
       - binary_sensor.hall_break
       - binary_sensor.entre_motion
       - binary_sensor.kok_rorelase
-      - binary_sensor.device_129
+      - binary_sensor.vardagsrum_rorelsesensor
       - binary_sensor.work_break
       - binary_sensor.work_motion
      friendly_name: "Rörelse"

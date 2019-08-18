@@ -65,13 +65,13 @@ Förråd rörelse: {{ states.binary_sensor.work_motion.state}}, {{ ((as_timestam
 Korridor rörelse {{ states.binary_sensor.korridor_motion.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.korridor_motion.last_changed))/60) | round }}
 
 
-Hall rörelse: {{ states.binary_sensor.device_130.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.device_130.last_changed))/60)  | round }}
+Hall rörelse: {{ states.binary_sensor.hall_rorelsesensor.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.hall_rorelsesensor.last_changed))/60)  | round }}
 
 
-Kök rörelse: {{ states. binary_sensor.device_128.state}}, {{ ((as_timestamp(now()) - as_timestamp(states. binary_sensor.device_128.last_changed))/60) | round }}
+Kök rörelse: {{ states.binary_sensor.kok_rorelsesensor.state}}, {{ ((as_timestamp(now()) - as_timestamp(states. binary_sensor.kok_rorelsesensor.last_changed))/60) | round }}
 
 
-Vardagsrum rörelse: {{states.binary_sensor.device_129.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.device_129.last_changed))/60) | round }}
+Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelsesensor.state}}, {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.vardagsrum_rorelsesensor.last_changed))/60) | round }}
 
 "
         target: '{{ trigger.event.data.user_id }}'
@@ -254,13 +254,13 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       minutes: '/15'
    condition:
     - condition: state
-      entity_id:  binary_sensor.device_91
+      entity_id: binary_sensor.mag2
       state: 'on'
    action:
     - delay: '00:05:00'
     - service: homeassistant.turn_off
       data:
-       entity_id:  binary_sensor.device_91
+       entity_id: binary_sensor.mag2
  - alias: 'altan terminate'
    hide_entity: false
    initial_state: 'off'
@@ -314,13 +314,13 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       minutes: '/15'
    condition:
     - condition: state
-      entity_id: switch.altan_rorelse_3
+      entity_id: switch.altan_rorelse
       state: 'on'
    action:
     - delay: '00:05:00'
     - service: homeassistant.turn_off
       data:
-       entity_id: switch.altan_rorelse_3
+       entity_id: switch.altan_rorelse
 #######
 ### Alarm
 ###### switch.garage_dorr
@@ -608,7 +608,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.device_129
+      entity_id: binary_sensor.vardagsrum_rorelsesensor
       to: 'on'
    condition:
     - condition: state
@@ -626,7 +626,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: 'binary_sensor.device_130'
+      entity_id: 'binary_sensor.hall_rorelsesensor'
       to: 'on'
    condition:
     - condition: state
@@ -741,14 +741,14 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    action:
     - service: homeassistant.turn_off
       data:
-       entity_id:  switch.device_127
+       entity_id:  switch.laddare_vardagsrum
 
  - alias: charger_off_controller_time
    hide_entity: false
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id:  binary_sensor.device_127
+      entity_id:  switch.laddare_vardagsrum
       to: 'on'
       from: 'off'
    action:
@@ -756,7 +756,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        hours: 6
     - service: homeassistant.turn_off
       data:
-       entity_id:  switch.device_127
+       entity_id:  switch.laddare_vardagsrum
 
 
  - alias: bedroom_charging_evening_on
@@ -797,7 +797,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id:  binary_sensor.device_128
+      entity_id:  binary_sensor.kok_rorelsesensor
       to: 'on'
    condition:
      condition: and
@@ -827,7 +827,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id:  binary_sensor.device_128
+      entity_id:  binary_sensor.kok_rorelsesensor
       to: 'off'
       for:
        minutes: 60
@@ -842,7 +842,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.device_129
+      entity_id: binary_sensor.vardagsrum_rorelsesensor
       to: 'off'
       for:
        minutes: 60
@@ -1043,7 +1043,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
      - platform: numeric_state
-       entity_id:   sensor.hall_rorelsesensor_luminance_2
+       entity_id:   binary_sensor.hall_rorelsesensor
        value_template: '{{ state.attributes.battery_level }}'
        below: 20
    action:
@@ -1426,11 +1426,11 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       value_template: "{{ (states('sensor.time') == (states.input_datetime.plant_turn_on.attributes.timestamp | int | timestamp_custom('%H:%M', False))) }}"
    action:
       - service: switch.turn_on
-        entity_id: switch.device_65
+        entity_id: switch.plantlampa_forradet
  - alias: "Av tid"
    trigger:
       platform: template
       value_template: "{{ (states('sensor.time') == (states.input_datetime.plant_turn_off.attributes.timestamp | int | timestamp_custom('%H:%M', False))) }}"
    action:
       - service: switch.turn_off
-        entity_id: switch.device_65
+        entity_id: switch.plantlampa_forradet

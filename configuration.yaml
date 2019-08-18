@@ -24,15 +24,15 @@ homeassistant:
       friendly_name: 'Automation: Workroom charger'
     switch.kok_fonsterlampa:
       friendly_name: 'Fönsterlampa'
-    light.hue_lightstrip_plus_1:
+    light.koksbank:
       friendly_name: Diskbänksbelysning
     switch.hall_trapplampa:
       friendly_name: Trapplampa
     switch.altan_belysning:
       friendly_name: Belysning
-    sensor.hall_rorelsesensor_temperature_2:
+    sensor.hall_rorelsesensor_temperature:
       friendly_name: Temperatur
-    sensor.hall_rorelsesensor_luminance_2:
+    sensor.hall_rorelsesensor_luminance:
       friendly_name: Luminans
     sensor.kok_rorelsesensor_temperature:
       friendly_name: Temperatur
@@ -44,7 +44,7 @@ homeassistant:
       friendly_name: Fuktkvot
     switch.vardagsrum_bordslampa:
       friendly_name: Bordslampa
-    switch.device_127:
+    switch.laddare_vardagsrum:
       friendly_name: Laddare
     switch.vardagsrum_fonsterlampa:
       friendly_name: Fönsterlampa
@@ -287,6 +287,11 @@ zone:
     latitude: !secret h_lat
     longitude: !secret h_lon
     radius: 450
+    icon: mdi:home
+  - name: Enter Zone
+    latitude: !secret h_lat
+    longitude: !secret h_lon
+    radius: 700
     icon: mdi:home
   - name: sju
     latitude: !secret sj_lat
