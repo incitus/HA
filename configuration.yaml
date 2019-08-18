@@ -339,7 +339,6 @@ sensor:
 map:
 
 
-media_player:
-  - platform: spotify
-    client_id: d1cb008e9f9c4c6588715ee9d0594cfd
-    client_secret: !secret spotify
+tellduslive:
+ host: !secret tells_ip
+ scan_interval: 2
