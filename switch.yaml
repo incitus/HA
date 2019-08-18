@@ -53,9 +53,6 @@
         friendly_name: "tv_mute"
         command_on: 'JgBQAFscDxwODwwPKiwMEA8NDw0NDwwQDw0PDQ0PDBAPDQ8NHg0PHBsACuNbHA8cDRALECosDBAPDQ8NDRALEA8NDw0NDwwQDw0PDR4NDxwbAA0FAAAAAAAAAAA='
         command_off: 'JgBQAFscDxwODwwPKiwMEA8NDw0NDwwQDw0PDQ0PDBAPDQ8NHg0PHBsACuNbHA8cDRALECosDBAPDQ8NDRALEA8NDw0NDwwQDw0PDR4NDxwbAA0FAAAAAAAAAAA='
-  - platform: tplink
-    host: !secret tells_ip
-    name: tellstick
   - platform: template
     switches:
       lamps:
