@@ -310,16 +310,16 @@ input_boolean:
     initial: off
     icon: mdi:car
 
- notify_debug_l2:
+  notify_debug_l2:
     name: Level 2 Debug
     initial: off
     icon: mdi:car
 
- notify_debug_l3:
+  notify_debug_l3:
     name: Level 3 Debug
     initial: off
     icon: mdi:car
- wakeup_enabled:
+  wakeup_enabled:
     name: "Wake-up lights"
     initial: on
     icon: mdi:theme-light-dark
