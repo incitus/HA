@@ -352,7 +352,7 @@ sensor:
     max_age:
       minutes: 30
   - platform: statistics
-    entity_id: sensor.forrad_uttag_power_2
+    entity_id: sensor.forrad_uttag_power
     name: Laddare arbetsrum
     max_age:
       minutes: 30
