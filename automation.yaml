@@ -248,19 +248,19 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        entity_id: switch.garage_dorr
  - alias: 'forr terminate'
    hide_entity: false
-   initial_state: 'off'
+   initial_state: 'on'
    trigger:
     - platform: time_pattern
       minutes: '/15'
    condition:
     - condition: state
-      entity_id: binary_sensor.mag2
+      entity_id: switch.forrad_rorelse
       state: 'on'
    action:
     - delay: '00:05:00'
     - service: homeassistant.turn_off
       data:
-       entity_id: binary_sensor.mag2
+       entity_id: switch.forrad_rorelse
  - alias: 'altan terminate'
    hide_entity: false
    initial_state: 'off'
@@ -476,12 +476,12 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: switch.postlada
       to: 'on'
       from: 'off'
-   condition:
-     condition: or
-     conditions:
-           - condition: state
-             entity_id: binary_sensor.dorothea_collect
-             state: 'on'
+#   condition:
+#     condition: or
+ #    conditions:
+#           - condition: state
+#             entity_id: binary_sensor.dorothea_collect
+#             state: 'on'
    action:
     - alias: notification
       service: notify.pushb_d
@@ -495,13 +495,12 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - platform: state
       entity_id: switch.postlada
       to: 'on'
-      from: 'off'
-   condition:
-     condition: or
-     conditions:
-           - condition: state
-             entity_id: binary_sensor.kristian_collect
-             state: 'on'
+ #  condition:
+ #    condition: or
+ #    conditions:
+ #          - condition: state
+ #            entity_id: binary_sensor.kristian_collect
+ #            state: 'on'
    action:
     - alias: notification
       service: notify.pushb_k
