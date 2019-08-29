@@ -764,7 +764,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       at: '03:00:00'
     - platform: time
       at: '20:00:00'
-    condition:
+   condition:
      condition: and
      conditions:
       - condition: or
@@ -795,7 +795,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       at: '03:00:00'
     - platform: time
       at: '20:00:00'
-    condition:
+   condition:
      condition: and
      conditions:
       - condition: or
