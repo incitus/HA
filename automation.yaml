@@ -756,25 +756,68 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        entity_id:  switch.laddare_vardagsrum
 
 
- - alias: bedroom_charging_evening_on
+ - alias: bedroom_charging_evening_on_d
    hide_entity: false
    initial_state: 'on'
    trigger:
     - platform: time
-      at: '04:00:00'
+      at: '03:00:00'
     - platform: time
-      at: '22:00:00'
-   condition:
-    condition: or
-    conditions:
+      at: '20:00:00'
+    condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+           - condition: state
+             entity_id: alarm_control_panel.alarm
+             state: 'disarmed'
+           - condition: state
+             entity_id: alarm_control_panel.alarm
+             state: 'armed_home'
       - condition: state
-        entity_id: alarm_control_panel.alarm
-        state: 'disarmed'
-      - condition: state
-        entity_id: alarm_control_panel.alarm
-        state: 'armed_home'
+        entity_id: binary_sensor.dorothea_collect
+        state: on
    action:
-    - service: script.laddare      
+        - service: homeassistant.turn_on
+          data:
+            entity_id: switch.mobilladdare_dorothea
+        - service: homeassistant.turn_on
+          data:
+            entity_id: light.dorotheas_sanglampa
+            brightness: 10 
+
+ - alias: bedroom_charging_evening_on_k
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: time
+      at: '03:00:00'
+    - platform: time
+      at: '20:00:00'
+    condition:
+     condition: and
+     conditions:
+      - condition: or
+        conditions:
+           - condition: state
+             entity_id: alarm_control_panel.alarm
+             state: 'disarmed'
+           - condition: state
+             entity_id: alarm_control_panel.alarm
+             state: 'armed_home'
+      - condition: state
+        entity_id: binary_sensor.kristian_collect
+        state: on
+   action:
+        - service: homeassistant.turn_on
+          data:
+           entity_id: switch.mobilladdare_kristian
+        - service: homeassistant.turn_on
+          data:
+           entity_id: light.kristians_sanglampa
+           brightness: 10  
+
 
  - alias: charger_workroom_off
    hide_entity: false

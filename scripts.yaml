@@ -58,16 +58,6 @@
        data:
          entity_id: light.window_lamps
          brightness: 100
-     - alias: on
-       service: homeassistant.turn_on
-       data:
-         entity_id: light.dorotheas_sanglampa
-         brightness: 10
-     - alias: on
-       service: homeassistant.turn_on
-       data:
-         entity_id: light.kristians_sanglampa
-         brightness: 10  
      - service: light.turn_on
        data:
         entity_id: light.Altan
@@ -915,15 +905,6 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelsesensor.state}}, {{
          data:
           inline_keyboard:
            - 'Deaktivate:/disarm'
-  laddare:
-   alias: laddare 
-   sequence:
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.mobilladdare_dorothea
-    - service: homeassistant.turn_on
-      data:
-        entity_id: switch.mobilladdare_kristian
 
   d_homealarm:
    alias: d_homealarm
