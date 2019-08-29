@@ -777,7 +777,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
              state: 'armed_home'
       - condition: state
         entity_id: binary_sensor.dorothea_collect
-        state: on
+        state: 'on'
    action:
         - service: homeassistant.turn_on
           data:
@@ -808,7 +808,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
              state: 'armed_home'
       - condition: state
         entity_id: binary_sensor.kristian_collect
-        state: on
+        state: 'on'
    action:
         - service: homeassistant.turn_on
           data:
