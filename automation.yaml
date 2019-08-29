@@ -736,7 +736,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    trigger:
     - platform: numeric_state
       entity_id:  sensor.laddare_vardagsrum_energi_mean
-      below: 0.5
+      below: 1
    action:
     - service: homeassistant.turn_off
       data:
@@ -749,10 +749,8 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - platform: state
       entity_id:  switch.laddare_vardagsrum
       to: 'on'
-      from: 'off'
+      for: 420
    action:
-    - delay:
-       hours: 6
     - service: homeassistant.turn_off
       data:
        entity_id:  switch.laddare_vardagsrum
@@ -803,15 +801,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
      conditions:
       - condition: or
         conditions:
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Evening'
-           - condition: state
-             entity_id: input_select.time_day
-             state: 'Morning'
-      - condition: state
-        entity_id: light.koksbank
-        state: 'off'
+           - condition: numeric_state
+             entity_id: sensor.kok_rorelsesensor_luminance
+             below: 200
    action:
     - service: light.turn_on
       data:
