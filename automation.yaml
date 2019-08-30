@@ -735,7 +735,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: numeric_state
-      entity_id:  sensor.laddare_vardagsrum_energi_mean
+      entity_id:  sensor.laddare_vardagsrum_energi
       below: 1
    action:
     - service: homeassistant.turn_off
@@ -824,7 +824,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: numeric_state
-      entity_id: sensor.laddare_arbetsrum_mean
+      entity_id: sensor.laddare_arbetsrum
       below: 5
    action:
     - service: homeassistant.turn_off
