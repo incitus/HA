@@ -338,22 +338,12 @@ input_datetime:
     name: "Växtlampa off"
     has_time: true
     has_date: false
-    initial: "18:00"
+    initial: "06:05"
  
 sensor:
   - platform: time_date
     display_options:
      - 'time'
-  - platform: statistics
-    entity_id: sensor.laddare_vardagsrum_power_2
-    name: Laddare vardagsrum, energi
-    max_age:
-      minutes: 30
-  - platform: statistics
-    entity_id: sensor.forrad_uttag_power
-    name: Laddare arbetsrum
-    max_age:
-      minutes: 30
 map:
 
 
