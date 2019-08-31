@@ -1,13 +1,14 @@
 title: Home
 views:
-  - cards:
+  - badges: []
+    cards:
       - cards:
           - content: |
               ## Scenes
             type: markdown
           - card:
-              - type: weather-forecast
-                entity: weather.smhi_home
+              - entity: weather.smhi_home
+                type: weather-forecast
             conditions:
               - entity: input_select.time_day
                 state: Morning
@@ -22,7 +23,6 @@ views:
                 state: Armed
             type: conditional
           - card:
-              type: glance
               entities:
                 - entity: binary_sensor.vardagsrum_rorelsesensor
                   name: ' '
@@ -42,12 +42,12 @@ views:
                   name: ' '
                 - entity: switch.forrad_dorr_inne
                   name: ' '
+              type: glance
             conditions:
               - entity: input_select.hus_mode
                 state: Armed
             type: conditional
-          - type: glance
-            entities:
+          - entities:
               - entity: sensor.vardagsrum_rorelse_temperature
                 name: Vardagsrum
               - entity: sensor.kok_rorelse_temperature
@@ -58,6 +58,7 @@ views:
                 name: sovrum
               - entity: sensor.utomhus_temperature
                 name: Utomhus
+            type: glance
           - cards:
               - entity: switch.window_lamps
                 icon: 'mdi:lightbulb-on'
@@ -97,11 +98,10 @@ views:
                 icon: m
                 name: ' '
                 type: entity-button
-            type: horizontal-stack
             name: hall
+            type: horizontal-stack
         name: Scenes
         type: vertical-stack
-    badges: []
     icon: 'mdi:home'
     panel: false
     path: default_view
@@ -359,8 +359,12 @@ views:
             type: markdown
           - card:
               cards:
-                - entity: sensor.forrad_humidity
+                - entity: sensor.forrad_uttag_power
                   graph: line
+                  name: ' '
+                  type: gauge
+                - entity: sensor.forrad_humidity
+                  graph: gauge
                   name: ' '
                   type: gauge
                 - entity: sensor.forrad_temperature
@@ -440,6 +444,18 @@ views:
     title: Förråd
   - badges: []
     cards:
+      - entity: switch.plantlampa_forradet
+        hold_action:
+          action: more-info
+        icon: 'mdi:flower'
+        name: På
+        tap_action:
+          action: toggle
+        type: entity-button
+    icon: 'mdi:flower'
+    title: Plants
+  - badges: []
+    cards:
       - cards:
           - content: |
               ## Home
@@ -467,39 +483,31 @@ views:
         title: Integrity
         type: entities
       - entities:
-          - binary_sensor.motion
-          - binary_sensor.korridor_motion
-          - binary_sensor.device_130
-          - binary_sensor.device_128
-          - binary_sensor.device_129
-          - binary_sensor.work_motion
-          - binary_sensor.altan_motion
+          - entity: binary_sensor.motion
+          - entity: binary_sensor.korridor_motion
+          - entity: binary_sensor.vardagsrum_rorelsesensor
+          - entity: binary_sensor.hall_rorelsesensor
+          - entity: binary_sensor.kok_rorelsesensor
+          - entity: binary_sensor.work_motion
+          - entity: binary_sensor.altan_motion
+          - entity: switch.postlada
         show_header_toggle: true
         title: Motion
         type: entities
       - entities:
-          - binary_sensor.hall_break
-          - binary_sensor.altan_break
-          - binary_sensor.work_break
+          - entity: binary_sensor.hall_break
+          - entity: switch.forrad_dorr_inne
+          - entity: binary_sensor.mag1
+          - entity: binary_sensor.mag2
+          - entity: switch.garage_dorr
+          - entity: switch.altan_dorr
         show_header_toggle: true
         title: Doors
         type: entities
     icon: 'mdi:camera'
-    panel: true
+    panel: false
     path: motion_view
     title: Survailance
-  - badges: []
-    cards:
-      - entity: switch.plantlampa_forradet
-        hold_action:
-          action: more-info
-        icon: 'mdi:flower'
-        name: På
-        tap_action:
-          action: toggle
-        type: entity-button
-    icon: 'mdi:flower'
-    title: Plants
   - badges:
       - device_tracker.kristian
       - device_tracker.hass_krille
@@ -515,14 +523,15 @@ views:
         title: Charger or element
         type: entities
       - entities:
-          - automation.bedroom_charging_evening_on
-          - automation.charger_off_controller
-          - automation.evening_light_on
-          - automation.evening_light_off
-          - automation.turnofftv
-          - automation.turnonkitchen
-          - automation.morning_light_on
-          - automation.morninglight_off
+          - entity: automation.bedroom_charging_evening_on
+          - entity: automation.charger_off_controller
+          - entity: automation.evening_light_on
+          - entity: automation.evening_light_off
+          - entity: automation.turnofftv
+          - entity: automation.turnonkitchen
+          - entity: automation.morning_light_on
+          - entity: automation.morninglight_off
+          - entity: automation.forr_terminate
         title: Automation
         type: entities
       - entities:
