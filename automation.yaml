@@ -1217,11 +1217,11 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Day'
    action:
-    - service: light.turn_on
+    - service: light.turn_off
       data:
         entity_id: light.ikea1
         brightness: 0
-    - service: light.turn_on
+    - service: light.turn_off
       data:
         entity_id: light.ikea2
         brightness: 0
