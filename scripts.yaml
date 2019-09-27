@@ -80,6 +80,30 @@
          message: "Window lamps on"
          title: "DEBUG" 
 
+  koklampa_off:
+   alias: Fönsterlampor av
+   sequence:
+     - service: light.turn_off
+       data:
+        entity_id: light.ikea1
+     - service: light.turn_off
+       data:
+        entity_id: light.ikea2
+  koklampa_on:
+   alias: Fönsterlampor på
+   sequence:
+     - service: light.turn_on
+       data:
+        entity_id: light.ikea1
+        brightness: 100
+        transition: 60
+     - service: light.turn_on
+       data:
+        entity_id: light.ikea2
+        brightness: 100
+        transition: 60
+
+
   windowlamps_off:
    alias: Fönsterlampor av
    sequence:
