@@ -883,6 +883,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
            - condition: numeric_state
              entity_id: sensor.kok_rorelsesensor_luminance
              below: 200
+      - condition: state
+        entity_id: light.koksbank
+        state: 'off'
    action:
     - service: light.turn_on
       data:
