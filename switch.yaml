@@ -86,7 +86,7 @@
             data:
              entity_id: script.koklampa_on
         turn_off:
-          - service: script.turn_off
+          - service: script.turn_on
             data:
              entity_id: script.koklampa_off
       fire_alam_off:
