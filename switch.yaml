@@ -69,7 +69,7 @@
             entity_id: light.lamps
       window_lamps:
         friendly_name: All window lamps
-        value_template: "{{ is_state('light.window_lamps', 'on') }}"
+        value_template: "{{ is_state('light.ikea1', 'on') }}"
         turn_on:
           service: script.turn_on
           data:
@@ -78,6 +78,23 @@
           service: script.turn_on
           data:
            entity_id: script.windowlamps_off
+      kok_lampa:
+        friendly_name: Kökslampa
+        value_template: "{{ is_state('light.ikea1', 'on') }}"
+        turn_on:
+          - service: homeassistant.turn_on
+            data:
+             entity_id: light.ikea1
+          - service: homeassistant.turn_on
+            data:
+             entity_id: light.ikea2
+        turn_off:
+          - service: homeassistant.turn_off
+            data:
+             entity_id: light.ikea1
+          - service: homeassistant.turn_off
+            data:
+             entity_id: light.ikea2
       fire_alam_off:
         friendly_name: Firealarm termination
         value_template: "{{ is_state('binary_sensor.fire_alarm', 'on')}}"
