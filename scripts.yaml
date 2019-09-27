@@ -49,49 +49,26 @@
        service: switch.turn_on
        data:
          entity_id: switch.vardagsrum_skapslampa
+     - service: light.turn_on
+       data:
+        entity_id: light.ikea1
+        brightness: 20
+     - service: light.turn_on
+       data:
+        entity_id: light.ikea2
+        brightness: 20
      - alias: on
        service: switch.turn_on
        data:
          entity_id: switch.vardagsrum_fonsterlampa
      - alias: on
-       service: homeassistant.turn_on
+       service: switch.turn_on
        data:
-         entity_id: light.window_lamps
-         brightness: 100
-     - service: light.turn_on
-       data:
-        entity_id: light.Altan
-        brightness: 20
-     - delay:
-        minutes: 3
+         entity_id: light.korridor_fonsterlampa
      - alias: on
        service: switch.turn_on
        data:
-         entity_id: switch.vardagsrum_fonsterlampa
-     - alias: on
-       service: homeassistant.turn_on
-       data:
-         entity_id: light.window_lamps
-         brightness: 100
-     - service: light.turn_on
-       data:
-        entity_id: light.Altan
-        brightness: 20
-     - delay:
-        minutes: 3
-     - alias: on
-       service: switch.turn_on
-       data:
-         entity_id: switch.vardagsrum_fonsterlampa
-     - alias: on
-       service: homeassistant.turn_on
-       data:
-         entity_id: light.window_lamps
-         brightness: 100
-     - service: light.turn_on
-       data:
-        entity_id: light.Altan
-        brightness: 20
+         entity_id: switch.syrum_fonsterlamp
      - condition: state
        entity_id: input_boolean.notify_debug_l1
        state: 'on'
@@ -109,50 +86,37 @@
           entity_id: input_select.window_lamp
           option: _Off_
      - alias: on
-       service: switch.turn_off
-       data:
-         entity_id: switch.vardagsrum_fonsterlampa
-     - alias: on
        service: script.turn_off
        data:
-         entity_id: script.windowlamps_on     
-     - alias: on
+         entity_id: script.windowlamps_on
+          - alias: on
        service: switch.turn_off
        data:
          entity_id: switch.vardagsrum_skapslampa
-     - alias: on
-       service: homeassistant.turn_off
-       data:
-         entity_id: light.window_lamps
      - service: light.turn_off
        data:
         entity_id: light.Altan
-     - delay:
-        minutes: 3
+        brightness: 0
+     - service: light.turn_off
+       data:
+        entity_id: light.ikea1
+        brightness: 0
+     - service: light.turn_off
+       data:
+        entity_id: light.ikea2
+        brightness: 0
      - alias: on
        service: switch.turn_off
        data:
          entity_id: switch.vardagsrum_fonsterlampa
      - alias: on
-       service: homeassistant.turn_off
+       service: switch.turn_off
        data:
-         entity_id: light.window_lamps
-     - service: light.turn_off
-       data:
-        entity_id: light.Altan
-     - delay:
-        minutes: 3
+         entity_id: light.korridor_fonsterlampa
      - alias: on
        service: switch.turn_off
        data:
-         entity_id: switch.vardagsrum_fonsterlampa
-     - alias: on
-       service: homeassistant.turn_off
-       data:
-         entity_id: light.window_lamps
-     - service: light.turn_off
-       data:
-        entity_id: light.Altan
+         entity_id: switch.syrum_fonsterlamp
      - condition: state
        entity_id: input_boolean.notify_debug_l1
        state: 'on'
@@ -247,36 +211,7 @@
       data:
           entity_id: input_select.time_day
           option: Night
-  morgonljus_on:
-   alias: morgonljus_on
-   sequence:
-    - alias: on
-      service: homeassistant.turn_on
-      data:
-        entity_id: group.morning_light
-    - condition: state
-      entity_id: input_boolean.notify_debug_l1
-      state: 'on'
-    - alias: notification
-      service: notify.pushb_k
-      data:
-         message: "Morning light on"
-         title: "DEBUG"
-  morgonljus_off:
-   alias: morgonljus_off
-   sequence:
-    - alias: on
-      service: homeassistant.turn_off
-      data:
-        entity_id: group.morning_light
-    - condition: state
-      entity_id: input_boolean.notify_debug_l1
-      state: 'on'
-    - alias: notification
-      service: notify.pushb_k
-      data:
-         message: "Morning light off"
-         title: "DEBUG"
+
   fire_alarm:
    alias: fire_alarm
    sequence:

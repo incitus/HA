@@ -1192,14 +1192,20 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    action:
     - service: homeassistant.turn_on
       data:
-        entity_id: group.morning_light
-    - service: script.morgonljus_on
-#    - service: script.temp_flash_0
-#    - service: script.temp_flash_010
-#    - service: script.temp_flash_015
-#    - service: script.temp_flash_05
-#    - service: script.temp_flash_10
-#    - service: script.temp_flash_5
+        entity_id: light.ikea1
+        brightness: 100
+        transition: 30
+    - service: homeassistant.turn_on
+      data:
+        entity_id: light.ikea2
+        brightness: 100
+        transition: 30
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.kok_fonsterlampa
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.vardagsrum_fonsterlampa
  - alias: morninglight_off
    hide_entity: False
    initial_state: 'on'
@@ -1208,11 +1214,20 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Day'
    action:
-    - service: homeassistant.turn_off
+    - service: homeassistant.turn_on
       data:
-        entity_id: group.morning_light
-    - service: script.morgonljus_off
-
+        entity_id: light.ikea1
+        brightness: 0
+    - service: homeassistant.turn_on
+      data:
+        entity_id: light.ikea2
+        brightness: 0
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.kok_fonsterlampa
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.vardagsrum_fonsterlampa
 
  - alias: 'evening_light_on_random'
    trigger:
