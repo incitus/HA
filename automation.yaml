@@ -1193,12 +1193,12 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
         entity_id: input_select.time_day
         state: 'Morning'
    action:
-    - service: homeassistant.turn_on
+    - service: light.turn_on
       data:
         entity_id: light.ikea1
         brightness: 100
         transition: 30
-    - service: homeassistant.turn_on
+    - service: light.turn_on
       data:
         entity_id: light.ikea2
         brightness: 100
@@ -1217,11 +1217,11 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Day'
    action:
-    - service: homeassistant.turn_on
+    - service: light.turn_on
       data:
         entity_id: light.ikea1
         brightness: 0
-    - service: homeassistant.turn_on
+    - service: light.turn_on
       data:
         entity_id: light.ikea2
         brightness: 0

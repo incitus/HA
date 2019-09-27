@@ -82,19 +82,23 @@
         friendly_name: Kökslampa
         value_template: "{{ is_state('light.ikea1', 'on') }}"
         turn_on:
-          - service: homeassistant.turn_on
+          - service: light.turn_on
             data:
              entity_id: light.ikea1
-          - service: homeassistant.turn_on
+             brightness: 20
+          - service: light.turn_on
             data:
              entity_id: light.ikea2
+             brightness: 20
         turn_off:
-          - service: homeassistant.turn_off
+          - service: light.turn_off
             data:
              entity_id: light.ikea1
-          - service: homeassistant.turn_off
+             brightness: 0
+          - service: light.turn_off
             data:
              entity_id: light.ikea2
+             brightness: 0
       fire_alam_off:
         friendly_name: Firealarm termination
         value_template: "{{ is_state('binary_sensor.fire_alarm', 'on')}}"
