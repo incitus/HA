@@ -85,11 +85,13 @@
           - service: light.turn_on
             data:
              entity_id: light.ikea1
-             brightness: 20
+             brightness: 100
+             transition: 60
           - service: light.turn_on
             data:
              entity_id: light.ikea2
-             brightness: 20
+             brightness: 100
+             transition: 60
         turn_off:
           - service: light.turn_off
             data:
