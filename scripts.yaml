@@ -89,7 +89,7 @@
        service: script.turn_off
        data:
          entity_id: script.windowlamps_on
-          - alias: on
+     - alias: on
        service: switch.turn_off
        data:
          entity_id: switch.vardagsrum_skapslampa
