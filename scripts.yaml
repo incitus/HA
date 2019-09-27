@@ -83,6 +83,9 @@
   koklampa_off:
    alias: Fönsterlampor av
    sequence:
+     - service: script.turn_off
+       data:
+        entity_id: script.koklampa_on
      - service: light.turn_off
        data:
         entity_id: light.ikea1
