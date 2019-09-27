@@ -94,11 +94,9 @@
           - service: light.turn_off
             data:
              entity_id: light.ikea1
-             brightness: 0
           - service: light.turn_off
             data:
              entity_id: light.ikea2
-             brightness: 0
       fire_alam_off:
         friendly_name: Firealarm termination
         value_template: "{{ is_state('binary_sensor.fire_alarm', 'on')}}"

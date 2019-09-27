@@ -98,15 +98,12 @@
      - service: light.turn_off
        data:
         entity_id: light.Altan
-        brightness: 0
      - service: light.turn_off
        data:
         entity_id: light.ikea1
-        brightness: 0
      - service: light.turn_off
        data:
         entity_id: light.ikea2
-        brightness: 0
      - alias: on
        service: switch.turn_off
        data:
