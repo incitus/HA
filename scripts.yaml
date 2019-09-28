@@ -54,19 +54,22 @@
         entity_id: light.ikea1
         brightness: 70
         transition: 30
+        kelvin: 2700
      - service: light.turn_on
        data:
         entity_id: light.ikea2
         brightness: 70
         transition: 30
+        kelvin: 2700
      - alias: on
        service: switch.turn_on
        data:
          entity_id: switch.vardagsrum_fonsterlampa
      - alias: on
-       service: switch.turn_on
+       service: light.turn_on
        data:
          entity_id: light.korridor_fonsterlampa
+         brightness: 20
      - alias: on
        service: switch.turn_on
        data:
@@ -74,15 +77,7 @@
      - alias: on
        service: switch.turn_on
        data:
-         entity_id: light.korridor_fonsterlampa
-     - alias: on
-       service: switch.turn_on
-       data:
          entity_id: switch.syrum_fonsterlampa
-     - alias: on
-       service: switch.turn_on
-       data:
-         entity_id: light.korridor_fonsterlampa
      - alias: on
        service: switch.turn_on
        data:
@@ -111,15 +106,22 @@
   koklampa_on:
    alias: Fönsterlampor på
    sequence:
+     - service: script.turn_off
+       data:
+        entity_id: script.koklampa_off
      - service: light.turn_on
        data:
         entity_id: light.ikea1
         brightness: 50
         transition: 30
+        kelvin: 2700
+     - service: light.turn_on
+       data:
+        entity_id: light.ikea2
+        brightness: 50
+        transition: 30
+        kelvin: 2700
      
-
-
-
   windowlamps_off:
    alias: Fönsterlampor av
    sequence:
@@ -157,7 +159,7 @@
        data:
          entity_id: switch.syrum_fonsterlampa
      - alias: on
-       service: switch.turn_off
+       service: light.turn_off
        data:
          entity_id: light.korridor_fonsterlampa
      - alias: on
