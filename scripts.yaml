@@ -52,13 +52,13 @@
      - service: light.turn_on
        data:
         entity_id: light.ikea1
-        brightness: 100
-        transition: 120
+        brightness: 70
+        transition: 30
      - service: light.turn_on
        data:
         entity_id: light.ikea2
-        brightness: 100
-        transition: 120
+        brightness: 70
+        transition: 30
      - alias: on
        service: switch.turn_on
        data:
@@ -80,7 +80,7 @@
        data:
          entity_id: switch.syrum_fonsterlampa
      - alias: on
-       service: switch.turn_oon
+       service: switch.turn_on
        data:
          entity_id: light.korridor_fonsterlampa
      - alias: on
@@ -114,93 +114,9 @@
      - service: light.turn_on
        data:
         entity_id: light.ikea1
-        brightness: 20
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea2
-        brightness: 20
-     - delay:
-        seconds: 1
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea1
-        brightness: 30
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea2
-        brightness: 30
-     - delay:
-        seconds: 1
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea1
-        brightness: 40
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea2
-        brightness: 40
-     - delay:
-        seconds: 1
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea1
         brightness: 50
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea2
-        brightness: 50
-     - delay:
-        seconds: 1
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea1
-        brightness: 60
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea2
-        brightness: 60
-     - delay:
-        seconds: 1
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea1
-        brightness: 70
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea2
-        brightness: 70
-     - delay:
-        seconds: 1
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea1
-        brightness: 80
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea2
-        brightness: 80
-     - delay:
-        seconds: 1
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea1
-        brightness: 90
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea2
-        brightness: 90
-     - delay:
-        seconds: 1
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea1
-        brightness: 100
-     - service: light.turn_on
-       data:
-        entity_id: light.ikea2
-        brightness: 100
-     - delay:
-        seconds: 1
+        transition: 30
+     
 
 
 
