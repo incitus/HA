@@ -233,7 +233,7 @@
        data:
          entity_id: switch.vardagsrum_fonsterlampa
      - alias: on
-       service: switch.turn_off
+       service: light.turn_off
        data:
          entity_id: light.korridor_fonsterlampa
      - alias: on
