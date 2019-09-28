@@ -133,7 +133,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelsesensor.state}}, {{
       data:
          entity_id: script.fire_alarm
 
-- alias: 'forrad dorr inne'
+ - alias: 'forrad dorr inne'
    initial_state: 'off'
    hide_entity: false
    trigger:
