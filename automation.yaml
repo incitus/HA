@@ -133,6 +133,21 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelsesensor.state}}, {{
       data:
          entity_id: script.fire_alarm
 
+- alias: 'forrad dorr inne'
+   initial_state: 'off'
+   hide_entity: false
+   trigger:
+    - platform: time
+      at: '21:00:00'
+   condition:
+    - condition: state
+      entity_id: switch.forrad_dorr_inne
+      state: 'on'
+   action:
+    - service: notify.pushb_k
+      data:
+         message: "Kontrollera inne dörren till förrådet"
+         title: "Alarm"
 
  - alias: 'state'
    hide_entity: false
@@ -470,18 +485,18 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
 
 
  - alias: 'notify postarrived dor'
-   hide_entity: false
+   hide_entity: true
    trigger:
     - platform: state
       entity_id: switch.postlada
       to: 'on'
       from: 'off'
-#   condition:
-#     condition: or
- #    conditions:
-#           - condition: state
-#             entity_id: binary_sensor.dorothea_collect
-#             state: 'on'
+   condition:
+     condition: or
+     conditions:
+           - condition: state
+             entity_id: binary_sensor.dorothea_collect
+             state: 'off'
    action:
     - alias: notification
       service: notify.pushb_d
@@ -490,17 +505,17 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
          title: "Post"
 
  - alias: 'notify postarrived kr'
-   hide_entity: false
+   hide_entity: true
    trigger:
     - platform: state
       entity_id: switch.postlada
       to: 'on'
- #  condition:
- #    condition: or
- #    conditions:
- #          - condition: state
- #            entity_id: binary_sensor.kristian_collect
- #            state: 'on'
+   condition:
+     condition: or
+     conditions:
+           - condition: state
+             entity_id: binary_sensor.kristian_collect
+             state: 'off'
    action:
     - alias: notification
       service: notify.pushb_k
@@ -1196,13 +1211,13 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: light.turn_on
       data:
         entity_id: light.ikea1
-        brightness: 100
-        transition: 30
+        brightness: 50
+        transition: 60
     - service: light.turn_on
       data:
         entity_id: light.ikea2
-        brightness: 100
-        transition: 30
+        brightness: 50
+        transition: 60
     - service: homeassistant.turn_on
       data:
         entity_id: switch.kok_fonsterlampa
@@ -1220,15 +1235,13 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: light.turn_off
       data:
         entity_id: light.ikea1
-        brightness: 0
     - service: light.turn_off
       data:
         entity_id: light.ikea2
-        brightness: 0
-    - service: homeassistant.turn_on
+    - service: homeassistant.turn_off
       data:
         entity_id: switch.kok_fonsterlampa
-    - service: homeassistant.turn_on
+    - service: homeassistant.turn_off
       data:
         entity_id: switch.vardagsrum_fonsterlampa
 

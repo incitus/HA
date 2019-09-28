@@ -112,14 +112,14 @@
      - service: light.turn_on
        data:
         entity_id: light.ikea1
-        brightness: 50
-        transition: 30
+        brightness: 70
+        transition: 60
         kelvin: 2700
      - service: light.turn_on
        data:
         entity_id: light.ikea2
-        brightness: 50
-        transition: 30
+        brightness: 70
+        transition: 60
         kelvin: 2700
      
   windowlamps_off:
