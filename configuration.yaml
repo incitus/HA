@@ -80,6 +80,7 @@ homeassistant:
       friendly_name: Frys temperatur
 
 
+
   auth_providers:
     - type: trusted_networks
       trusted_networks:
@@ -110,7 +111,55 @@ homeassistant:
 
 # Enables the frontend
 frontend:
-  themes: !include_dir_merge_named themes
+  themes: 
+    homed:
+      solarized_light:
+        primary-color: "#dee2e3"
+        accent-color: "#a3a3a3"
+        dark-primary-color: "##979999"
+        light-primary-color: "var(--accent-color)"
+        primary-text-color: "#0d0d0d"
+        text-primary-color: "var(--primary-text-color)"
+        secondary-text-color: "#0d0d0d"
+        disabled-text-color: "#7a7a7a"
+        label-badge-border-color: "#dee2e3"
+        primary-background-color: "#dee2e3"
+        secondary-background-color: "#dee2e3"
+        divider-color: "rgba(0, 0, 0, .12)"
+        table-row-background-color: "#dee2e3"
+        table-row-alternative-background-color: "#dee2e3"
+        paper-listbox-color: "var(--primary-color)"
+        paper-listbox-background-color: "var(--accent-color)"
+        paper-grey-50: "var(--primary-text-color)"
+        paper-grey-200: "var(--accent-color)"
+        paper-card-header-color: "var(--dark-primary-color)"
+        paper-card-background-color: "var(--accent-color)"
+        paper-dialog-background-color: "#fdf6e3"
+        paper-item-icon-color: "var(--primary-text-color)"
+        paper-item-icon-active-color: "#9c3535"
+        paper-item-icon_-_color: "green"
+        paper-item-selected_-_color: "var(--accent-color)"
+        paper-item-selected_-_background-color: "#9c3535"
+        paper-tabs-selection-bar-color: "green"
+        label-badge-red: "#586e75"
+        label-badge-text-color: "var(--primary-text-color)"
+        label-badge-background-color: "var(--accent-color)"
+        paper-toggle-button-checked-button-color: "#268bd2"
+        paper-toggle-button-checked-bar-color: "var(--primary-color)"
+        paper-toggle-button-checked-ink-color: "#268bd2"
+        paper-toggle-button-unchecked-button-color: "var(--secondary-background-color)"
+        paper-toggle-button-unchecked-bar-color: "var(--secondary-text-color)"
+        paper-toggle-button-unchecked-ink-color: "var(--secondary-background-color)"
+        paper-slider-knob-color: "var(--secondary-text-color)"
+        paper-slider-knob-start-color: "var(--secondary-text-color)"
+        paper-slider-pin-color: "var(--secondary-text-color)"
+        paper-slider-active-color: "var(--secondary-text-color)"
+        paper-slider-container-color: "linear-gradient(var(--primary-background-color), var(--secondary-background-color)) no-repeat"
+        paper-slider-secondary-color: "var(--secondary-background-color)"
+        paper-slider-disabled-active-color: "var(--disabled-text-color)"
+        paper-slider-disabled-secondary-color: "var(--disabled-text-color)"
+        google-red-500: "#dc322f"
+        google-green-500: "#859900"
 # javascript_version: es5
 
  
