@@ -113,7 +113,6 @@ homeassistant:
 frontend:
   themes: 
     homed:
-      solarized_light:
         primary-color: "#dee2e3"
         accent-color: "#a3a3a3"
         dark-primary-color: "##979999"
