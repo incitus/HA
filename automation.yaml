@@ -425,16 +425,14 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    hide_entity: false
    trigger:
     - platform: state
-      entity_id: binary_sensor.event_downstairs
-      to: 'off'
-      from: 'on'
-      for: '01:00:00'
-    - platform: state
       entity_id: 'input_select.at_home'
       to: 'Extended'
     - platform: state
       entity_id: 'input_select.at_home'
       to: 'Away'
+    - platform: state
+      entity_id: input_select.time_day
+      to: 'Night'
    action:
     - service: script.shutdown
 
@@ -446,14 +444,13 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: binary_sensor.event_downstairs
       to: 'on'
       from: 'off'
-    - platform: state
-      entity_id: 'binary_sensor.at_home'
-      to: 'on'
-      from: 'off'
    condition:
      - condition: state
        entity_id: switch.hall_mediapanel
        state: 'off'
+     - condition: state
+       entity_id: 'binary_sensor.at_home'
+       state: 'on'
    action:
     - service: switch.turn_on
       data:
@@ -623,6 +620,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    trigger:
     - platform: state
       entity_id: binary_sensor.vardagsrum_rorelsesensor
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.hall_rorelsesensor
       to: 'on'
    condition:
     - condition: state
@@ -1470,7 +1470,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: 'binary_sensor.at_home'
       to: 'off'
       for:
-        minutes: 120
+        minutes: 60
    action:
      - service: input_select.select_option
        data:

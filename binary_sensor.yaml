@@ -60,30 +60,30 @@
       - binary_sensor.vardagsrum_rorelsesensor
      friendly_name: "Rörelse"
 
-
     event_downstairs:
-     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.work_break', 'on') or is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.kok_rorelsesensor', 'on') or is_state('binary_sensor.kok_rorelsesensor', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.hall_rorelsesensor', 'on') or is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or  is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') }}"
      device_class: moving
      entity_id:
       - binary_sensor.hall_rorelsesensor
       - binary_sensor.altan_break
       - binary_sensor.hall_break
       - binary_sensor.entre_motion
-      - binary_sensor.kok_rorelase
+      - binary_sensor.kok_rorelsesensor
       - binary_sensor.vardagsrum_rorelsesensor
       - binary_sensor.work_break
       - binary_sensor.work_motion
      friendly_name: "Rörelse"
 
+
     motion_downstairs:
-     value_template: "{{ is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or  is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.kok_rorelsesensor', 'on') or is_state('binary_sensor.kok_rorelsesensor', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.hall_rorelsesensor', 'on') or is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or  is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') }}"
      device_class: moving
      entity_id:
       - binary_sensor.hall_rorelsesensor
       - binary_sensor.altan_break
       - binary_sensor.hall_break
       - binary_sensor.entre_motion
-      - binary_sensor.kok_rorelase
+      - binary_sensor.kok_rorelsesensor
       - binary_sensor.vardagsrum_rorelsesensor
       - binary_sensor.work_break
       - binary_sensor.work_motion
