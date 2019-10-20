@@ -141,7 +141,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelsesensor.state}}, {{
       at: '21:00:00'
    condition:
     - condition: state
-      entity_id: switch.forrad_dorr_inne
+      entity_id:  switch.forrad_innedorr
       state: 'on'
    action:
     - service: notify.pushb_k
