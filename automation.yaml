@@ -434,7 +434,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.time_day
       to: 'Night'
    action:
-    - service: script.shutdown
+    - service: switch.turn_off
+      data:
+        entity_id: switch.hall_mediapanel
 
 
  - alias: 'turn_on_controller_screen'
