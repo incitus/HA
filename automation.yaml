@@ -741,17 +741,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: script.alarm_home_recovery
 
 
- - alias: tell_off
-   hide_entity: false
-   initial_state: 'off'
-   trigger:
-    - platform: state
-      entity_id: switch.mobilladdare_kristian
-      to: 'unavailable'
-      for:
-        minutes: 30
-   action:
-    - service: script.reboot_tell
 ##########
 ### Chargers
 #########
@@ -1256,24 +1245,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       data:
         entity_id: switch.vardagsrum_fonsterlampa
 
- - alias: 'evening_light_on_random'
-   trigger:
-    - platform: state
-      entity_id: input_select.time_day
-      to: 'Evening'
-   condition:
-    condition: and
-    conditions:
-      - condition: or
-        conditions:
-         - condition: state
-           entity_id: 'input_select.at_home'
-           state: 'Extended'
-   action:
-     - delay: '{{ (range(0, 1)|random|int) }}:{{ (range(1, 30)|random|int) }}:00'
-     - service: homeassistant.turn_on
-       data:
-        entity_id: script.windowlamps_on
+
 
 
 
@@ -1291,11 +1263,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    condition:
      condition: and
      conditions:
-      - condition: or
-        conditions:
-         - condition: state
-           entity_id: 'input_select.at_home'
-           state: 'Home'
       - condition: state
         entity_id: input_select.time_day
         state: 'Evening'
