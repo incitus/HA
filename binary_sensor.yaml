@@ -4,9 +4,9 @@
  - platform: template
    sensors:
     hall_break:
-     value_template: "{{ is_state('binary_sensor.mag1', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.device_142', 'on') }}"
      device_class: moving
-     entity_id: binary_sensor.mag1
+     entity_id: binary_sensor.device_142
      friendly_name: "Brytare Ytterdörr"
 
     altan_break:
