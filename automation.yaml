@@ -1224,6 +1224,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: homeassistant.turn_on
       data:
         entity_id: switch.vardagsrum_fonsterlampa
+    - service: switch.turn_on
+      data:
+        entity_id: switch.julbelysning
  - alias: morninglight_off
    hide_entity: False
    initial_state: 'on'
@@ -1241,6 +1244,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: homeassistant.turn_off
       data:
         entity_id: switch.kok_fonsterlampa
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.julbelysning
     - service: homeassistant.turn_off
       data:
         entity_id: switch.vardagsrum_fonsterlampa
@@ -1270,6 +1276,13 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
      - service: homeassistant.turn_on
        data:
         entity_id: script.windowlamps_on
+     - service: switch.turn_on
+       data:
+        entity_id: switch.kok_fonsterlampa
+     - service: switch.turn_on
+       data:
+        entity_id: switch.julbelysning
+     
 
  - alias: evening_light_off
    hide_entity: False
@@ -1301,6 +1314,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: switch.turn_off
       data:
         entity_id: switch.kok_fonsterlampa
+    - service: switch.turn_off
+      data:
+        entity_id: switch.julbelysning
 
 
  
