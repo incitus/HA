@@ -23,7 +23,7 @@ homeassistant:
     automation.charger_workroom_off:
       friendly_name: 'Automation: Workroom charger'
     switch.kok_fonsterlampa:
-      friendly_name: 'Fönsterlampa'
+      friendly_name: 'Förrådsbelysning'
     light.koksbank:
       friendly_name: Diskbänksbelysning
     switch.hall_trapplampa:

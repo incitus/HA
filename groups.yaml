@@ -117,7 +117,6 @@
  Kok:
   name: Kök
   entities:
-  - switch.kok_fonsterlampa
   - light.koksbank
  Hall:
   name: Hall

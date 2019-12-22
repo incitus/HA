@@ -1298,6 +1298,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       data:
         entity_id: light.Altan
         brightness: 0
+    - service: switch.turn_off
+      data:
+        entity_id: switch.kok_fonsterlampa
 
 
  
