@@ -36,7 +36,7 @@ views:
                   name: ' '
                 - entity: binary_sensor.kok_rorelsesensor
                   name: ' '
-                - entity: binary_sensor.mag1
+                - entity: switch.device_150
                   name: ' '
                 - entity: binary_sensor.mag2
                   name: ' '
@@ -497,7 +497,7 @@ views:
       - entities:
           - entity: binary_sensor.hall_break
           - entity: switch.forrad_dorr_inne
-          - entity: binary_sensor.mag1
+          - entity: switch.device_150
           - entity: binary_sensor.mag2
           - entity: switch.garage_dorr
           - entity: switch.altan_dorr

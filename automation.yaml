@@ -1101,7 +1101,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
      - platform: numeric_state
-       entity_id: sensor.barnrum_humidity
+       entity_id: sensor.barnrum_humidity_2
        value_template: '{{ state.attributes.battery_level }}'
        below: 20
    action:
@@ -1153,7 +1153,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
      - platform: numeric_state
-       entity_id:   sensor.sovrum_temperature
+       entity_id:   sensor.sovrum_temperature_2
        value_template: '{{ state.attributes.battery_level }}'
        below: 20
    action:
