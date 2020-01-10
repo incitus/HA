@@ -1301,22 +1301,19 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: homeassistant.turn_off
       data:
        entity_id: script.windowlamps_on
-    - service: homeassistant.turn_on
-      data:
-       entity_id: script.windowlamps_off
     - service: homeassistant.turn_off
       data:
        entity_id: light.Altan
-    - service: light.turn_off
-      data:
-        entity_id: light.Altan
-        brightness: 0
     - service: switch.turn_off
       data:
         entity_id: switch.kok_fonsterlampa
     - service: switch.turn_off
       data:
         entity_id: switch.julbelysning
+    - service: homeassistant.turn_on
+      data:
+       entity_id: script.windowlamps_off
+    
 
 
  
