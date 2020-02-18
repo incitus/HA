@@ -680,8 +680,8 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: light.dorotheas_sanglampa
       state: 'off'
     - condition: state
-        entity_id: input_select.time_day
-        state: 'Evening'
+      entity_id: input_select.time_day
+      state: 'Evening'
    action:
     - service: script.turn_on
       data:
