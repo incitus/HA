@@ -662,6 +662,31 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       data:
        entity_id: script.signal_alarm_active
 
+ - alias: night_mode_on_lamp_off
+   hide_entity: false
+   initial_state: 'on'
+   trigger:
+    - platform: state
+      entity_id: 'light.hue_ambiance_candle_1'
+      to: 'off'
+    - platform: state
+      entity_id: 'light.dorotheas_sanglampa'
+      to: 'off'
+   condition:
+    - condition: state
+      entity_id: light.hue_ambiance_candle_1
+      state: 'off'
+    - condition: state
+      entity_id: light.dorotheas_sanglampa
+      state: 'off'
+    - condition: state
+        entity_id: input_select.time_day
+        state: 'Evening'
+   action:
+    - service: script.turn_on
+      data:
+       entity_id: script.sovgott
+
    
  - alias: "Wake me up with bedroom light transition for weekdays"
    trigger:
