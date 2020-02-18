@@ -167,7 +167,7 @@
   name: Sovrum
   entities:
    - light.dorotheas_sanglampa
-   - light.kristians_sanglampa
+   - light.hue_ambiance_candle_1
    - switch.mobilladdare_kristian
    - switch.mobilladdare_dorothea
 

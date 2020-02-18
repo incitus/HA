@@ -165,10 +165,6 @@
      - alias: on
        service: switch.turn_off
        data:
-         entity_id: switch.barnrum_fonsterlampa
-     - alias: on
-       service: switch.turn_off
-       data:
          entity_id: switch.vardagsrum_bordslampa
      - condition: state
        entity_id: input_boolean.notify_debug_l1

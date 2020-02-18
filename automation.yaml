@@ -673,7 +673,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
         state: 'on'
    action:
       - service: light.turn_on
-        entity_id: light.kristians_sanglampa
+        entity_id: light.hue_ambiance_candle_1
         data:
           transition: 1800
           brightness: 255
@@ -863,7 +863,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    action:
         - service: homeassistant.turn_on
           data:
-           entity_id: light.kristians_sanglampa
+           entity_id: light.hue_ambiance_candle_1
            brightness: 10  
 
 
@@ -1250,6 +1250,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: homeassistant.turn_off
       data:
         entity_id: switch.vardagsrum_fonsterlampa
+    - service: switch.turn_off
+      data:
+         entity_id: switch.barnrum_fonsterlampa
 
 
 
