@@ -61,34 +61,40 @@
      friendly_name: "Rörelse"
 
     event_downstairs:
-     value_template: "{{ is_state('binary_sensor.kok_rorelsesensor', 'on') or is_state('binary_sensor.kok_rorelsesensor', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.hall_rorelsesensor', 'on') or is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or  is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.kok_rorelsesensor', 'on') or is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') or is_state('binary_sensor.mag2', 'on') or is_state('switch.forrad_dorr_inne', 'on') or is_state('switch.altan_dorr', 'on') or is_state('switch.device_150', 'on') or is_state('switch.forrad_rorelse', 'on') }}"
      device_class: moving
      entity_id:
-      - binary_sensor.hall_rorelsesensor
-      - binary_sensor.altan_break
-      - binary_sensor.hall_break
       - binary_sensor.entre_motion
       - binary_sensor.kok_rorelsesensor
       - binary_sensor.vardagsrum_rorelsesensor
-      - binary_sensor.work_break
-      - binary_sensor.work_motion
+      - binary_sensor.mag2
+      - switch.forrad_dorr_inne
+      - switch.altan_dorr
+      - switch.device_150
+      - switch.forrad_rorelse
      friendly_name: "Rörelse"
 
 
     motion_downstairs:
-     value_template: "{{ is_state('binary_sensor.kok_rorelsesensor', 'on') or is_state('binary_sensor.kok_rorelsesensor', 'on') or is_state('binary_sensor.hall_break', 'on') or is_state('binary_sensor.altan_break', 'on') or is_state('binary_sensor.hall_rorelsesensor', 'on') or is_state('binary_sensor.work_motion', 'on') or is_state('binary_sensor.entre_motion', 'on') or  is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') }}"
+     value_template: "{{ is_state('binary_sensor.entre_motion', 'on') or is_state('binary_sensor.kok_rorelsesensor', 'on')
+      or is_state('binary_sensor.vardagsrum_rorelsesensor', 'on') or is_state('switch.forrad_rorelse', 'on') }}"
      device_class: moving
      entity_id:
-      - binary_sensor.hall_rorelsesensor
-      - binary_sensor.altan_break
-      - binary_sensor.hall_break
       - binary_sensor.entre_motion
       - binary_sensor.kok_rorelsesensor
       - binary_sensor.vardagsrum_rorelsesensor
-      - binary_sensor.work_break
-      - binary_sensor.work_motion
+      - switch.forrad_rorelse
      friendly_name: "Rörelse"
 
+    doors_downstairs:
+     value_template: "{{ is_state('binary_sensor.mag2', 'on') or is_state('switch.forrad_dorr_inne', 'on') or is_state('switch.altan_dorr', 'on') or is_state('switch.device_150', 'on') }}"
+     device_class: moving
+     entity_id:
+      - binary_sensor.mag2
+      - switch.forrad_dorr_inne
+      - switch.altan_dorr
+      - switch.device_150
+     friendly_name: "Doors"
 #####
 ### Integrity *Fire/Flood/Earth
 ###

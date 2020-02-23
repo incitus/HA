@@ -168,7 +168,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelsesensor.state}}, {{
 kristian är {{states.binary_sensor.kristian_collect.state}}
 
 
-motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion.last_changed))/60) | round }} "
+motion är {{states.binary_sensor.event_downstairs.state}} -- {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.event_downstairs.last_changed))/60) | round }} "
         target: '{{ trigger.event.data.user_id }}'
 
  - alias: 'meny bot'
@@ -358,18 +358,21 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: input_select.at_home
       to: 'Left'
     - platform: state
-      entity_id: binary_sensor.motion
+      entity_id: binary_sensor.event_downstairs
       to: 'off'
       from: 'on'
       for: '01:00:00'
    condition:
      - condition: state
-       entity_id: binary_sensor.motion
+       entity_id: binary_sensor.event_downstairs
        state: 'off'
        for: '01:00:00'
      - condition: state
        entity_id: input_select.at_home
        state: 'Left'
+     - condition: state
+       entity_id: switch.guest_mode
+       state: 'off'
    action:
     - service: alarm_control_panel.alarm_arm_away
       data:
@@ -476,7 +479,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    hide_entity: false
    trigger:
     - platform: state
-      entity_id: binary_sensor.motion
+      entity_id: binary_sensor.event_downstairs
       to: 'on'
       from: 'off'
    condition:
@@ -611,7 +614,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.motion
+      entity_id: binary_sensor.event_downstairs
       to: 'on'
       from: 'off'
    condition:
@@ -672,6 +675,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - platform: state
       entity_id: 'light.dorotheas_sanglampa'
       to: 'off'
+    - condition: state
+      entity_id: switch.guest_mode
+      state: 'off'
    condition:
     - condition: state
       entity_id: light.hue_ambiance_candle_1
@@ -715,7 +721,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.motion_downstairs
+      entity_id: binary_sensor.doors_downstairs
       to: 'on'
       from: 'off'
    condition:
