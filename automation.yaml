@@ -168,7 +168,7 @@ Vardagsrum rörelse: {{states.binary_sensor.vardagsrum_rorelsesensor.state}}, {{
 kristian är {{states.binary_sensor.kristian_collect.state}}
 
 
-motion är {{states.binary_sensor.event_downstairs.state}} -- {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.event_downstairs.last_changed))/60) | round }} "
+motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - as_timestamp(states.binary_sensor.motion.last_changed))/60) | round }} "
         target: '{{ trigger.event.data.user_id }}'
 
  - alias: 'meny bot'
@@ -358,13 +358,13 @@ motion är {{states.binary_sensor.event_downstairs.state}} -- {{ ((as_timestamp(
       entity_id: input_select.at_home
       to: 'Left'
     - platform: state
-      entity_id: binary_sensor.event_downstairs
+      entity_id: binary_sensor.motion
       to: 'off'
       from: 'on'
       for: '01:00:00'
    condition:
      - condition: state
-       entity_id: binary_sensor.event_downstairs
+       entity_id: binary_sensor.motion
        state: 'off'
        for: '01:00:00'
      - condition: state
@@ -479,7 +479,7 @@ motion är {{states.binary_sensor.event_downstairs.state}} -- {{ ((as_timestamp(
    hide_entity: false
    trigger:
     - platform: state
-      entity_id: binary_sensor.event_downstairs
+      entity_id: binary_sensor.motion
       to: 'on'
       from: 'off'
    condition:
@@ -614,7 +614,7 @@ motion är {{states.binary_sensor.event_downstairs.state}} -- {{ ((as_timestamp(
    initial_state: 'on'
    trigger:
     - platform: state
-      entity_id: binary_sensor.event_downstairs
+      entity_id: binary_sensor.motion
       to: 'on'
       from: 'off'
    condition:

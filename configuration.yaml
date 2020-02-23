@@ -299,9 +299,6 @@ input_select:
         - _On_
         - _Off_
      
-
-        
-
 automation: !include automation.yaml
 binary_sensor: !include binary_sensor.yaml
 
