@@ -723,7 +723,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - platform: state
       entity_id: binary_sensor.doors_downstairs
       to: 'on'
-      from: 'off'
    condition:
     - condition: state
       entity_id: alarm_control_panel.alarm

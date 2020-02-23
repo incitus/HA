@@ -222,7 +222,7 @@
    - binary_sensor.motion
    - binary_sensor.korridor_motion
    - binary_sensor.hall_rorelsesensor
-   -  binary_sensor.kok_rorelsesensor
+   - binary_sensor.kok_rorelsesensor
    - binary_sensor.vardagsrum_rorelsesensor
    - binary_sensor.work_motion
    - binary_sensor.altan_motion
