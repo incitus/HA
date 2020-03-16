@@ -84,10 +84,10 @@ homeassistant:
   auth_providers:
     - type: trusted_networks
       trusted_networks:
-        - 192.168.55.160
-        - 192.168.55.154
-        - 192.168.55.156
-        - 192.168.55.164
+        - 192.168.0.154
+        - 192.168.0.6
+        - 192.168.0.14
+
       allow_bypass_login: true
     - type: homeassistant
 
@@ -235,7 +235,7 @@ logbook:
 
 yeelight:
   devices:
-    192.168.55.11:
+    192.168.0.8:
        name: Altan
        transition: 1000
       
@@ -312,11 +312,11 @@ shell_command:
        rmmov: rm -f /tmp/test.avi
        rmjpeg: rm -f /tmp/*jpeg
        zip: cd /tmp && zip images.zip livingroom*.jpg
-       shutdown: ssh pi@192.168.55.160 "sudo halt"
+       shutdown: ssh pi@192.168.0.6 "sudo halt"
 
 
 mqtt:
-  broker: 192.168.55.3
+  broker: 192.168.0.12
   username: hass
   password: !secret mqtt_pass
 
