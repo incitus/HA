@@ -675,9 +675,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - platform: state
       entity_id: 'light.dorotheas_sanglampa'
       to: 'off'
-    - condition: state
-      entity_id: switch.guest_mode
-      state: 'off'
    condition:
     - condition: state
       entity_id: light.hue_ambiance_candle_1
@@ -688,6 +685,9 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - condition: state
       entity_id: input_select.time_day
       state: 'Evening'
+    - condition: state
+      entity_id: switch.guest_mode
+      state: 'off'
    action:
     - service: script.turn_on
       data:
