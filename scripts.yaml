@@ -77,10 +77,6 @@
      - alias: on
        service: switch.turn_on
        data:
-         entity_id: switch.syrum_fonsterlampa
-     - alias: on
-       service: switch.turn_on
-       data:
          entity_id: switch.vardagsrum_bordslampa
      - condition: state
        entity_id: input_boolean.notify_debug_l1
@@ -140,13 +136,9 @@
      - service: light.turn_off
        data:
         entity_id: light.Altan
-     - service: light.turn_off
+     - service: script.turn_on
        data:
-        entity_id: light.ikea1
-     - service: light.turn_off
-       data:
-        entity_id: light.ikea2
-     - alias: on
+        entity_id: script.koklampa_on
        service: switch.turn_off
        data:
          entity_id: switch.vardagsrum_fonsterlampa

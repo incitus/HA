@@ -388,3 +388,11 @@ map:
 tellduslive:
  host: !secret tells_ip
  scan_interval: 2
+
+light:
+  - platform: group
+    name: Taklampa
+    entities:
+      - light.color_temperature_light_1
+      - light.color_temperature_light_2
+      - light.color_temperature_light_3
