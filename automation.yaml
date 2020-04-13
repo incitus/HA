@@ -549,7 +549,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
        entity_id: switch.forrad_taklampa
     - delay:
        seconds: 2
-       - service: switch.turn_on
+    - service: switch.turn_on
       data:
        entity_id: switch.forrad_taklampa
     - delay:
