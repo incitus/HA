@@ -549,7 +549,7 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
       entity_id: binary_sensor.mag2
       to: 'off'
       for: 20
-     condition:
+      condition:
        condition: and
        conditions:
            - condition: state
