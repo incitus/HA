@@ -515,6 +515,55 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
          message: "Brevbäraren lämnade post"
          title: "Post"
 
+
+ - alias: 'Taklampa förrad'
+   hide_entity: true
+   trigger:
+    - platform: state
+      entity_id: switch.forrad_rorelse
+      to: 'on'
+    - platform: state
+      entity_id: switch.forrad_innedorr
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.mag2
+      to: 'on'
+   action:
+    - service: switch.turn_on
+      data:
+       entity_id: switch.forrad_taklampa
+
+
+ - alias: 'Taklampa förrad off'
+   hide_entity: true
+   trigger:
+    - platform: state
+      entity_id: switch.forrad_rorelse
+      to: 'off'
+      for: 20
+    - platform: state
+      entity_id: switch.forrad_innedorr
+      to: 'off'
+      for: 20
+    - platform: state
+      entity_id: binary_sensor.mag2
+      to: 'off'
+      for: 20
+     condition:
+       condition: and
+       conditions:
+           - condition: state
+             entity_id: binary_sensor.mag2
+             state: 'off'
+           - condition: state
+             entity_id: switch.forrad_rorelse
+             state: 'off'
+   action:
+    - service: switch.turn_off
+      data:
+       entity_id: switch.forrad_taklampa
+
+
  - alias: 'notify postarrived kr'
    hide_entity: true
    trigger:
