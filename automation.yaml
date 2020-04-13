@@ -532,6 +532,29 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: switch.turn_on
       data:
        entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+    - service: switch.turn_on
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+    - service: switch.turn_on
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+    - service: switch.turn_on
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+       - service: switch.turn_on
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+
 
 
  - alias: 'Taklampa förrad off'
@@ -562,7 +585,36 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: switch.turn_off
       data:
        entity_id: switch.forrad_taklampa
-
+    - service: switch.turn_off
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+    - service: switch.turn_off
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+    - service: switch.turn_off
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+    - service: switch.turn_off
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+    - service: switch.turn_off
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
+    - service: switch.turn_off
+      data:
+       entity_id: switch.forrad_taklampa
+    - delay:
+       seconds: 2
 
  - alias: 'notify postarrived kr'
    hide_entity: true
