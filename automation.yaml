@@ -531,27 +531,27 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    action:
     - service: switch.turn_on
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
     - service: switch.turn_on
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
     - service: switch.turn_on
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
     - service: switch.turn_on
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
     - service: switch.turn_on
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
 
@@ -584,35 +584,35 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
    action:
     - service: switch.turn_off
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - service: switch.turn_off
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
     - service: switch.turn_off
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
     - service: switch.turn_off
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
     - service: switch.turn_off
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
     - service: switch.turn_off
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
     - service: switch.turn_off
       data:
-       entity_id: switch.forrad_taklampa_2
+       entity_id: switch.taklampa_forrad_2
     - delay:
        seconds: 2
 
