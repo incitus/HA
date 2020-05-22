@@ -261,21 +261,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: homeassistant.turn_off
       data:
        entity_id: switch.garage_dorr
- - alias: 'forr terminate'
-   hide_entity: false
-   initial_state: 'on'
-   trigger:
-    - platform: time_pattern
-      minutes: '/15'
-   condition:
-    - condition: state
-      entity_id: switch.forrad_rorelse
-      state: 'on'
-   action:
-    - delay: '00:05:00'
-    - service: homeassistant.turn_off
-      data:
-       entity_id: switch.forrad_rorelse
  - alias: 'altan terminate'
    hide_entity: false
    initial_state: 'off'
@@ -291,21 +276,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: homeassistant.turn_off
       data:
        entity_id: switch.altan_dorr
- - alias: 'gorrad terminate'
-   initial_state: 'off'
-   hide_entity: false
-   trigger:
-    - platform: time_pattern
-      minutes: '/15'
-   condition:
-    - condition: state
-      entity_id: switch.forrad_rorelse
-      state: 'on'
-   action:
-    - delay: '00:05:00'
-    - service: homeassistant.turn_off
-      data:
-       entity_id: switch.forrad_rorelse
  - alias: 'korridor terminate'
    hide_entity: false
    initial_state: 'off'
@@ -462,6 +432,8 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
      - condition: state
        entity_id: switch.hall_mediapanel
        state: 'off'
+       for: 
+        minutes: 60
      - condition: state
        entity_id: 'binary_sensor.at_home'
        state: 'on'
@@ -1252,19 +1224,6 @@ motion är {{states.binary_sensor.motion.state}} -- {{ ((as_timestamp(now()) - a
     - service: notify.pushb_k
       data:
          message: "Batteri i frys sensor låg"
-         title: "Alarm"
- - alias: battery_warning_3
-   hide_entity: False
-   initial_state: 'on'
-   trigger:
-     - platform: numeric_state
-       entity_id:   binary_sensor.hall_rorelsesensor
-       value_template: '{{ state.attributes.battery_level }}'
-       below: 20
-   action:
-    - service: notify.pushb_k
-      data:
-         message: "Batteri i hall rörelsesensor låg"
          title: "Alarm"
  - alias: battery_warning_4
    hide_entity: False
